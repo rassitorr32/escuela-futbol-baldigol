@@ -1,0 +1,197 @@
+<form id="<?= (isset($obj)) ? 'FEditUsuario' : 'FRegUsuario' ?>" enctype="multipart/form-data">
+<?php if (isset($obj)) : ?>
+    <div class="modal-header bg-success">
+        <h4 class="modal-title" style="color: white;"><i class="<?= $title['icon'] ?? '' ?>"></i> <?= $title['page'] ?? '' ?></h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+    <?php endif; ?>
+        <?= csrf_field() ?>
+        <input type="hidden" name="id_usuario" value="<?= (isset($obj)) ? $obj['id_usuario'] : '' ?>">
+        <input type="hidden" name="id_persona" value="<?= (isset($obj)) ? $obj['id_persona'] : '' ?>">
+        <div class="row clearfix">
+            <div class="col-md-4 col-sm-12">
+                <div class="form-group">
+                    <label>Nombre(s)</label>
+                    <input type="text" class="form-control" name="nombre" value="<?= isset($objPersona) ? $objPersona['nombres'] : '' ?>">
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-12">
+                <div class="form-group">
+                    <label>Apellido Paterno</label>
+                    <input type="text" class="form-control" name="ap_paterno" value="<?= isset($objPersona) ? $objPersona['ap_paterno'] : '' ?>">
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-12">
+                <div class="form-group">
+                    <label>Apellido Materno</label>
+                    <input type="text" class="form-control" name="ap_materno" value="<?= isset($objPersona) ? $objPersona['ap_materno'] : '' ?>">
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-12">
+                <div class="form-group">
+                    <label>Fecha de Nacimiento</label>
+                    <input type="date" data-provide="datepicker" data-date-autoclose="true" class="form-control" placeholder="Date of Birth" name="fechaNac" value="<?= isset($objPersona) ? $objPersona['fecha_nac'] : '' ?>">
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-12">
+                <div class="form-group">
+                    <label>C.I.</label>
+                    <input type="text" class="form-control" name="ci" value="<?= isset($objPersona) ? $objPersona['dni'] : '' ?>">
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-12">
+                <div class="form-group">
+                    <label>Género</label>
+                    <?php $id_select = isset($objPersona)?$objPersona['sexo']:''?>
+                    <select class="form-control show-tick" name="genero">
+                        <option value="" disabled>-- Seleccionar --</option>
+                        <option value="1" <?=$id_select == '1'?'selected':''?>>Másculino</option>
+                        <option value="0" <?=$id_select == '0'?'selected':''?>>Femenino</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-12">
+            <div class="form-group">
+                    <label>Teléfono</label>
+                    <input type="text" class="form-control" name="telefono" value="<?= isset($objPersona) ? 76681428 : '' ?>">
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-12">
+                <div class="form-group">
+                    <label>Rol(sistema)</label>
+                    <?php $id_select = isset($obj)?$obj['id_rol']:''?>
+                    <select class="form-control show-tick" name="rol">
+                        <option value="" disabled>-- Seleccionar --</option>
+                        <option value="1" <?=$id_select == '1'?'selected':''?>>Administrador</option>
+                        <option value="2" <?=$id_select == '2'?'selected':''?>>Profesor</option>
+                        <option value="3" <?=$id_select == '3'?'selected':''?>>Cajero</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-12">
+                <div class="form-group">
+                    <label>Cargo</label>
+                    <?php $id_select = isset($obj)?$obj['id_cargo']:''?>
+                    <select class="form-control show-tick" name="cargo">
+                        <option value="" disabled>-- Seleccionar --</option>
+                        <option value="1" <?=$id_select == '1'?'selected':''?>>Profesor</option>
+                        <option value="2" <?=$id_select == '2'?'selected':''?>>Preparador Físico</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <label for="imageUser">Imagen <span class="breadcrumb-item active">(Max. 10MB)</span></label>
+                    <div class="input-group">
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="imageUser<?=(isset($obj))?'Edit':'Reg'?>" name="imageUser" onchange="previsualizar('<?=(isset($obj))?'Edit':'Reg'?>')">
+                            <input type="hidden" value="<?= isset($objPersona) ? $objPersona['foto'] : '' ?>" name="imagenActual">
+                            <label class="custom-file-label" for="imageUser">Elija una foto</label>
+                        </div>
+                        <div class="input-group-append">
+                            <span class="input-group-text">Subir</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 text-center">
+                <div class="form-group">
+                    <img src="<?= base_url() ?>assets/dist/img/personal/<?= (isset($objPersona['foto']) && file_exists(FCPATH . 'assets/dist/img/personal/' . $objPersona['foto'])) ? $objPersona['foto'] : 'user_default.png' ?>" alt="" width="200" class="img-thumbnail previsualizar">
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <label>Nombre de Usuario</label>
+                    <input type="text" class="form-control" name="usuario" value="<?= isset($obj) ? $obj['usuario'] : '' ?>">
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <div class="form-group">
+                    <label>Contraseña</label>
+                    <input type="password" id="contraseña<?=(isset($obj))?'Edit':'Reg'?>" class="form-control" name="contraseña" value="<?= isset($obj) ? $obj['contraseña'] : '' ?>">
+                    <input type="hidden" value="<?= isset($obj) ? $obj['contraseña'] : '' ?>" name="contraseñaActual">
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <div class="form-group">
+                    <label>Confirmar Contraseña</label>
+                    <input type="password" class="form-control" name="contraseña2" value="<?= isset($obj) ? $obj['contraseña'] : '' ?>">
+                </div>
+            </div>
+            <?php if (!isset($obj)) : ?>
+                <div class="col-sm-12">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-outline-secondary">Cancel</button>
+                </div>
+            <?php endif; ?>
+        </div>
+        <?php if (isset($obj)) : ?>
+    </div>
+    <div class="modal-footer justify-content-between">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        <button type="submit" class="btn btn-primary">Guardar</button>
+    </div>
+<?php endif; ?>
+</form>
+
+<script>
+    $(function() {
+        $.validator.setDefaults({
+            submitHandler: function() {
+                Store("<?= base_url() ?>usuario/store", "<?= base_url() ?>usuario", '#<?= (isset($obj)) ? 'FEditUsuario' : 'FRegUsuario' ?>');
+            }
+        });
+        $('#<?= (isset($obj)) ? 'FEditUsuario' : 'FRegUsuario' ?>').validate({
+            rules: {
+                nombre: {
+                    required: true,
+                    minlength: 3,
+                },
+                apellido: {
+                    required: true,
+                    minlength: 3,
+                },
+                usuario: {
+                    required: true,
+                    minlength: 3
+                },
+                fechaNac: {
+                    required: true,
+                },
+                genero: {
+                    required: true
+                },
+                rol: {
+                    required: true
+                },
+                contraseña: {
+                    required: true,
+                    minlength: 5
+                },
+                contraseña2: {
+                    required: true,
+                    equalTo: "#contraseña<?=(isset($obj))?'Edit':'Reg'?>"
+                }
+            },
+            messages: {
+                contraseña2: {
+                    equalTo: "La contraseña no coincide"
+                }
+            },
+            errorElement: 'span',
+            errorPlacement: function(error, element) {
+                error.addClass('invalid-feedback');
+                element.closest('.form-group').append(error);
+            },
+            highlight: function(element, errorClass, validClass) {
+                $(element).addClass('is-invalid');
+            },
+            unhighlight: function(element, errorClass, validClass) {
+                $(element).removeClass('is-invalid');
+            }
+        });
+    });
+</script>
