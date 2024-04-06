@@ -47,10 +47,17 @@ class UsuarioModel extends Model
         return $result;
     }
 
-    public function getUsuariosWithPersona()
+    public function getUsuariosWithPersona($id = null)
     {
-        return $this->join('persona', 'usuario.id_persona = persona.id_persona')
+        if($id == null){
+            return $this->join('persona', 'usuario.id_persona = persona.id_persona')
                     ->orderBy('persona.ap_paterno', 'ASC')
                     ->findAll();
+        }else{
+            return $this->join('persona', 'usuario.id_persona = persona.id_persona')
+                    ->where('id_usuario',$id)
+                    ->orderBy('persona.ap_paterno', 'ASC')
+                    ->first();
+        }
     }
 }

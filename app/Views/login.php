@@ -33,7 +33,7 @@
                     </div>
                     <form action="login/login" method="post">
                         <div class="form-group">
-                            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter user" name="usuario" required>
+                            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter user" name="usuario" required autofocus>
                         </div>
                         <div class="form-group">
                             <!-- <label class="form-label"><a href="forgot-password.html" class="float-right small">I forgot password</a></label> -->

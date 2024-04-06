@@ -2,7 +2,7 @@
 <div id="rightsidebar" class="right_sidebar">
     <a href="javascript:void(0)" class="p-3 settingbar float-right"><i class="fa fa-close"></i></a>
     <ul class="nav nav-tabs" role="tablist">
-        <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#Settings" aria-expanded="true">Settings</a></li>
+        <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#Settings" aria-expanded="true">Ajustes</a></li>
         <!-- <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#activity" aria-expanded="false">Activity</a></li> -->
     </ul>
     <div class="tab-content">
@@ -12,7 +12,7 @@
                 <input type="hidden" name="id_usuario" value="<?= session('usuario')['id_usuario'] ?>">
                 <input type="hidden" name="id_configuracion" value="<?= session('configuracion')['id_configuracion'] ?>">
                 <div class="mb-4">
-                    <h6 class="font-14 font-weight-bold text-muted">Theme Color</h6>
+                    <h6 class="font-14 font-weight-bold text-muted">Color del tema</h6>
                     <ul class="choose-skin list-unstyled mb-0">
                         <li data-theme="azure" <?= session('configuracion')['choose-skin'] == 'azure' ? 'class="active"' : '' ?>>
                             <div class="azure"></div>
@@ -41,7 +41,7 @@
                     </ul>
                 </div>
                 <div class="mb-4">
-                    <h6 class="font-14 font-weight-bold text-muted">Font Style</h6>
+                    <h6 class="font-14 font-weight-bold text-muted">Estilo de fuente</h6>
                     <div class="custom-controls-stacked font_setting">
                         <label class="custom-control custom-radio custom-control-inline">
                             <input type="radio" class="custom-control-input" name="font" value="font-muli" <?= session('configuracion')['font_setting'] == 'font-muli' ? ' checked' : '' ?>>
@@ -58,11 +58,11 @@
                     </div>
                 </div>
                 <div>
-                    <h6 class="font-14 font-weight-bold mt-4 text-muted">General Settings</h6>
+                    <h6 class="font-14 font-weight-bold mt-4 text-muted">Configuración general</h6>
                     <ul class="setting-list list-unstyled mt-1 setting_switch">
                         <li>
                             <label class="custom-switch">
-                                <span class="custom-switch-description">Night Mode</span>
+                                <span class="custom-switch-description">Modo oscuro</span>
                                 <input type="hidden" name="custom-switch-checkbox[darkmode]" value="off">
                                 <input type="checkbox" name="custom-switch-checkbox[darkmode]" class="custom-switch-input btn-darkmode" <?= session('configuracion')['darkmode'] == '1' ? ' checked' : '' ?>>
                                 <span class="custom-switch-indicator"></span>
@@ -78,7 +78,7 @@
                         </li> -->
                         <li>
                             <label class="custom-switch">
-                                <span class="custom-switch-description">Header Dark</span>
+                                <span class="custom-switch-description">Encabezado oscuro</span>
                                 <input type="hidden" name="custom-switch-checkbox[pageheader]" value="off">
                                 <input type="checkbox" name="custom-switch-checkbox[pageheader]" class="custom-switch-input btn-pageheader" <?= session('configuracion')['pageheader'] == '1' ? ' checked' : '' ?>>
                                 <span class="custom-switch-indicator"></span>
@@ -86,7 +86,7 @@
                         </li>
                         <li>
                             <label class="custom-switch">
-                                <span class="custom-switch-description">Min Sidebar Dark</span>
+                                <span class="custom-switch-description">Barra lateral oscura</span>
                                 <input type="hidden" name="custom-switch-checkbox[min_sidebar]" value="off">
                                 <input type="checkbox" name="custom-switch-checkbox[min_sidebar]" class="custom-switch-input btn-min_sidebar" <?= session('configuracion')['min_sidebar'] == '1' ? ' checked' : '' ?>>
                                 <span class="custom-switch-indicator"></span>
@@ -94,7 +94,7 @@
                         </li>
                         <li>
                             <label class="custom-switch">
-                                <span class="custom-switch-description">Sidebar Dark</span>
+                                <span class="custom-switch-description">Menu oscuro</span>
                                 <input type="hidden" name="custom-switch-checkbox[sidebar]" value="off">
                                 <input type="checkbox" name="custom-switch-checkbox[sidebar]" class="custom-switch-input btn-sidebar" <?= session('configuracion')['sidebar'] == '1' ? ' checked' : '' ?>>
                                 <span class="custom-switch-indicator"></span>
@@ -102,7 +102,7 @@
                         </li>
                         <li>
                             <label class="custom-switch">
-                                <span class="custom-switch-description">Icon Color</span>
+                                <span class="custom-switch-description">Color de icono</span>
                                 <input type="hidden" name="custom-switch-checkbox[iconcolor]" value="off">
                                 <input type="checkbox" name="custom-switch-checkbox[iconcolor]" class="custom-switch-input btn-iconcolor" <?= session('configuracion')['iconcolor'] == '1' ? ' checked' : '' ?>>
                                 <span class="custom-switch-indicator"></span>
@@ -110,7 +110,7 @@
                         </li>
                         <li>
                             <label class="custom-switch">
-                                <span class="custom-switch-description">Gradient Color</span>
+                                <span class="custom-switch-description">Degradado de color</span>
                                 <input type="hidden" name="custom-switch-checkbox[gradient]" value="off">
                                 <input type="checkbox" name="custom-switch-checkbox[gradient]" class="custom-switch-input btn-gradient" <?= session('configuracion')['gradient'] == '1' ? ' checked' : '' ?>>
                                 <span class="custom-switch-indicator"></span>
@@ -126,7 +126,7 @@
                         </li> -->
                         <li>
                             <label class="custom-switch">
-                                <span class="custom-switch-description">RTL Support</span>
+                                <span class="custom-switch-description">Soporte RTL</span>
                                 <input type="hidden" name="custom-switch-checkbox[rtl]" value="off">
                                 <input type="checkbox" name="custom-switch-checkbox[rtl]" class="custom-switch-input btn-rtl" <?= session('configuracion')['rtl'] == '1' ? ' checked' : '' ?>>
                                 <span class="custom-switch-indicator"></span>
@@ -134,7 +134,7 @@
                         </li>
                         <li>
                             <label class="custom-switch">
-                                <span class="custom-switch-description">Box Layout</span>
+                                <span class="custom-switch-description">Diseño de caja</span>
                                 <input type="hidden" name="custom-switch-checkbox[boxlayout]" value="off">
                                 <input type="checkbox" name="custom-switch-checkbox[boxlayout]" class="custom-switch-input btn-boxlayout" <?= session('configuracion')['boxlayout'] == '1' ? ' checked' : '' ?>>
                                 <span class="custom-switch-indicator"></span>
@@ -225,6 +225,7 @@
                     if (className == 'btn-iconcolor') {
                         var iconoComplejo = document.querySelector(".fa-building"); // Seleccionar todos los elementos con la clase "iconoComplejo"
                         var iconoTurno = document.querySelector(".fa-clock-o");
+                        var iconoEstudiantes = document.querySelector(".fa-users");
                         var colorDefecto ="rgba(255, 255, 255, 0.9)";
                             if ((switchElement.checked ? 'Activado' : 'Desactivado')=="Desactivado") {
                                 iconoComplejo.style.color = colorDefecto;

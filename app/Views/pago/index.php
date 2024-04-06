@@ -50,10 +50,10 @@
                             <div class="card-body">
                                 <?php
 
-                                // use App\Controllers\Complejo;
+                                use App\Controllers\Pago;
 
-                                // $complejo = new Complejo();
-                                // echo $complejo->add();
+                                $pago = new Pago();
+                                echo $pago->add();
                                 ?>
                             </div>
                         </div>
@@ -63,5 +63,4 @@
         </div>
     </div>
 </div>
-
 <?= sweetAlert() ?>

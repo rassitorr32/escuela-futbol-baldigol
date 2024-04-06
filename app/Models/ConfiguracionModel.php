@@ -12,7 +12,7 @@ class ConfiguracionModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['id_usuario', 'choose-skin', 'font_setting', 'darkmode', 'fixnavbar', 'pageheader', 'min_sidebar', 'sidebar', 'iconcolor', 'gradient', 'boxshadow', 'rtl', 'boxlayout'];
+    protected $allowedFields    = ['id_usuario', 'choose-skin', 'font_setting', 'darkmode', 'fixnavbar', 'pageheader', 'min_sidebar', 'sidebar', 'iconcolor', 'gradient', 'boxshadow', 'rtl', 'boxlayout', 'grid_menu'];
 
     protected bool $allowEmptyInserts = false;
 

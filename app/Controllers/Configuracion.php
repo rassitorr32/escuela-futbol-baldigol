@@ -53,4 +53,22 @@ class Configuracion extends BaseController
             return 'error';
         }
     }
+
+    public function storeGridMenu()
+    {
+        $id = session('configuracion')['id_configuracion'];
+        $data = [
+            'id_configuracion' => $id,
+            'grid_menu' => $this->request->getPost('grid_menu')=='on'?true:false,
+        ];
+
+        if ($this->configuracion_model->save($data)) {
+            session()->set('configuracion', $this->configuracion_model->find($id));
+            //$session->setFlashdata('sweet', ['success', ($id == null ? 'Guardado con exito!' : 'Modificación exitosa!')]);
+            // return redirect()->to('/doctor');
+            return 'ok';
+        } else {
+            return 'error';
+        }
+    }
 }
