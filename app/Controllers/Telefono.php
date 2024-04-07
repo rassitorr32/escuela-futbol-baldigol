@@ -36,7 +36,7 @@ class Telefono extends BaseController
                 $value['numero'],
                 $value['cod_area'],
                 $value['tipo_tel'],
-                "<button type='button' class='btn btn-danger btn-sm deleteBtn' data-id='" . $ids . "'>Eliminar</button> <button type='button' class='btn btn-primary btn-sm editBtn'>Editar</button>"
+                "<button type='button' class='btn btn-icon btn-sm deleteBtn' data-id='" . $ids . "'><i class='fa fa-trash-o'></i></i></button> <button type='button' class='btn btn-icon btn-sm editBtn'><i class='fa fa-edit'></i></button>"
             ]);
         }
         return $table->generate($grid);

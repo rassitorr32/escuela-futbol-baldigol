@@ -67,7 +67,7 @@ abstract class BaseController extends Controller
             // Eliminar el elemento 'contraseña'
             unset($data['usuario']['contraseña']);
             $data['usuario'] = array_merge((array)$data['usuario'], (array)$persona);
-            $data['configuracion'] = $configuracion_model->find($data['usuario']['id_usuario']);
+            $data['configuracion'] = $configuracion_model->where('id_usuario', session('id_usuario'))->first();
             session()->set('usuario', $data['usuario']);
             session()->set('configuracion', $data['configuracion']);
         }

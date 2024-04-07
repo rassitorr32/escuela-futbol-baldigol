@@ -43,7 +43,7 @@ function cambiarEstado(elemento,url,id){
 
     
     Swal.fire({
-        title: 'Estás seguro de cambiar el estado de este usuario?',
+        title: 'Estás seguro de cambiar el estado?',
         showCancelButton: true,
         confirmButtonText: "Confirmar",
         denyButtonText: "Cancelar",

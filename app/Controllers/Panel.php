@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use App\Models\TutorModel;
 use App\Models\UsuarioModel;
 use CodeIgniter\HTTP\ResponseInterface;
 
@@ -14,7 +15,7 @@ class Panel extends BaseController
     function __construct()
     {
         $this->usuario_model = new UsuarioModel();
-        $this->tutor_model = new UsuarioModel();
+        $this->tutor_model = new TutorModel();
     }
     public function generateTableUltLogin()
     {
@@ -53,8 +54,9 @@ class Panel extends BaseController
     public function generateTableUltEstudiantes()
     {
         // Obtener los últimos 5 usuarios según la fecha de último login
-        $lista_usuario = $this->tutor_model
-            ->orderBy('ultimo_login', 'DESC') // Ordenar por último login en orden descendente
+        $lista_estudiante = $this->tutor_model
+            ->where('tipo_tutor','estudiante')
+            ->orderBy('created_at', 'DESC') // Ordenar por último login en orden descendente
             ->limit(5) // Limitar a 5 resultados
             ->findAll();
 
@@ -62,20 +64,21 @@ class Panel extends BaseController
         $table = new \CodeIgniter\View\Table([
             'table_open' => '<table class="table table-striped mb-0 text-nowrap">'
         ]);
-        $table->setHeading('Foto', 'Usuario', 'Ultimo Acceso');
+        $table->setHeading('Foto', 'Nombre(s)', 'Apellido(s)', 'Honorarios', 'Creado el', 'Editar');
         $grid = array();
         /**Llenar el contenido de la tabla */
-        foreach ($lista_usuario as $key => $value) {
-            $usuario = $this->usuario_model->getUsuariosWithPersona($value['id_usuario']);
-            unset($usuario['contraseña']);
+        foreach ($lista_estudiante as $key => $value) {
+            $estudiante = $this->tutor_model->getTutoresWithPersona($value['id_tutor']);
             array_push($grid, [
-                $usuario['foto'] == null || $usuario['foto'] == 'user_default.png' || !file_exists(FCPATH . 'assets/dist/img/personal/' . $usuario['foto']) ? '<div class="avatar avatar-pink" data-toggle="tooltip" data-placement="top" title="" data-original-title="Avatar Name">
-                <span>' . strtoupper(substr($usuario['nombres'], 0, 1)) . strtoupper(substr($usuario['ap_paterno'], 0, 1)) . '</span>
+                $estudiante['foto'] == null || $estudiante['foto'] == 'user_default.png' || !file_exists(FCPATH . 'assets/dist/img/personal/' . $estudiante['foto']) ? '<div class="avatar avatar-pink" data-toggle="tooltip" data-placement="top" title="" data-original-title="Avatar Name">
+                <span>' . strtoupper(substr($estudiante['nombres'], 0, 1)) . strtoupper(substr($estudiante['ap_paterno'], 0, 1)) . '</span>
             </div>' :
-                    '<span class="avatar" style="background-image: url(' . base_url() . 'assets/dist/img/personal/' . $usuario['foto'] . ')"></span>',
-                '<div>' . $usuario['usuario'] . '</div>
-                <div class="text-muted">' . $usuario['id_cargo'] . '</div>',
-                $usuario['ultimo_login'],
+                    '<span class="avatar" style="background-image: url(' . base_url() . 'assets/dist/img/personal/' . $estudiante['foto'] . ')"></span>',
+                $estudiante['nombres'],
+                $estudiante['ap_paterno'].' '.$estudiante['ap_materno'],
+                '<span class="tag tag-danger">No pagado</span>',
+                $estudiante['created_at'],
+                '<button class="btn btn-' . ($estudiante['valido'] == 1 ? 'success' : 'danger') . '" onclick="cambiarEstado(this,' . "'" . base_url('estudiante/changeStatus') . "'" . ',' . $estudiante['id_tutor'] . ')">' . ($estudiante['valido'] == 1 ? 'Activo' : 'Inactivo') . '</button>',
             ]);
         }
         return $table->generate($grid);
@@ -95,6 +98,14 @@ class Panel extends BaseController
             ['title' => 'Panel', 'route' => "", 'active' => true]
         ];
         $data['tableUltimoLogin'] = $this->generateTableUltLogin();
+        $data['tableNuevosEstudiantes'] = $this->generateTableUltEstudiantes();
+        $data['totalNuevosEstudiantes'] = count($this->tutor_model
+        ->where('tipo_tutor','estudiante') // Ordenar por último login en orden descendente
+        ->limit(5) // Limitar a 5 resultados
+        ->findAll());
+        $data['totalNuevosUsuarios'] = count($lista_usuario = $this->usuario_model
+        ->where('created_at >=', session('usuario')['ultimo_login']) // Último login es mayor o igual a hace 3 días
+        ->findAll());
         session()->set('leftbar_section', 'Escuela');
         session()->set('leftbar_link', 'Panel');
         echo view('template/head');

@@ -1,4 +1,4 @@
-<div class="modal-header bg-info">
+<div class="modal-header btn-primary">
     <h4 class="modal-title"><i class="<?= $title['icon'] ?? '' ?>"></i> <?= $title['page'] ?? '' ?></h4>
     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
@@ -30,8 +30,7 @@
 
     <div class="row justify-content-center">
         <h3>Teléfonos Agregados</h3>
-        <div class="row" style="max-height: 300px; overflow-y: auto;">
-
+        <div class="table-responsive card">
             <?= $table ?>
         </div>
     </div>
@@ -90,16 +89,16 @@
                         });
                         objTelefono = JSON.parse(obj);
                         if ($("#id_telefono").val() === "") {
-                            $("#telefonosBody").append("<tr><td>" + $("#numero").val() + "</td><td>" + $("#cod_area").val() + "</td><td>" + $("#tipo_tel").val() + "</td><td><button type='button' class='btn btn-danger btn-sm deleteBtn' data-id='" + JSON.stringify({
+                            $("#telefonosBody").append("<tr><td>" + $("#numero").val() + "</td><td>" + $("#cod_area").val() + "</td><td>" + $("#tipo_tel").val() + "</td><td><button type='button' class='btn btn-icon btn-sm deleteBtn' data-id='" + JSON.stringify({
                                 idTelefono: objTelefono.id_telefono,
                                 idPersona: $("#id_persona").val()
-                            }) + "'>Eliminar</button> <button type='button' class='btn btn-primary btn-sm editBtn'>Editar</button></td></tr>");
+                            }) + "'><i class='fa fa-trash-o'></i></button> <button type='button' class='btn btn-icon btn-sm editBtn'><i class='fa fa-edit'></i></button></td></tr>");
                         } else {
                             // Editar teléfono existente
-                            $("#telefonosBody").find("tr").eq(telefonoIndex).html("<td>" + objTelefono.numero + "</td><td>" + objTelefono.cod_area + "</td><td>" + objTelefono.tipo_tel + "</td><td><button type='button' class='btn btn-danger btn-sm deleteBtn' data-id='" + JSON.stringify({
+                            $("#telefonosBody").find("tr").eq(telefonoIndex).html("<td>" + objTelefono.numero + "</td><td>" + objTelefono.cod_area + "</td><td>" + objTelefono.tipo_tel + "</td><td><button type='button' class='btn btn-icon btn-sm deleteBtn' data-id='" + JSON.stringify({
                                 idTelefono: objTelefono.id_telefono,
                                 idPersona: objTelefono.id_persona
-                            }) + "'>Eliminar</button> <button type='button' class='btn btn-primary btn-sm editBtn'>Editar</button></td>");
+                            }) + "'><i class='fa fa-trash-o'></i></button> <button type='button' class='btn btn-icon btn-sm editBtn'><i class='fa fa-edit'></i></button></td>");
                         }
                         //resetea el formulario
                         $("#telefonoForm")[0].reset();

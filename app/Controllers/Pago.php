@@ -53,7 +53,7 @@ class Pago extends BaseController
         $table = new \CodeIgniter\View\Table([
             'table_open' => '<table id="tablePago" class="table table-hover table-vcenter table_custom text-nowrap spacing5 border-style mb-0">'
         ]);
-        $table->setHeading('#', 'Nombre(s)', 'Apellido(s)', 'Descripción', 'Pagado', 'Costo Total', 'Nro. Cuotas', 'Máx. Cuotas', 'Estado', 'Acción');
+        $table->setHeading('#', 'Nombre(s)', 'Apellido(s)', 'Descripción', 'Pagado', 'Costo Total', 'Nro. Cuotas', 'Máx. Cuotas', 'Ultimo Pago', 'Estado', 'Acción');
         $grid = array();
         $c = 0;
         /**Llenar el contenido de la tabla */
@@ -68,10 +68,11 @@ class Pago extends BaseController
                 $value['valor'],
                 $value['total_cuota'],
                 $value['nro_cuotas_max'],
+                $value['ultimo_pago'],
                 '<span class="tag tag-' . ($value['total_monto'] == $value['valor'] ? 'green' : 'orange') . '">' . ($value['total_monto'] == $value['valor'] ? 'Pagado' : 'Pendiente') . '</span>',
                 '<div class="btn-group">
-                <button type="button" class="btn btn-icon btn-sm" title="View"><i class="fa fa-eye" onclick="Edit(' . "'pago/modalIndex'".','.$value['id_pago'].' )"></i></button>   
-                <button type="button" class="btn btn-icon btn-sm" title="Edit" onclick="Edit(' . "'usuario/edit'" . ', ' . $value['id_pago'] . ')"><i class="fa fa-edit"></i></button>'
+                    <button type="button" class="btn btn-icon btn-sm" title="View"><i class="fa fa-eye" onclick="Edit(' . "'pago/modalIndex'".','.$value['id_pago'].' )"></i></button>
+                </div>',
             ]);
         }
 
@@ -104,7 +105,9 @@ class Pago extends BaseController
         echo view('template/header');
         echo view('pago/index', $data);
         // echo var_dump($this->pago_model->getPagosWithEstudiantes());
-        echo view('template/footer');
+        $dataTable['idTable'] = 'tablePago';
+        $dataTable['tituloTable'] = 'Lista de Pagos';
+        echo view('template/footer', $dataTable);
     }
 
     public function modalIndex($token = null)

@@ -69,8 +69,8 @@ class Servicio extends BaseController
         ];
 
         $data['table'] = $this->generateTable();
-        session()->set('leftbar_section', 'Escuela');
-        session()->set('leftbar_link', 'Estudiante');
+        session()->set('leftbar_section', 'Admin');
+        session()->set('leftbar_link', 'Servicio');
         echo view('template/head');
         echo view('template/rightbar');
         echo view('template/theme_panel');
@@ -78,7 +78,9 @@ class Servicio extends BaseController
         echo view('template/leftbar');
         echo view('template/header');
         echo view('servicio/index', $data);
-        echo view('template/footer');
+        $dataTable['idTable'] = 'tableServicio';
+        $dataTable['tituloTable'] = 'Lista de Servicios';
+        echo view('template/footer', $dataTable);
     }
 
     public function add()

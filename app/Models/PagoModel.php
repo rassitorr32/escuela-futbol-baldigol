@@ -47,7 +47,8 @@ class PagoModel extends Model
                                 persona.nombres as per_nombres, persona.ap_paterno as per_ap_paterno, persona.ap_materno as per_ap_materno, persona.fecha_nac as per_fecha_nac,
                                 persona.sexo as per_sexo, persona.direccion as per_direccion, persona.foto as per_foto, persona.nacionalidad per_nacionalidad, estudiante.*, costo.*, 
                                 (SELECT COUNT(nro_cuota) FROM pago as pagos WHERE pagos.id_dep = pago.id_pago OR pagos.id_pago = pago.id_pago) AS total_cuota,
-                                (SELECT SUM(monto_pagado) FROM pago as pagoss WHERE pagoss.id_dep = pago.id_pago OR pagoss.id_pago = pago.id_pago) AS total_monto')
+                                (SELECT SUM(monto_pagado) FROM pago as pagoss WHERE pagoss.id_dep = pago.id_pago OR pagoss.id_pago = pago.id_pago) AS total_monto,
+                                (SELECT MAX(fecha_pago) FROM pago as pagosss WHERE pagosss.id_dep = pago.id_pago OR pagosss.id_pago = pago.id_pago) AS ultimo_pago')
                         ->join('persona', 'persona.id_persona = pago.id_persona')
                         ->join('tutor', 'pago.id_estudiante = tutor.id_tutor')
                         ->join('persona as estudiante', 'estudiante.id_persona = tutor.id_persona')

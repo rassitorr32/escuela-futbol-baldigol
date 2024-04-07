@@ -73,7 +73,9 @@ class Area extends BaseController
         echo view('template/leftbar');
         echo view('template/header');
         echo view('area/index', $data);
-        echo view('template/footer');
+        $dataTable['idTable'] = 'tableArea';
+        $dataTable['tituloTable'] = 'Lista de Areas';
+        echo view('template/footer', $dataTable);
     }
 
     public function add()

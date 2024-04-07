@@ -100,7 +100,9 @@ class Estudiante extends BaseController
         echo view('template/leftbar');
         echo view('template/header');
         echo view('estudiante/index', $data);
-        echo view('template/footer');
+        $dataTable['idTable'] = 'tableEstudiante';
+        $dataTable['tituloTable'] = 'Lista de Estudiantes';
+        echo view('template/footer', $dataTable);
     }
 
     public function add()

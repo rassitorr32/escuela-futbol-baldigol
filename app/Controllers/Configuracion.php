@@ -31,6 +31,7 @@ class Configuracion extends BaseController
         // /**si $id es null entonces se esta agregando nuevo registro */
         $data = [
             'id_configuracion' => $id,
+            'id_usuario' => session('usuario')['id_usuario'],
             'choose-skin' => $this->request->getPost('choose-skin'),
             'font_setting' => $this->request->getPost('font'),
             'darkmode' => $this->request->getPost('custom-switch-checkbox')['darkmode']=='on'?true:false,

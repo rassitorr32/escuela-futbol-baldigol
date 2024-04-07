@@ -71,7 +71,9 @@ class Turno extends BaseController
         echo view('template/leftbar');
         echo view('template/header');
         echo view('turno/index', $data);
-        echo view('template/footer');
+        $dataTable['idTable'] = 'tableTurno';
+        $dataTable['tituloTable'] = 'Lista de Turnos';
+        echo view('template/footer', $dataTable);
     }
 
     public function add()

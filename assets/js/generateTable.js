@@ -1,4 +1,4 @@
-function generateTable(idTable) {
+function generateTable(idTable, tituloReporte) {{
   console.log(idTable);
   const table = $("#" + idTable);
   table.DataTable({
@@ -6,9 +6,9 @@ function generateTable(idTable) {
     "autoWidth": false,
     "scrollX": true,
     "buttons": [
-      { extend: "excel", className: "btn btn-success", text: "Excel" },
-      { extend: "pdf", className: "btn btn-danger", text: "PDF" },
-      { extend: "print", className: "btn btn-primary", text: "Imprimir" },
+      { extend: "excel", className: "btn btn-success", text: "Excel", title: tituloReporte },
+      { extend: "pdf", className: "btn btn-danger", text: "PDF", title: tituloReporte },
+      { extend: "print", className: "btn btn-primary", text: "Imprimir", title: tituloReporte },
       {
         extend: "colvis", className: "btn btn-secondary", text: "Visibilidad Columnas"
       }
@@ -65,4 +65,4 @@ function generateTable(idTable) {
       $("#" + idTable).DataTable().draw();
     });
   }
-}
+}}

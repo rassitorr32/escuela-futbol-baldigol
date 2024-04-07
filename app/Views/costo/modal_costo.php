@@ -1,4 +1,4 @@
-<div class="modal-header bg-info">
+<div class="modal-header btn-primary">
     <h4 class="modal-title"><i class="<?= $title['icon'] ?? '' ?>"></i> <?= $title['page'] ?? '' ?></h4>
     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>

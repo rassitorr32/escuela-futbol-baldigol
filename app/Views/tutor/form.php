@@ -26,7 +26,7 @@
 <script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.js"></script> -->
 <form id="<?= (isset($obj)) ? 'FEditTutor' : 'FRegTutor' ?>" enctype="multipart/form-data">
     <?php if (isset($obj)) : ?>
-        <div class="modal-header bg-success">
+        <div class="modal-header btn-primary">
             <h4 class="modal-title" style="color: white;"><i class="<?= $title['icon'] ?? '' ?>"></i> <?= $title['page'] ?? '' ?></h4>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>

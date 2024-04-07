@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use App\Models\ConfiguracionModel;
 use App\Models\PersonaModel;
 use App\Models\UsuarioModel;
 use CodeIgniter\HTTP\ResponseInterface;
@@ -88,7 +89,7 @@ class Usuario extends BaseController
         // $controllerNameWithoutNamespace = class_basename($controllerName);
         // session()->set('leftbar_link', $controllerNameWithoutNamespace);
         // // para tener el link donde nos encontramos para activarlos en llas pestañas
-        session()->set('leftbar_section', 'Escuela');
+        session()->set('leftbar_section', 'Admin');
         session()->set('leftbar_link', 'Usuario');
         echo view('template/head');
         echo view('template/rightbar');
@@ -97,7 +98,9 @@ class Usuario extends BaseController
         echo view('template/leftbar');
         echo view('template/header');
         echo view('usuario/index', $data);
-        echo view('template/footer');
+        $dataTable['idTable'] = 'tableUsuario';
+        $dataTable['tituloTable'] = 'Lista de Usuarios';
+        echo view('template/footer', $dataTable);
     }
 
     public function add()
@@ -192,6 +195,12 @@ class Usuario extends BaseController
         ];
 
         if ($this->usuario_model->save($data)) {
+            if ($id == null) {
+                // Obtener el ID del último registro guardado
+                $ultimo_id = $this->usuario_model->insertID();
+                $configuracion_model = new ConfiguracionModel();
+                $configuracion_model->save(['id_usuario' => $ultimo_id]);
+            }
             $session->setFlashdata('sweet', ['success', ($id == null ? 'Guardado con exito!' : 'Modificación exitosa!')]);
             // return redirect()->to('/doctor');
             return 'ok';
@@ -261,7 +270,7 @@ class Usuario extends BaseController
     public function changeStatus($id)
     {
         $estado = $this->request->getPost('estado');
-        $this->usuario_model->save(['id_usuario' => $id, 'estado' => $estado==0?false:1]);
+        $this->usuario_model->save(['id_usuario' => $id, 'estado' => $estado == 0 ? false : 1]);
     }
 
     //Ver item

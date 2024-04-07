@@ -47,7 +47,7 @@ class Login extends BaseController
                     // Eliminar el elemento 'contraseña'
                     unset($data['usuario']['contraseña']);
                     $data['usuario'] = array_merge((array)$data['id_usuario'], (array)$data['usuario'], (array)$persona);
-                    $data['configuracion'] = $this->configuracion_model->find($data['usuario']['id_usuario']);
+                    $data['configuracion'] = $this->configuracion_model->where('id_usuario',$data['id_usuario'])->first();
                     $session = session(); //inicializa la sesion
                     $session->set($data);
                     date_default_timezone_set('America/La_Paz');

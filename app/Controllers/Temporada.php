@@ -88,7 +88,9 @@ class Temporada extends BaseController
         echo view('template/leftbar');
         echo view('template/header');
         echo view('temporada/index', $data);
-        echo view('template/footer');
+        $dataTable['idTable'] = 'tableTemporada';
+        $dataTable['tituloTable'] = 'Lista de Temporadas';
+        echo view('template/footer', $dataTable);
     }
 
     public function add()

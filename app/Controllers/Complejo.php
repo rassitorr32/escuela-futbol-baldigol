@@ -70,7 +70,9 @@ class Complejo extends BaseController
         echo view('template/leftbar');
         echo view('template/header');
         echo view('complejo/index', $data);
-        echo view('template/footer');
+        $dataTable['idTable'] = 'tableComplejo';
+        $dataTable['tituloTable'] = 'Lista de Complejos';
+        echo view('template/footer', $dataTable);
     }
 
     public function add()

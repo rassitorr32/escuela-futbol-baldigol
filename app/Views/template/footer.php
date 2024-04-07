@@ -66,7 +66,7 @@
         $controllerNameWithoutNamespace = class_basename($controllerName);
         ?>
         <script>
-            generateTable('table<?= $controllerNameWithoutNamespace ?>');
+            generateTable('<?= isset($idTable)?$idTable:'table'.$controllerNameWithoutNamespace ?>','<?= isset($tituloTable)?$tituloTable:'' ?>');
         </script>
 
         <!-- Seccion de modals -->

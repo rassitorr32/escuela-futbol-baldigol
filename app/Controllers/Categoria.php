@@ -71,7 +71,9 @@ class Categoria extends BaseController
         echo view('template/leftbar');
         echo view('template/header');
         echo view('categoria/index', $data);
-        echo view('template/footer');
+        $dataTable['idTable'] = 'tableCategoria';
+        $dataTable['tituloTable'] = 'Lista de Categorias';
+        echo view('template/footer', $dataTable);
     }
 
     public function add()

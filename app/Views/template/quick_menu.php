@@ -1,20 +1,20 @@
 <!-- Start Quick menu with more functio -->
 <div class="user_div">
             <ul class="nav nav-tabs">
-                <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#righttab-statistics">Statistics</a></li>
+                <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#righttab-statistics">Estadísticas</a></li>
             </ul>
             <div class="tab-content mt-3">
                 <div class="tab-pane fade show active" id="righttab-statistics" role="tabpanel">
                     <div class="card">
                         <div class="card-body">
-                            <div>Total Revenue</div>
+                            <div>Ingresos totales</div>
                             <div class="py-3 m-0 text-center h1 text-success">$79,452</div>
                             <div class="d-flex">
-                                <span class="text-muted">Income</span>
+                                <span class="text-muted">Ingreso</span>
                                 <div class="ml-auto"><i class="fa fa-caret-up text-success"></i>4%</div>
                             </div>
                         </div>
-                        <div class="card-footer">
+                        <!-- <div class="card-footer">
                             <ul class="list-unstyled mb-0">
                                 <li class="mb-3">
                                     <div class="clearfix">
@@ -35,7 +35,7 @@
                                     </div>
                                 </li>
                             </ul>
-                        </div>
+                        </div> -->
                     </div>
                     <div class="card">
                         <div class="card-body top_counter">

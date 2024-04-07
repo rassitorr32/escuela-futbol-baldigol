@@ -22,7 +22,7 @@
             <div class="col-6 col-md-4 col-xl-2">
                 <div class="card">
                     <div class="card-body ribbon">
-                        <div class="ribbon-box green" data-toggle="tooltip" title="Nuevo Personal">5</div>
+                        <div class="ribbon-box green" data-toggle="tooltip" title="Nuevo Personal"><?=$totalNuevosUsuarios?></div>
                         <a href="<?= base_url() ?>usuario" class="my_sort_cut text-muted">
                             <i class="fa fa-user-circle-o"></i>
                             <span>Personal</span>
@@ -43,7 +43,7 @@
             <div class="col-6 col-md-4 col-xl-2">
                 <div class="card">
                     <div class="card-body ribbon">
-                        <div class="ribbon-box orange" data-toggle="tooltip" title="Nuevos estudiantes">8</div>
+                        <div class="ribbon-box orange" data-toggle="tooltip" title="Nuevos estudiantes"><?=$totalNuevosEstudiantes?></div>
                         <a href="<?= base_url() ?>estudiante" class="my_sort_cut text-muted">
                             <i class="fa fa-users"></i>
                             <span>Estudiantes</span>
@@ -88,7 +88,7 @@
                     <div class="col-xl-12">
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">University Report</h3>
+                                <h3 class="card-title">Informe de la Escuela</h3>
                                 <div class="card-options">
                                     <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
                                     <a href="#" class="card-options-fullscreen" data-toggle="card-fullscreen"><i class="fe fe-maximize"></i></a>
@@ -214,7 +214,7 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">New Student List</h3>
+                                <h3 class="card-title">Lista de Nuevos Estudiantes</h3>
                                 <div class="card-options">
                                     <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
                                     <a href="#" class="card-options-fullscreen" data-toggle="card-fullscreen"><i class="fe fe-maximize"></i></a>
@@ -223,7 +223,8 @@
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <table class="table table-striped mb-0 text-nowrap">
+                                    <?=$tableNuevosEstudiantes?>
+                                    <!-- <table class="table table-striped mb-0 text-nowrap">
                                         <thead>
                                             <tr>
                                                 <th>No</th>
@@ -307,7 +308,7 @@
                                                 </td>
                                             </tr>
                                         </tbody>
-                                    </table>
+                                    </table> -->
                                 </div>
                             </div>
                         </div>
