@@ -13,6 +13,7 @@
         </div>
         </div>
 
+        <script> var baseUrl = "<?=base_url()?>"</script>
         <!-- Start Main project js, jQuery, Bootstrap -->
         <script src="<?= base_url() ?>assets/bundles/lib.vendor.bundle.js"></script>
 

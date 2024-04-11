@@ -57,7 +57,10 @@
     $(function() {
         $.validator.setDefaults({
             submitHandler: function() {
-                //alert('entro');
+                // Deshabilitar el botón de submit para evitar envíos múltiples
+                $('#FRegArea button[type="submit"]').attr('disabled', 'disabled');
+                // Opcional: Cambiar el texto del botón a "Enviando..."
+                $('#FRegArea button[type="submit"]').html('Enviando...');
                 Store("<?= base_url() ?>area/store", "<?= base_url() ?>area", '#<?= (isset($obj)) ? 'FEditArea' : 'FRegArea' ?>');
             }
         });
@@ -66,6 +69,7 @@
                 nombre: {
                     required: true,
                     minlength: 3,
+                    pattern: /^[\w\s]+$/
                 },
                 cap_max: {
                     required: true,
@@ -74,7 +78,11 @@
                     required: true,
                 },
             },
-            messages: {},
+            messages: {
+                nombre: {
+                    pattern: "Por favor, ingrese solo letras, números y espacios."
+                },
+            },
             errorElement: 'span',
             errorPlacement: function(error, element) {
                 error.addClass('invalid-feedback');

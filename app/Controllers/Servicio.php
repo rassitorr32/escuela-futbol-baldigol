@@ -31,7 +31,7 @@ class Servicio extends BaseController
         $btnNew = '<button class="btn btn-primary" onclick="New(' . "'doctor/add'" . ')">
             <i class="fas fa-plus"></i> Nuevo
         </button>';
-        $table->setHeading('Foto', 'Nombre', 'Tipo', 'Descripción', 'Servicio', 'Estado', 'Acción');
+        $table->setHeading('#', 'Nombre', 'Tipo', 'Descripción', 'Servicio', 'Estado', 'Acción');
         $grid = array();
         $c = 0;
         /**Llenar el contenido de la tabla */

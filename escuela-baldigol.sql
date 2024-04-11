@@ -56,7 +56,7 @@ CREATE TABLE `area` (
   PRIMARY KEY (`id_area`),
   KEY `fk_area_complejo` (`id_complejo`),
   CONSTRAINT `fk_area_complejo` FOREIGN KEY (`id_complejo`) REFERENCES `complejo` (`id_complejo`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -65,7 +65,7 @@ CREATE TABLE `area` (
 
 LOCK TABLES `area` WRITE;
 /*!40000 ALTER TABLE `area` DISABLE KEYS */;
-INSERT INTO `area` VALUES (1,1,'Cancha 1',300,_binary '\0'),(2,1,'Cancha 2',30,_binary '');
+INSERT INTO `area` VALUES (1,1,'Cancha 1',300,_binary '\0'),(2,1,'Cancha 2',30,_binary ''),(3,1,'Cancha 3',1,_binary '');
 /*!40000 ALTER TABLE `area` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -78,14 +78,16 @@ DROP TABLE IF EXISTS `calendario`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `calendario` (
   `id_calendario` int NOT NULL AUTO_INCREMENT,
-  `id_temporada` int NOT NULL,
-  `fecha` date NOT NULL,
-  `observacion` text,
-  `valido` bit(1) NOT NULL DEFAULT b'1',
+  `id_usuario` int NOT NULL,
+  `titulo` varchar(100) NOT NULL,
+  `inicio` datetime NOT NULL,
+  `fin` datetime NOT NULL,
+  `className` varchar(100) NOT NULL,
+  `allDay` bit(1) NOT NULL DEFAULT b'0',
   PRIMARY KEY (`id_calendario`),
-  KEY `fk_calendario_temporada` (`id_temporada`),
-  CONSTRAINT `fk_calendario_temporada` FOREIGN KEY (`id_temporada`) REFERENCES `temporada` (`id_temporada`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `fk_calendario_usuario` (`id_usuario`),
+  CONSTRAINT `fk_calendario_usuario` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=93 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -94,6 +96,7 @@ CREATE TABLE `calendario` (
 
 LOCK TABLES `calendario` WRITE;
 /*!40000 ALTER TABLE `calendario` DISABLE KEYS */;
+INSERT INTO `calendario` VALUES (19,2,'Comidass','2024-04-08 15:00:00','2024-04-08 16:10:00','bg-warning',_binary '\0'),(28,1,'Entrenamiento','2024-04-07 17:00:00','2024-04-07 19:00:00','bg-danger',_binary ''),(29,1,'Patido 55466','2024-04-24 00:00:00','2024-04-14 00:00:00','bg-danger',_binary ''),(32,1,'Patido 5fa','2024-05-08 08:47:00','2024-05-08 08:47:00','bg-danger',_binary '\0'),(33,1,'Entrenamiento','2024-05-04 10:00:00','2024-05-04 12:00:00','bg-info',_binary '\0'),(34,1,'Entrenamiento123','2024-04-25 00:00:00','2024-04-27 00:00:00','bg-primary',_binary ''),(35,2,'Clases','2024-04-11 00:00:00','2024-04-11 07:30:00','bg-info',_binary ''),(37,1,'Pruebita','2024-04-28 00:00:00','2024-04-28 00:00:00','bg-danger',_binary ''),(38,1,'asdf','2024-05-08 00:00:00','2024-05-08 00:00:00','bg-danger',_binary ''),(39,1,'asdf','2024-05-08 00:00:00','2024-05-08 00:00:00','bg-danger',_binary ''),(41,1,'nuevel','2024-04-07 17:00:00','2024-04-07 15:00:00','bg-danger',_binary '\0'),(42,1,'asdf','2024-05-08 00:00:00','2024-05-08 00:00:00','bg-danger',_binary ''),(43,1,'asdf','2024-05-08 00:00:00','2024-05-08 00:00:00','bg-danger',_binary ''),(45,1,'Prueba pruea','2024-04-07 06:00:00','2024-04-08 16:01:00','bg-danger',_binary '\0'),(47,1,'asdf','2024-04-07 00:00:00','2024-04-07 03:00:00','bg-danger',_binary ''),(48,1,'asdf','2024-04-18 00:00:00','2024-04-18 02:00:00','bg-danger',_binary ''),(59,1,'Pruebadf','2024-04-18 12:00:00','2024-04-18 13:00:00','bg-danger',_binary ''),(60,1,'Patido 5','2024-04-25 00:00:00','2024-04-25 00:00:00','bg-danger',_binary ''),(62,1,'Patido 5','2024-04-10 12:25:00','2024-04-10 13:00:00','bg-primary',_binary '\0'),(63,1,'asdf','2024-04-12 00:00:00','2024-04-13 00:00:00','bg-danger',_binary ''),(64,1,'prueba 16','2024-04-16 18:00:00','2024-04-24 18:00:00','bg-danger',_binary '\0'),(65,1,'prueba 22','2024-04-22 14:00:00','2024-04-22 15:00:00','bg-primary',_binary '\0'),(66,1,'28','2024-04-28 17:00:00','2024-04-28 18:00:00','bg-success',_binary '\0'),(67,1,'28','2024-04-28 00:00:00','2024-04-28 00:00:00','bg-success',_binary ''),(68,1,'30','2024-04-30 01:00:00','2024-04-30 03:00:00','bg-info',_binary '\0'),(69,1,'30','2024-04-30 00:00:00','2024-04-30 04:00:00','bg-info',_binary '\0'),(70,1,'30','2024-04-30 01:00:00','2024-04-30 04:00:00','bg-info',_binary '\0'),(71,1,'30','2024-04-30 01:00:00','2024-04-30 04:00:00','bg-info',_binary '\0'),(72,1,'30','2024-04-30 01:00:00','2024-04-30 03:00:00','bg-info',_binary '\0'),(73,1,'30','2024-04-30 01:00:00','2024-04-30 03:00:00','bg-info',_binary '\0'),(74,1,'30','2024-04-30 01:00:00','2024-04-30 03:00:00','bg-info',_binary '\0'),(75,1,'30','2024-04-30 00:00:00','2024-04-30 00:00:00','bg-info',_binary ''),(76,1,'30','2024-04-30 00:00:00','2024-04-30 00:00:00','bg-info',_binary ''),(77,1,'30','2024-04-30 00:00:00','2024-04-30 00:00:00','bg-info',_binary ''),(78,1,'30','2024-04-30 00:00:00','2024-04-30 00:00:00','bg-info',_binary ''),(79,1,'14','2024-04-14 01:04:00','2024-04-14 05:02:00','bg-info',_binary '\0'),(80,1,'18','2024-04-18 14:00:00','2024-04-18 17:00:00','bg-danger',_binary '\0'),(81,1,'2','2024-05-02 14:00:00','2024-05-02 19:00:00','bg-danger',_binary '\0'),(82,1,'24j','2024-04-24 22:00:00','2024-04-24 23:00:00','bg-danger',_binary '\0'),(83,1,'10','2024-05-10 15:00:00','2024-05-10 17:00:00','bg-danger',_binary '\0'),(84,1,'3','2024-05-03 15:55:00','2024-05-03 16:55:00','bg-danger',_binary '\0'),(85,1,'6','2024-05-06 14:25:00','2024-05-06 15:55:00','bg-danger',_binary '\0'),(86,1,'5','2024-05-05 14:25:00','2024-05-05 22:25:00','bg-warning',_binary '\0'),(87,1,'5','2024-05-05 14:25:00','2024-05-05 22:25:00','bg-warning',_binary '\0'),(88,1,'20gf','2024-04-20 14:25:00','2024-04-20 14:28:00','bg-danger',_binary '\0'),(89,1,'11','2024-05-11 14:24:00','2024-05-11 14:58:00','bg-danger',_binary '\0'),(90,1,'274','2024-04-27 14:24:00','2024-04-27 15:00:00','bg-danger',_binary '\0'),(91,1,'asdf','2024-04-05 14:25:00','2024-04-05 15:25:00','bg-success',_binary '\0'),(92,1,'3','2024-04-03 00:00:00','2024-04-03 00:00:00','bg-success',_binary '');
 /*!40000 ALTER TABLE `calendario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -120,7 +123,7 @@ CREATE TABLE `categoria` (
 
 LOCK TABLES `categoria` WRITE;
 /*!40000 ALTER TABLE `categoria` DISABLE KEYS */;
-INSERT INTO `categoria` VALUES (1,'Sub 15',11,15,_binary '\0');
+INSERT INTO `categoria` VALUES (1,'Sub 15',11,15,_binary '');
 /*!40000 ALTER TABLE `categoria` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -137,7 +140,7 @@ CREATE TABLE `complejo` (
   `descripcion` text NOT NULL,
   `valido` bit(1) NOT NULL DEFAULT b'1',
   PRIMARY KEY (`id_complejo`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -146,8 +149,47 @@ CREATE TABLE `complejo` (
 
 LOCK TABLES `complejo` WRITE;
 /*!40000 ALTER TABLE `complejo` DISABLE KEYS */;
-INSERT INTO `complejo` VALUES (1,'The Strongest','Complejo deportivo multifuncional',_binary ''),(2,'The Strongestd','Complejo deportivo multifuncional',_binary '');
+INSERT INTO `complejo` VALUES (1,'The Strongest','Complejo deportivo multifuncional',_binary ''),(2,'The Strongestd','Complejo deportivo multifuncional',_binary ''),(3,'Complejo 3','Complejo completo',_binary '');
 /*!40000 ALTER TABLE `complejo` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `configuracion`
+--
+
+DROP TABLE IF EXISTS `configuracion`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `configuracion` (
+  `id_configuracion` int NOT NULL AUTO_INCREMENT,
+  `id_usuario` int NOT NULL,
+  `choose-skin` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT 'cyan',
+  `font_setting` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT 'font-montserrat',
+  `darkmode` bit(1) NOT NULL DEFAULT b'0',
+  `fixnavbar` bit(1) NOT NULL DEFAULT b'0',
+  `pageheader` bit(1) NOT NULL DEFAULT b'0',
+  `min_sidebar` bit(1) NOT NULL DEFAULT b'0',
+  `sidebar` bit(1) NOT NULL DEFAULT b'0',
+  `iconcolor` int NOT NULL DEFAULT '0',
+  `gradient` bit(1) NOT NULL DEFAULT b'1',
+  `boxshadow` bit(1) NOT NULL DEFAULT b'0',
+  `rtl` bit(1) NOT NULL DEFAULT b'0',
+  `boxlayout` bit(1) NOT NULL DEFAULT b'0',
+  `grid_menu` bit(1) NOT NULL DEFAULT b'0',
+  PRIMARY KEY (`id_configuracion`),
+  KEY `fk_configuracion_usuario` (`id_usuario`),
+  CONSTRAINT `fk_configuracion_usuario` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `configuracion`
+--
+
+LOCK TABLES `configuracion` WRITE;
+/*!40000 ALTER TABLE `configuracion` DISABLE KEYS */;
+INSERT INTO `configuracion` VALUES (1,1,'purple','font-montserrat',_binary '',_binary '\0',_binary '\0',_binary '',_binary '\0',1,_binary '',_binary '',_binary '\0',_binary '\0',_binary '\0'),(2,2,'cyan','font-montserrat',_binary '',_binary '\0',_binary '\0',_binary '\0',_binary '\0',0,_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0'),(4,5,'cyan','font-montserrat',_binary '',_binary '\0',_binary '\0',_binary '\0',_binary '\0',0,_binary '',_binary '\0',_binary '\0',_binary '\0',_binary '\0'),(5,6,'orange','font-montserrat',_binary '',_binary '\0',_binary '\0',_binary '\0',_binary '\0',0,_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0');
+/*!40000 ALTER TABLE `configuracion` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -165,10 +207,11 @@ CREATE TABLE `costo` (
   `fecha_final` date NOT NULL,
   `valor` decimal(10,2) NOT NULL,
   `valido` bit(1) NOT NULL DEFAULT b'1',
+  `nro_cuotas_max` int NOT NULL,
   PRIMARY KEY (`id_costo`),
   KEY `fk_costo_servicio` (`id_servicio`),
   CONSTRAINT `fk_costo_servicio` FOREIGN KEY (`id_servicio`) REFERENCES `servicio` (`id_servicio`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -177,7 +220,7 @@ CREATE TABLE `costo` (
 
 LOCK TABLES `costo` WRITE;
 /*!40000 ALTER TABLE `costo` DISABLE KEYS */;
-INSERT INTO `costo` VALUES (1,1,'Matrícula','2024-01-01','2024-12-31',300.00,_binary ''),(2,1,'Mensualidad','2024-01-01','2024-12-31',300.00,_binary ''),(3,1,'	Uniforme','2024-01-01','2024-12-31',300.00,_binary ''),(4,2,'Matrícula','2024-01-01','2024-12-31',300.00,_binary ''),(5,2,'Sesión','2024-01-01','2024-12-31',300.00,_binary ''),(6,3,'Campamento','2024-06-01','2024-08-31',300.00,_binary ''),(7,3,'	Uniforme','2024-06-01','2024-12-31',120.00,_binary '');
+INSERT INTO `costo` VALUES (1,1,'Matrícula','2024-01-01','2024-12-31',150.00,_binary '',2),(2,1,'Mensualidad','2024-01-01','2024-12-31',50.00,_binary '',1),(3,1,'Uniforme','2024-01-01','2024-12-31',120.00,_binary '',1),(4,2,'Matrícula','2024-01-01','2024-12-31',300.00,_binary '',3),(5,2,'Sesión','2024-01-01','2024-12-31',300.00,_binary '',3),(6,3,'Campamentosdf','2024-01-05','2024-08-31',300.00,_binary '',3),(7,3,'Uniforme','2024-06-01','2024-12-31',120.00,_binary '',1);
 /*!40000 ALTER TABLE `costo` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -225,7 +268,7 @@ CREATE TABLE `migrations` (
   `time` int NOT NULL,
   `batch` int unsigned NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -234,7 +277,7 @@ CREATE TABLE `migrations` (
 
 LOCK TABLES `migrations` WRITE;
 /*!40000 ALTER TABLE `migrations` DISABLE KEYS */;
-INSERT INTO `migrations` VALUES (1,'2024-03-27-003040','App\\Database\\Migrations\\AddTimestampsToTutor','default','App',1711499464,1),(2,'2024-03-27-003229','App\\Database\\Migrations\\AddTimestampsToTutor2','default','App',1711499583,2);
+INSERT INTO `migrations` VALUES (1,'2024-03-27-003040','App\\Database\\Migrations\\AddTimestampsToTutor','default','App',1711499464,1),(2,'2024-03-27-003229','App\\Database\\Migrations\\AddTimestampsToTutor2','default','App',1711499583,2),(3,'2024-04-07-155102','App\\Database\\Migrations\\AddTimestampsToUsuario','default','App',1712505101,3);
 /*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -250,11 +293,20 @@ CREATE TABLE `pago` (
   `id_costo` int NOT NULL,
   `monto_pagado` decimal(10,2) NOT NULL,
   `fecha_pago` date NOT NULL,
-  `nro_cuota` int DEFAULT NULL,
+  `nro_cuota` int DEFAULT '1',
+  `id_persona` int NOT NULL,
+  `id_estudiante` int NOT NULL COMMENT 'El estudiante de quien se realiza el pago',
+  `id_dep` int DEFAULT NULL,
+  `id_usuario` int NOT NULL,
+  `archivo` text,
   PRIMARY KEY (`id_pago`),
   KEY `fk_pago_costo` (`id_costo`),
-  CONSTRAINT `fk_pago_costo` FOREIGN KEY (`id_costo`) REFERENCES `costo` (`id_costo`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `fk_pago_persona` (`id_persona`),
+  KEY `fk_pago_estudiante` (`id_estudiante`),
+  CONSTRAINT `fk_pago_costo` FOREIGN KEY (`id_costo`) REFERENCES `costo` (`id_costo`),
+  CONSTRAINT `fk_pago_estudiante` FOREIGN KEY (`id_estudiante`) REFERENCES `tutor` (`id_tutor`),
+  CONSTRAINT `fk_pago_persona` FOREIGN KEY (`id_persona`) REFERENCES `persona` (`id_persona`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -263,6 +315,7 @@ CREATE TABLE `pago` (
 
 LOCK TABLES `pago` WRITE;
 /*!40000 ALTER TABLE `pago` DISABLE KEYS */;
+INSERT INTO `pago` VALUES (1,1,50.00,'2024-04-02',1,4,1,NULL,1,NULL),(2,1,100.00,'2024-04-06',2,4,1,1,1,NULL),(3,3,120.00,'2024-04-10',1,4,1,NULL,1,NULL),(4,2,50.00,'2024-04-12',1,4,1,NULL,1,NULL);
 /*!40000 ALTER TABLE `pago` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -287,7 +340,7 @@ CREATE TABLE `persona` (
   `foto` text,
   `nacionalidad` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   PRIMARY KEY (`id_persona`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -296,7 +349,7 @@ CREATE TABLE `persona` (
 
 LOCK TABLES `persona` WRITE;
 /*!40000 ALTER TABLE `persona` DISABLE KEYS */;
-INSERT INTO `persona` VALUES (1,'6595638','po',NULL,'Mauricio Ariel ','Aramayo','Vidaurre','1999-03-08',1,'B. Guadalquivir','1711462042DSC_0070.JPG','Boliviana'),(2,'45997832','tj',NULL,'Diego','Vidaurre','Castellon','2004-02-19',1,'Pueblo Nuevo','1711499315DSC_0243.JPG','Boliviana'),(3,'1391581','po',NULL,'Weimar','Aramayo','Escaray','1960-11-19',1,'Pueblo Nuevo',NULL,'Boliviana'),(4,'3681969','tj',NULL,'Sonia','Vidaurre','Rodriguez','1965-12-19',1,'Pueblo Nuevo',NULL,'Boliviana');
+INSERT INTO `persona` VALUES (1,'6595638','po',NULL,'Mauricio Ariel ','Aramayo','','1999-03-08',1,'B. Guadalquivir','1712253707IMG-20240401-WA0020.jpg','Boliviana'),(2,'45997832','tj',NULL,'Diego','Vidaurre','Castellon','2004-02-19',1,'Pueblo Nuevo','1712462723eren-rogue-titan-anime-rilun-1920x1080.jpg','Boliviana'),(3,'1391581','po',NULL,'Weimar','Aramayo','Escaray','1960-11-19',1,'Pueblo Nuevo',NULL,'Boliviana'),(4,'3681969','tj',NULL,'Sonia','Vidaurre','Rodriguez','1965-12-19',1,'Pueblo Nuevo',NULL,'Boliviana'),(5,'564546','',NULL,'Dieter','Gutierrez','','1993-04-14',0,'','1712282209eren-rogue-titan-anime-rilun-1920x1080.jpg',''),(6,'134','',NULL,'adsf','adsf','','2024-04-26',0,'',NULL,''),(7,'3252525','',NULL,'prueba user1','ap1','apmat1','2024-05-02',0,'',NULL,''),(8,'453525','',NULL,'Prueba2','prueba2','prueba2','2024-04-18',0,'',NULL,''),(9,'2354354','',NULL,'Goku','son','goku','2024-04-04',0,'','1712452952son-goku-super-saiyan-hd-wallpaper-1920x1200.jpg','');
 /*!40000 ALTER TABLE `persona` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -376,7 +429,7 @@ CREATE TABLE `telefono` (
   PRIMARY KEY (`id_telefono`),
   KEY `fk_telefono_persona` (`id_persona`),
   CONSTRAINT `fk_telefono_persona` FOREIGN KEY (`id_persona`) REFERENCES `persona` (`id_persona`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -385,7 +438,7 @@ CREATE TABLE `telefono` (
 
 LOCK TABLES `telefono` WRITE;
 /*!40000 ALTER TABLE `telefono` DISABLE KEYS */;
-INSERT INTO `telefono` VALUES (1,1,'Bo','195',76681428,_binary '');
+INSERT INTO `telefono` VALUES (1,1,'Bo','195',76681428,_binary ''),(3,2,'Bo','195',76681428,_binary '');
 /*!40000 ALTER TABLE `telefono` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -416,7 +469,7 @@ CREATE TABLE `temporada` (
   CONSTRAINT `fk_temporada_categoria` FOREIGN KEY (`id_categoria`) REFERENCES `categoria` (`id_categoria`),
   CONSTRAINT `fk_temporada_servicio` FOREIGN KEY (`id_servicio`) REFERENCES `servicio` (`id_servicio`),
   CONSTRAINT `fk_temporada_turno` FOREIGN KEY (`id_turno`) REFERENCES `turno` (`id_turno`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -425,6 +478,7 @@ CREATE TABLE `temporada` (
 
 LOCK TABLES `temporada` WRITE;
 /*!40000 ALTER TABLE `temporada` DISABLE KEYS */;
+INSERT INTO `temporada` VALUES (1,2,1,1,3,'temp 1','Temporada 1','2024-06-01','2024-07-31',_binary '\0'),(2,2,1,1,3,'tipo temp 1','Temporada 2','2024-04-04','2024-04-18',_binary '');
 /*!40000 ALTER TABLE `temporada` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -517,7 +571,7 @@ CREATE TABLE `tutor` (
 
 LOCK TABLES `tutor` WRITE;
 /*!40000 ALTER TABLE `tutor` DISABLE KEYS */;
-INSERT INTO `tutor` VALUES (1,2,'estudiante','Estudiante de la escuela',3,_binary '',NULL,'2024-03-27 00:33:31',NULL),(2,3,'tutor','Tutor de estudiante',NULL,_binary '',NULL,NULL,NULL),(3,4,'tutor','Tutor de estudiante',NULL,_binary '',NULL,NULL,NULL);
+INSERT INTO `tutor` VALUES (1,2,'estudiante','Estudiante de la escuela',3,_binary '','2024-04-02 21:17:11','2024-04-07 16:22:22',NULL),(2,3,'tutor','Tutor de estudiante',NULL,_binary '','2024-04-02 21:17:11',NULL,NULL),(3,4,'tutor','Tutor de estudiante',NULL,_binary '','2024-04-02 21:17:11',NULL,NULL);
 /*!40000 ALTER TABLE `tutor` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -537,10 +591,13 @@ CREATE TABLE `usuario` (
   `contraseña` text NOT NULL,
   `estado` bit(1) NOT NULL DEFAULT b'1',
   `ultimo_login` datetime DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `deleted_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id_usuario`),
   KEY `fk_persona` (`id_persona`),
   CONSTRAINT `fk_persona` FOREIGN KEY (`id_persona`) REFERENCES `persona` (`id_persona`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -549,7 +606,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (1,1,1,1,'admin','$2y$10$gVyQ/7q1Wul7lPo0c12xee1bEHX6Apq5YNF4oZW1oVbeq773tTmJi',_binary '','2024-03-27 10:27:27');
+INSERT INTO `usuario` VALUES (1,1,1,1,'admin','$2y$10$gVyQ/7q1Wul7lPo0c12xee1bEHX6Apq5YNF4oZW1oVbeq773tTmJi',_binary '','2024-04-09 12:24:09','2024-04-02 21:23:24','2024-04-09 12:24:09',NULL),(2,2,1,5,'dieter','$2y$10$c4DkT2PFmV4Qv8R6Ig3VHuIBv7c7gh6A2sf9qgoBbnwnJDBQNAFAS',_binary '','2024-04-08 11:48:24','2024-04-02 21:23:24','2024-04-08 11:48:24',NULL),(5,2,1,8,'prueba2','$2y$10$dP2983KGkew1gf9TK11SIuGALcGUdcCgzRkzfshS7.orLMBZ7JNDm',_binary '','2024-04-06 19:49:03','2024-04-02 21:23:24',NULL,NULL),(6,2,1,9,'goku','$2y$10$Hc9bMzz2Eh/BH/NSS0C5BO/1hcJTAzDgRjGimTcZ5OrtfE3rztWZm',_binary '','2024-04-02 21:23:24','2024-04-02 21:23:24','2024-04-07 15:53:07',NULL);
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -562,4 +619,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-03-27 10:45:34
+-- Dump completed on 2024-04-09 15:20:47

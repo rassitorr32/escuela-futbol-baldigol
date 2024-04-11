@@ -43,6 +43,10 @@
     $(function() {
         $.validator.setDefaults({
             submitHandler: function() {
+                // Deshabilitar el botón de submit para evitar envíos múltiples
+                $('#FRegComplejo button[type="submit"]').attr('disabled', 'disabled');
+                // Opcional: Cambiar el texto del botón a "Enviando..."
+                $('#FRegComplejo button[type="submit"]').html('Enviando...');
                 Store("<?= base_url() ?>complejo/store", "<?= base_url() ?>complejo", '#<?= (isset($obj)) ? 'FEditComplejo' : 'FRegComplejo' ?>');
             }
         });

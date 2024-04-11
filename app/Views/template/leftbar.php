@@ -26,8 +26,8 @@
                     <li <?= session()->get('leftbar_link') == 'Complejo' ? 'class="active"' : '' ?>><a href="<?= base_url() ?>complejo"><i class="fa fa-building" style="color:<?= session('configuracion')['iconcolor'] == '1' ? '#17a2b8' : 'rgba(255, 255, 255, 0.9)' ?>"></i><span>Complejo</span></a></li>
                     <li <?= session()->get('leftbar_link') == 'Area' ? 'class="active"' : '' ?>><a href="<?= base_url() ?>area"><i class="fa fa-map-pin fa-credit-card"></i><span>Area</span></a></li>
                     <li <?= session()->get('leftbar_link') == 'Turno' ? 'class="active"' : '' ?>><a href="<?= base_url() ?>turno"><i class="fa fa-clock-o" style="color:<?= session('configuracion')['iconcolor'] == '1' ? '#21ba45' : 'rgba(255, 255, 255, 0.9)' ?>"></i><span>Turno</span></a></li>
-                    <li <?= session()->get('leftbar_link') == 'Temporada' ? 'class="active"' : '' ?>><a href="<?= base_url() ?>temporada"><i class="fa fa-calendar-check-o"></i><span>Temporada</span></a></li>
                     <li <?= session()->get('leftbar_link') == 'Servicio' ? 'class="active"' : '' ?>><a href="<?= base_url() ?>servicio"><i class="fa fa-flag"></i><span>Servicio</span></a></li>
+                    <li <?= session()->get('leftbar_link') == 'Temporada' ? 'class="active"' : '' ?>><a href="<?= base_url() ?>temporada"><i class="fa fa-calendar-check-o"></i><span>Temporada</span></a></li>
                     <!-- <li><a href="setting.html"><i class="fa fa-gear"></i><span>Settings</span></a></li> -->
                 </ul>
             </nav>

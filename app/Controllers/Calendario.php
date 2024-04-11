@@ -53,16 +53,16 @@ class Calendario extends BaseController
 
     public function index()
     {
-        // $data['title'] = [
-        //     'module' => 'Doctor List',
-        //     'page'   => 'Doctor List',
-        //     'icon'  => 'fas fa-user-md'
-        // ];
+        $data['title'] = [
+            'module' => 'Doctor List',
+            'page'   => 'Doctor List',
+            'icon'  => 'fas fa-user-md'
+        ];
 
-        // $data['breadcrumb'] = [
-        //     ['title' => 'Home', 'route' => "/home", 'active' => false],
-        //     ['title' => 'Doctor List', 'route'  => "", 'active' => true]
-        // ];
+        $data['breadcrumb'] = [
+            ['title' => 'Home', 'route' => "/home", 'active' => false],
+            ['title' => 'Doctor List', 'route'  => "", 'active' => true]
+        ];
 
         // $data['table'] = $this->generateTable();
         session()->set('leftbar_section', 'Escuela');
@@ -73,43 +73,14 @@ class Calendario extends BaseController
         echo view('template/quick_menu');
         echo view('template/leftbar');
         echo view('template/header');
-        echo view('calendario/index');
+        echo view('calendario/index', $data);
         echo view('template/footer');
     }
 
     public function getCalendario()
     {
         // Crear un array de objetos de eventos
-        $eventos = array();
-
-        // Evento 1
-        $evento1 = new stdClass();
-        $evento1->id = 1;
-        $evento1->title = "Reunión de equipo";
-        $evento1->start = "2024-03-25T10:00:00";
-        $evento1->end = "2024-03-25T12:00:00";
-        $evento1->className = "bg-info";
-
-        // Evento 2
-        $evento2 = new stdClass();
-        $evento2->id = 2;
-        $evento2->title = "Entrevista de trabajo";
-        $evento2->start = "2024-03-26T14:00:00";
-        $evento2->end = "2024-03-26T16:00:00";
-        $evento2->className = "bg-warning";
-
-        // Evento 3
-        $evento3 = new stdClass();
-        $evento3->id = 3;
-        $evento3->title = "Presentación de proyecto";
-        $evento3->start = "2024-03-26T09:00:00";
-        $evento3->end = "2024-03-27T11:00:00";
-        $evento3->className = "bg-success";
-
-        // Agregar eventos al array
-        $eventos[] = $evento1;
-        $eventos[] = $evento2;
-        $eventos[] = $evento3;
+        $eventos = $this->calendario_model->where('id_usuario',session('id_usuario'))->findAll();
 
         // Codificar los eventos en formato JSON y devolverlos
         return json_encode($eventos);
@@ -127,28 +98,26 @@ class Calendario extends BaseController
 
     public function store()
     {
-        $result = null;
         $id = null;
-        if (empty($this->request->getPost('id_doctor'))) {
-            $result = 'Usuario registrado con exito.';
-        } else {
-            $id = $this->request->getPost('id_doctor');
-            $result = 'Usuario actualizado con exito.';
+        if (!empty($this->request->getPost('id_calendario'))) {
+            $id = $this->request->getPost('id_calendario');
         }
         /**si $id es null entonces se esta agregando nuevo registro */
         $data = [
-            'id_doctor' => $id,
-            'name_doctor' => $this->request->getPost('nameDoctor'),
-            'lastname_doctor' => $this->request->getPost('lastnameDoctor'),
-            'second_lastname_doctor' => $this->request->getPost('secondLastnameDoctor'),
-            'specialty_doctor' => $this->request->getPost('specialtyDoctor'),
-            'ci_doctor' => $this->request->getPost('ciDoctor'),
-            'email_doctor' => $this->request->getPost('emailDoctor'),
-            'phone_number' => $this->request->getPost('phoneNumberDoctor'),
+            'id_calendario' => $id,
+            'id_usuario' => session('id_usuario'),
+            'titulo' => $this->request->getPost('titulo'),
+            'inicio' => $this->request->getPost('inicio'),
+            'fin' => $this->request->getPost('fin'),
+            'className' => $this->request->getPost('className'),
+            'allDay' => $this->request->getPost('allDay')=='false'?false:true,
         ];
-
-        $this->calendario_model->save($data);
-        return $result;
+        // return var_dump($data);
+        if($this->calendario_model->save($data)){
+            return json_encode($this->calendario_model->insertID());
+        }else{
+            return 'error';
+        }
     }
 
     public function edit($token = null)
@@ -172,7 +141,15 @@ class Calendario extends BaseController
 
     public function delete($id)
     {
-        $this->calendario_model->delete($id);
-        return 'Médico eliminado.';
+        if ($this->calendario_model->delete($id)) {
+            return 'ok';
+        }else{
+            return 'error';
+        }
+    }
+
+    public function getViewCalendario($id)
+    {
+        return view('calendario/viewCalendario');
     }
 }

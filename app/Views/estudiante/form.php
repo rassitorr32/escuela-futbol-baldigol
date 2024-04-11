@@ -151,6 +151,10 @@
 
         $.validator.setDefaults({
             submitHandler: function() {
+                // Deshabilitar el botón de submit para evitar envíos múltiples
+                $('#FRegEstudiante button[type="submit"]').attr('disabled', 'disabled');
+                // Opcional: Cambiar el texto del botón a "Enviando..."
+                $('#FRegEstudiante button[type="submit"]').html('Enviando...');
                 Store("<?= base_url() ?>estudiante/store", "<?= base_url() ?>estudiante", '#<?= (isset($obj)) ? 'FEditEstudiante' : 'FRegEstudiante' ?>');
             }
         });

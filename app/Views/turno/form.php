@@ -49,6 +49,10 @@
     $(function() {
         $.validator.setDefaults({
             submitHandler: function() {
+                // Deshabilitar el botón de submit para evitar envíos múltiples
+                $('#FRegTurno button[type="submit"]').attr('disabled', 'disabled');
+                // Opcional: Cambiar el texto del botón a "Enviando..."
+                $('#FRegTurno button[type="submit"]').html('Enviando...');
                 Store("<?= base_url() ?>turno/store", "<?= base_url() ?>turno", '#<?= (isset($obj)) ? 'FEditTurno' : 'FRegTurno' ?>');
             }
         });

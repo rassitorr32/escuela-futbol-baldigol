@@ -70,10 +70,10 @@ class Panel extends BaseController
         foreach ($lista_estudiante as $key => $value) {
             $estudiante = $this->tutor_model->getTutoresWithPersona($value['id_tutor']);
             array_push($grid, [
-                $estudiante['foto'] == null || $estudiante['foto'] == 'user_default.png' || !file_exists(FCPATH . 'assets/dist/img/personal/' . $estudiante['foto']) ? '<div class="avatar avatar-pink" data-toggle="tooltip" data-placement="top" title="" data-original-title="Avatar Name">
+                $estudiante['foto'] == null || $estudiante['foto'] == 'user_default.png' || !file_exists(FCPATH . 'assets/dist/img/estudiantes/' . $estudiante['foto']) ? '<div class="avatar avatar-pink" data-toggle="tooltip" data-placement="top" title="" data-original-title="Avatar Name">
                 <span>' . strtoupper(substr($estudiante['nombres'], 0, 1)) . strtoupper(substr($estudiante['ap_paterno'], 0, 1)) . '</span>
             </div>' :
-                    '<span class="avatar" style="background-image: url(' . base_url() . 'assets/dist/img/personal/' . $estudiante['foto'] . ')"></span>',
+                    '<span class="avatar" style="background-image: url(' . base_url() . 'assets/dist/img/estudiantes/' . $estudiante['foto'] . ')"></span>',
                 $estudiante['nombres'],
                 $estudiante['ap_paterno'].' '.$estudiante['ap_materno'],
                 '<span class="tag tag-danger">No pagado</span>',

@@ -41,7 +41,7 @@ function generateTable(idTable, tituloReporte) {{
       function (settings, data, dataIndex) {
         var minDate = new Date(minEl.value);
         var maxDate = new Date(maxEl.value);
-        var rowData = data[5]; // Suponiendo que la columna 5 contiene la fecha en formato YYYY-MM-DD
+        var rowData = data[8]; // Suponiendo que la columna 5 contiene la fecha en formato YYYY-MM-DD
 
         var currentDate = new Date(rowData);
 

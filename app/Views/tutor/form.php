@@ -188,6 +188,10 @@
 
         $.validator.setDefaults({
             submitHandler: function() {
+                // Deshabilitar el botón de submit para evitar envíos múltiples
+                $('#FRegTutor button[type="submit"]').attr('disabled', 'disabled');
+                // Opcional: Cambiar el texto del botón a "Enviando..."
+                $('#FRegTutor button[type="submit"]').html('Enviando...');
                 Store("<?= base_url() ?>tutor/store", "<?= base_url() ?>tutor", '#<?= (isset($obj)) ? 'FEditTutor' : 'FRegTutor' ?>');
             }
         });

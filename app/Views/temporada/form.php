@@ -111,6 +111,10 @@
     $(function() {
         $.validator.setDefaults({
             submitHandler: function() {
+                // Deshabilitar el botón de submit para evitar envíos múltiples
+                $('#FRegTemporada button[type="submit"]').attr('disabled', 'disabled');
+                // Opcional: Cambiar el texto del botón a "Enviando..."
+                $('#FRegTemporada button[type="submit"]').html('Enviando...');
                 Store("<?= base_url() ?>temporada/store", "<?= base_url() ?>temporada", '#<?= (isset($obj)) ? 'FEditTemporada' : 'FRegTemporada' ?>');
             }
         });

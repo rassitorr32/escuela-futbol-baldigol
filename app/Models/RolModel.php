@@ -4,15 +4,15 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class CalendarioModel extends Model
+class RolModel extends Model
 {
-    protected $table            = 'calendario';
-    protected $primaryKey       = 'id_calendario';
+    protected $table            = 'rols';
+    protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['id_usuario', 'titulo', 'inicio', 'fin', 'className', 'allDay'];
+    protected $allowedFields    = [];
 
     protected bool $allowEmptyInserts = false;
 
