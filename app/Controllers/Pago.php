@@ -3,9 +3,11 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use App\Models\CostoModel;
 use App\Models\EstudianteModel;
 use App\Models\PagoModel;
 use App\Models\PersonaModel;
+use App\Models\ServicioModel;
 use App\Models\TutorModel;
 use CodeIgniter\HTTP\ResponseInterface;
 
@@ -14,12 +16,18 @@ class Pago extends BaseController
     private $pago_model;
     private $tutor_model;
     private $estudiante_model;
+    private $servicio_model;
+    private $costo_model;
+    private $persona_model;
 
     function __construct()
     {
         $this->pago_model = new PagoModel();
         $this->tutor_model = new TutorModel();
         $this->estudiante_model = new EstudianteModel();
+        $this->servicio_model = new ServicioModel();
+        $this->costo_model = new CostoModel();
+        $this->persona_model = new PersonaModel();
     }
     public function generateTableModal($id_padre)
     {
@@ -56,16 +64,20 @@ class Pago extends BaseController
         $table = new \CodeIgniter\View\Table([
             'table_open' => '<table id="tablePago" class="table table-hover table-vcenter table_custom text-nowrap spacing5 border-style mb-0">'
         ]);
-        $table->setHeading('#', 'Nombre(s)', 'Apellido(s)', 'Descripción', 'Pagado', 'Costo Total', 'Nro. Cuotas', 'Máx. Cuotas', 'Ultimo Pago', 'Estado', 'Acción');
+        $table->setHeading('#', 'Nombre(s)', 'Apellido(s)', 'Servicio', 'Descripción', 'Pagado', 'Costo Total', 'Nro. Cuotas', 'Máx. Cuotas', 'Ultimo Pago', 'Estado', 'Acción');
         $grid = array();
         $c = 0;
         /**Llenar el contenido de la tabla */
         foreach ($pago_list as $key => $value) {
+            $costo = $this->costo_model->find($value['id_costo']);
+            $servicio=$this->servicio_model->find($costo['id_servicio']);
             $c++;
             array_push($grid, [
                 $c,
                 $value['nombres'],
                 $value['ap_paterno'].' '.(isset($value['ap_materno'])?$value['ap_materno']:''),
+                $servicio['id_dep']==null?$servicio['nombre']:'<div><b>' . ($this->servicio_model->find($servicio['id_dep']))['nombre'] . '</b></div>
+                <div class="text-muted">' . $servicio['nombre'] . '</div>',
                 $value['tipo_costo'],
                 $value['total_monto'],
                 $value['valor'],
@@ -74,7 +86,7 @@ class Pago extends BaseController
                 $value['ultimo_pago'],
                 '<span class="tag tag-' . ($value['total_monto'] == $value['valor'] ? 'green' : 'orange') . '">' . ($value['total_monto'] == $value['valor'] ? 'Pagado' : 'Pendiente') . '</span>',
                 '<div class="btn-group">
-                    <button type="button" class="btn btn-icon btn-sm" title="View"><i class="fa fa-eye" onclick="Edit(' . "'pago/modalIndex'".','.$value['id_pago'].' )"></i></button>
+                    <button type="button" class="btn btn-icon btn-sm" title="View" onclick="Edit(' . "'pago/modalIndex'".','.$value['id_pago'].' )"><i class="fa fa-eye"></i></button>
                 </div>',
             ]);
         }
@@ -143,6 +155,8 @@ class Pago extends BaseController
         ];
         $data['tutor_list'] = $this->tutor_model->getTutoresWithPersona();
         $data['estudiante_list'] = $this->estudiante_model->getEstudiantesWithPersona();
+        $data['servicio_list'] = $this->servicio_model->findAll();
+        $data['persona_list'] = $this->persona_model->findAll();
         return view('pago/form', $data);
     }
 
@@ -156,6 +170,8 @@ class Pago extends BaseController
         $data['obj'] = $this->pago_model->getPagosWithEstudiantes($idPadre)[0];
         $data['tutor_list'] = $this->tutor_model->getTutoresWithPersona();
         $data['estudiante_list'] = $this->estudiante_model->getEstudiantesWithPersona();
+        $data['servicio_list'] = $this->servicio_model->findAll();
+        $data['persona_list'] = $this->persona_model->findAll();
         $data['idPadre'] = $idPadre;
         return view('pago/form', $data);
     }

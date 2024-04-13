@@ -2,6 +2,7 @@
 
 namespace Config;
 
+use App\Filters\AdminAccessFilter;
 use App\Filters\LoginAuthFilter;
 use CodeIgniter\Config\BaseConfig;
 use CodeIgniter\Filters\CSRF;
@@ -26,6 +27,7 @@ class Filters extends BaseConfig
         'invalidchars'  => InvalidChars::class,
         'secureheaders' => SecureHeaders::class,
         'auth'          => LoginAuthFilter::class,
+        'admin_access'  => AdminAccessFilter::class,
     ];
 
     /**
@@ -72,23 +74,50 @@ class Filters extends BaseConfig
             'before' => [
                 '',
                 'home',
-                'usuario',
+                // 'usuario',
                 'estudiante',
                 'admision',
-                'area',
+                // 'area',
                 'calendario',
+                // 'categoria',
+                // 'complejo',
+                // 'costo',
+                'datosMedicos',
+                'pago',
+                // 'servicio',
+                'telefono',
+                // 'temporada',
+                // 'turno',
+                'tutor',
+                'perfil',
+                'panel',
+                // 'cargo',
+                // 'rol'
+            ]
+        ],
+        'admin_access' => [
+            'before' => [
+                // '',
+                // 'home',
+                'usuario',
+                // 'estudiante',
+                // 'admision',
+                'area',
+                // 'calendario',
                 'categoria',
                 'complejo',
                 'costo',
-                'datosMedicos',
-                'pago',
+                // 'datosMedicos',
+                // 'pago',
                 'servicio',
-                'telefono',
+                // 'telefono',
                 'temporada',
                 'turno',
-                'tutor'
-                // 'user',
-                // 'home/controlPanel'
+                // 'tutor',
+                // 'perfil',
+                // 'panel',
+                'cargo',
+                'rol'
             ]
         ]
     ];

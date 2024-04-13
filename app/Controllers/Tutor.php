@@ -63,7 +63,7 @@ class Tutor extends BaseController
                 //             </button>
                 //         </div>'
                 '<div class="btn-group">
-                    <button type="button" class="btn btn-icon btn-sm" title="View"><i class="fa fa-eye" onclick="verItem(' . "'" . base_url() . "tutor/verItem'" . ', ' . $value['id_tutor'] . ')"></i></button>
+                    <button type="button" class="btn btn-icon btn-sm" title="View" onclick="verItem(' . "'" . base_url() . "tutor/verItem'" . ', ' . $value['id_tutor'] . ')"><i class="fa fa-eye"></i></button>
                     <button type="button" class="btn btn-icon btn-sm" title="Edit" onclick="Edit(' . "'tutor/edit'" . ', ' . $value['id_tutor'] . ')"><i class="fa fa-edit"></i></button>
                     <button type="button" class="btn btn-icon btn-sm" title="View" onclick="Edit(' . "'telefono/index'".','.$value['id_persona'].' )"><i class="fa fa-phone"></i></button>
                </div>'
@@ -240,7 +240,7 @@ class Tutor extends BaseController
             return redirect()->to('/tutor');
         }
 
-        $data['obj'] = $this->tutor_model->find($token);
+        $data['obj'] = $this->tutor_model->getTutoresWithPersona($token);
         if ($data['obj'] == null) {
             return redirect()->to('/tutor');
         };
@@ -274,7 +274,7 @@ class Tutor extends BaseController
             return $this->response->setStatusCode(ResponseInterface::HTTP_NOT_FOUND)->setJSON(json_encode(['message' => 'Id es null']));
         }
 
-        $data['obj'] = $this->tutor_model->getEstudiantesWithPersona($token);
+        $data['obj'] = $this->tutor_model->getTutoresWithPersona($token);
         if ($data['obj'] == null) {
             return $this->response->setStatusCode(ResponseInterface::HTTP_NOT_FOUND)->setJSON(json_encode(['message' => 'Item no encontrado']));
         };

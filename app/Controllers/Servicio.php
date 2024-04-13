@@ -46,7 +46,7 @@ class Servicio extends BaseController
                 isset($value['id_dep'])?$value['id_dep']:'',
                 '<button class="btn btn-' . ($value['valido'] == 1 ? 'success' : 'danger') . '" onclick="cambiarEstado(this,' . "'" . base_url('servicio/changeStatus') . "'" . ',' . $value['id_servicio'] . ')">' . ($value['valido'] == 1 ? 'Activo' : 'Inactivo') . '</button>',
                 '<div class="btn-group">
-                    <button type="button" class="btn btn-icon btn-sm" title="View"><i class="fa fa-eye" onclick="verItem(' . "'" . base_url() . "servicio/verItem'" . ', ' . $value['id_servicio'] . ')"></i></button>
+                    <button type="button" class="btn btn-icon btn-sm" title="View" onclick="verItem(' . "'" . base_url() . "servicio/verItem'" . ', ' . $value['id_servicio'] . ')"><i class="fa fa-eye"></i></button>
                     <button type="button" class="btn btn-icon btn-sm" title="Edit" onclick="Edit(' . "'servicio/edit'" . ', ' . $value['id_servicio'] . ')"><i class="fa fa-edit"></i></button>
                     <button type="button" class="btn btn-icon btn-sm" title="View" onclick="Edit(' . "'costo/index'".','.$value['id_servicio'].' )"><i class="fa fa-phone"></i></button>
                </div>'

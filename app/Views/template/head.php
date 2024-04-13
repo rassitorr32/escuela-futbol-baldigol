@@ -27,6 +27,9 @@
 
     <!-- SweetAlert2 -->
     <link rel="stylesheet" href="<?= base_url() ?>assets/plugins/sweetalert2/sweetalert2.css">
+
+    <!-- Select2 -->
+    <link rel="stylesheet" href="<?= base_url() ?>assets/css/select2.min.css">
 </head>
 
 <body class="<?=session('configuracion')['font_setting']?> theme-<?=session('configuracion')['choose-skin']?> <?= session('configuracion')['darkmode'] == '1' ? 'dark-mode' : '' ?> <?= session('configuracion')['gradient'] == '1' ? 'gradient' : '' ?> <?= session('configuracion')['sidebar'] == '1' ? 'sidebar_dark' : '' ?> <?= session('configuracion')['rtl'] == '1' ? 'rtl' : '' ?> <?= session('configuracion')['boxlayout'] == '1' ? 'boxlayout' : '' ?> <?= session('configuracion')['iconcolor'] == '1' ? 'iconcolor' : '' ?>">

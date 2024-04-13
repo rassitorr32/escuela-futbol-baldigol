@@ -14,6 +14,10 @@ class Costo extends BaseController
     {
         $this->costo_model = new CostoModel();
     }
+    public function getCostosJSON($idServicio){
+        $list_costo = $this->costo_model->where('id_servicio',$idServicio)->findAll();
+        return json_encode($list_costo);
+    }
 
     public function generateTable($id_servicio)
     {

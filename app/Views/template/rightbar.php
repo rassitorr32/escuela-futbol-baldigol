@@ -226,13 +226,16 @@
                         var iconoComplejo = document.querySelector(".fa-building"); // Seleccionar todos los elementos con la clase "iconoComplejo"
                         var iconoTurno = document.querySelector(".fa-clock-o");
                         var iconoEstudiantes = document.querySelector(".fa-users");
+                        var iconoPago = document.querySelector(".fa-money");
                         var colorDefecto ="rgba(255, 255, 255, 0.9)";
                             if ((switchElement.checked ? 'Activado' : 'Desactivado')=="Desactivado") {
                                 iconoComplejo.style.color = colorDefecto;
                                 iconoTurno.style.color = colorDefecto;
+                                iconoPago.style.color = colorDefecto;
                             }else{
                                 iconoComplejo.style.color = "#17a2b8";
                                 iconoTurno.style.color = "#21ba45";
+                                iconoPago.style.color = "#17a2b8";
                             }
                     }
                     // Enviar la clase y el estado del interruptor

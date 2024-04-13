@@ -1,3 +1,12 @@
+<style>
+    /* Estilos para resaltar el texto seleccionado en un input específico   */
+    #FEditTemporada input[type="text"]::selection {
+        background-color: #007bff;
+        /* Cambia el color de fondo de la selección (WebKit/Blink)   */
+        color: #ffffff;
+        /* Cambia el color del texto de la selección (WebKit/Blink)  */
+    }
+</style>
 <form id="<?= (isset($obj)) ? 'FEditTemporada' : 'FRegTemporada' ?>" enctype="multipart/form-data">
     <?php if (isset($obj)) : ?>
         <div class="modal-header btn-primary">

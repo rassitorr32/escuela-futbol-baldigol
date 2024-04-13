@@ -1,29 +1,12 @@
-<!-- <style>
-    .mt-100 {
-        margin-top: 100px
-    }
-
-    body {
-        background: #00B4DB;
-        background: -webkit-linear-gradient(to right, #0083B0, #00B4DB);
-        background: linear-gradient(to right, #0083B0, #00B4DB);
-        color: #514B64;
-        min-height: 100vh
-    }
-
-    .select-container {
-        position: relative;
-        z-index: 2;
-        /* Asegura que esté por encima del input file y otros elementos */
-    }
-
-    /* Ajusta el z-index del input file para que sea inferior al del select múltiple */
-    .custom-file {
-        z-index: 1;
+<style>
+    /* Estilos para resaltar el texto seleccionado en un input específico   */
+    #FEditTutor input[type="text"]::selection {
+        background-color: #007bff;
+        /* Cambia el color de fondo de la selección (WebKit/Blink)   */
+        color: #ffffff;
+        /* Cambia el color del texto de la selección (WebKit/Blink)  */
     }
 </style>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.css">
-<script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.js"></script> -->
 <form id="<?= (isset($obj)) ? 'FEditTutor' : 'FRegTutor' ?>" enctype="multipart/form-data">
     <?php if (isset($obj)) : ?>
         <div class="modal-header btn-primary">

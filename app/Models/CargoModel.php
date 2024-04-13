@@ -6,7 +6,7 @@ use CodeIgniter\Model;
 
 class CargoModel extends Model
 {
-    protected $table            = 'cargos';
+    protected $table            = 'cargo';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';

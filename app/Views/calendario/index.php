@@ -19,7 +19,7 @@
             <div class="col-lg-4 col-md-12">
                 <div class="card">
                     <div class="card-body">
-                        <h3 class="card-title">Events List</h3>
+                        <h3 class="card-title">Tipos de Prioridad</h3>
                         <div id="event-list" class="fc event_list">
                             <div class='fc-event bg-primary' data-class="bg-primary">Opcional</div>
                             <div class='fc-event bg-info' data-class="bg-info">Bajo</div>

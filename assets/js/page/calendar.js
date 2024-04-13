@@ -69,11 +69,13 @@ $(function () {
 
     var newEvent = function (start) {
         $('#addDirectEvent input[name="event-name"]').val("");
-        $('#addDirectEvent select[name="event-bg"]').val("");
+        $('#addDirectEvent select[name="event-bg"]').val("primary");
         $('#addDirectEvent input[name="event-fechaFin"]').val(start.format('YYYY-MM-DD'));
+        $('#addDirectEvent input[name="event-horaInicio"]').val(start.format('HH:mm'));
+        $('#addDirectEvent input[name="event-horaFin"]').val(start.format('HH:mm'));
         $('#addDirectEvent').modal('show');
         $('#addDirectEvent .save-btn').unbind();
-        $('#addDirectEvent .save-btn').on('click', function () {
+        $('#addDirectEvent .save-btn').off().on('click', function () {
             var title = $('#addDirectEvent input[name="event-name"]').val();
             var classes = 'bg-' + $('#addDirectEvent select[name="event-bg"]').val();
 
@@ -81,18 +83,24 @@ $(function () {
             var hora_final = $('#addDirectEvent input[name="event-horaFin"]').val();
             var fecha_fin = $('#addDirectEvent input[name="event-fechaFin"]').val();
 
+            // Analizar la cadena de texto utilizando Moment.js
+            var fechaInicio = moment(start.format('YYYY-MM-DD') + ' ' + hora_inicio + ':00', "YYYY-MM-DD HH:mm:ss");
+            var fechaFinal = moment(fecha_fin + ' ' + hora_final + ':00', "YYYY-MM-DD HH:mm:ss");
+
             var allDay;
+            var fechaValida = true;
             if ($('#addDirectEvent input[name="event-checkAllDay"]').is(':checked')) {
                 allDay = true
             } else {
                 allDay = false
+                // Comprobar si fechaFin es menor que fechaInicio
+                if (!fechaFinal.isAfter(fechaInicio)) {
+                    fechaValida = false
+                }
             }
 
+            
             if (title) {
-
-                // Analizar la cadena de texto utilizando Moment.js
-                var fechaInicio = moment(start.format('YYYY-MM-DD') + ' ' + hora_inicio + ':00', "YYYY-MM-DD HH:mm:ss");
-                var fechaFinal = moment(fecha_fin + ' ' + hora_final + ':00', "YYYY-MM-DD HH:mm:ss");
 
                 if (allDay == true) {
                     fechaInicio.startOf('day');
@@ -124,7 +132,11 @@ $(function () {
             }
 
             else {
-                alert("Title can't be blank. Please try again.")
+                if (!fechaValida) {
+                    Swal.fire("La fecha y hora debe ser mayor al inicio!");
+                } else {
+                    Swal.fire("El Titulo es Requerido!");
+                }
             }
         });
     }
@@ -173,11 +185,9 @@ $(function () {
                     for (var i = 0; i < response.length; i++) {
                         var fechaI = moment(response[i].inicio, 'YYYY-MM-DD HH:mm:ss');
                         var fechaF = moment(response[i].fin, 'YYYY-MM-DD HH:mm:ss');
-                        var inicio = moment(start).year(fechaI.year()).month(fechaI.month()).date(fechaI.date()).hour(fechaI.hours()).minute(fechaI.minutes());
-                        var final = moment(end).year(fechaF.year()).month(fechaF.month()).date(fechaF.date()).hour(fechaF.hours()).minute(fechaF.minutes());
                         if (response[i].allDay == 1) {
-                            inicio.startOf('day');
-                            final.startOf('day');
+                            fechaI.startOf('day');
+                            fechaF.startOf('day');
                         }
                         events.push({
                             id: response[i].id_calendario,
@@ -233,7 +243,7 @@ $(function () {
             var fechaFin = calEvent.start
             var horaInicio = calEvent.start.format('HH:mm');
             var horaFinal = calEvent.start.format('HH:mm');
-            
+
             if (calEvent.end != null) {
                 fechaFin = calEvent.end;
                 horaFinal = calEvent.end.format('HH:mm');
@@ -251,22 +261,27 @@ $(function () {
                 // Mostrar los contenedores de fecha y hora
                 checkboxContainer.nextAll('.hora-inicio-container, .hora-fin-container').show();
             }
-            
+
             eventModal.find('input[name="event-fechaFin"]').val(fechaFin.format('YYYY-MM-DD'));
             eventModal.find('input[name="event-horaInicio"]').val(horaInicio);
             eventModal.find('input[name="event-horaFin"]').val(horaFinal);
 
+
+            //Al llamar a off() antes de click(), te aseguras de eliminar 
+            //cualquier controlador de eventos previamente adjuntado al botón 
+            //Para que no se actualicen varios eventos
             //EVENTO GUARDAR DE EDITAR
-            eventModal.find('.save-btn').click(function () {
+            eventModal.find('.save-btn').off().click(function () {
                 calEvent.id = eventModal.find("input[name='event-id']").val();
                 calEvent.title = eventModal.find("input[name='event-name']").val();
                 // Analizar la cadena de texto utilizando Moment.js
                 var fechaHoraInicio = eventModal.find("input[name='event-horaInicio']").val() + ':00';
                 var fechaHoraFinal = eventModal.find("input[name='event-horaFin']").val() + ':00';
-                var fechaInicio = moment(calEvent.start.format('YYYY-MM-DD')+' '+fechaHoraInicio, "YYYY-MM-DD HH:mm:ss");
-                var fechaFin = moment(eventModal.find("input[name='event-fechaFin']").val()+' '+fechaHoraFinal, "YYYY-MM-DD HH:mm:ss");
-                console.log(calEvent.start.format('YYYY-MM-DD'))                
+                var fechaInicio = moment(calEvent.start.format('YYYY-MM-DD') + ' ' + fechaHoraInicio, "YYYY-MM-DD HH:mm:ss");
+                var fechaFin = moment(eventModal.find("input[name='event-fechaFin']").val() + ' ' + fechaHoraFinal, "YYYY-MM-DD HH:mm:ss");
+                console.log(calEvent.start.format('YYYY-MM-DD'))
 
+                var fechaValida = true
                 if (eventModal.find("input[name='event-checkAllDay']").is(':checked')) {
                     calEvent.allDay = true
                     //Igualar las horas para q funcione allDay(estirar las fechas)
@@ -274,26 +289,43 @@ $(function () {
                     fechaFin.startOf('day');
                 } else {
                     calEvent.allDay = false
+                    // Comprobar si fechaFin es menor que fechaInicio
+                    if (!fechaFin.isAfter(fechaInicio)) {
+                        fechaValida = false
+                    }
                 }
                 calEvent.start = fechaInicio
                 calEvent.end = fechaFin
                 calEvent.className[0] = 'bg-' + eventModal.find("select[name='event-bg']").val();
                 var event = calEvent;
-                // Llamar a la función guardarEvento con una devolución de llamada
-                guardarEvento(event, function (resultado) {
-                    if (resultado) {
-                        // Operación AJAX exitosa
-                        calendar.fullCalendar('updateEvent', calEvent);
-                        eventModal.modal('hide');
-                        console.log('El evento se guardó exitosamente.');
+                if (calEvent.title && fechaValida) {
+                    // Llamar a la función guardarEvento con una devolución de llamada
+                    guardarEvento(calEvent, function (resultado) {
+                        if (resultado) {
+                            // Operación AJAX exitosa
+                            calendar.fullCalendar('updateEvent', calEvent);
+                            eventModal.modal('hide');
+                            console.log('El evento se guardó exitosamente.');
+                        } else {
+                            // Error en la operación AJAX
+                            console.log('Error al guardar el evento.');
+                        }
+                    });
+                }
+
+                else {
+                    if (!fechaValida) {
+                        Swal.fire("La fecha y hora debe ser mayor al inicio!");
                     } else {
-                        // Error en la operación AJAX
-                        console.log('Error al guardar el evento.');
+                        Swal.fire("El Titulo es Requerido!");
                     }
-                });
+                }
 
             });
-            eventModal.find('.delete-btn').click(function () {
+            //Al llamar a off() antes de click(), te aseguras de eliminar 
+            //cualquier controlador de eventos previamente adjuntado al botón 
+            //Para que no se actualicen varios eventos
+            eventModal.find('.delete-btn').off().click(function () {
                 // Aquí obtén el ID del evento que deseas eliminar
                 var eventId = calEvent.id;
 

@@ -19,6 +19,19 @@ class Usuario extends BaseController
         $this->persona_model = new PersonaModel();
     }
 
+    public function verificarUsuarioRepetidoJSON(){
+        $nombre_usuario = $this->request->getPost('usuario');
+        $nombre_usuario_actual = $this->request->getPost('usuarioActual');
+        $existeUsuario = $this->usuario_model->where('usuario', $nombre_usuario)->countAllResults() > 0;
+        if($nombre_usuario_actual!=''){
+            if($nombre_usuario==$nombre_usuario_actual){
+                return json_encode(true);
+            }
+        }
+        // Devuelve una respuesta JSON
+        return json_encode(!$existeUsuario);
+    }
+
     public function generateTable()
     {
         /**recuperar datos de la DB */
@@ -60,7 +73,7 @@ class Usuario extends BaseController
                 //             </button>
                 //         </div>'
                 '<div class="btn-group">
-                    <button type="button" class="btn btn-icon btn-sm" title="View"><i class="fa fa-eye" onclick="verItem(' . "'" . base_url() . "usuario/verItem'" . ', ' . $usuario['id_usuario'] . ')"></i></button>
+                    <button type="button" class="btn btn-icon btn-sm" title="View" onclick="verItem(' . "'" . base_url() . "usuario/verItem'" . ', ' . $usuario['id_usuario'] . ')"><i class="fa fa-eye"></i></button>
                     <button type="button" class="btn btn-icon btn-sm" title="Edit" onclick="Edit(' . "'usuario/edit'" . ', ' . $usuario['id_usuario'] . ')"><i class="fa fa-edit"></i></button>
                     <button type="button" class="btn btn-icon btn-sm" title="View" onclick="Edit(' . "'telefono/index'" . ',' . $usuario['id_persona'] . ' )"><i class="fa fa-phone"></i></button>
                </div>'
@@ -119,7 +132,7 @@ class Usuario extends BaseController
         ];
 
         //$data['table'] = $this->generateTable();
-        session()->set('leftbar_section', 'Admin');
+        //session()->set('leftbar_section', 'Escuela');
         session()->set('leftbar_link', '');
         echo view('template/head');
         echo view('template/rightbar');

@@ -18,17 +18,17 @@
                         <div class="col-md-6">
                             <label class="control-label">Choose Event Color</label>
                             <select class="form-control" data-placeholder="Choose a color..." name="category-color">
-                                <option value="success">Success</option>
-                                <option value="danger">Danger</option>
-                                <option value="info">Info</option>
-                                <option value="primary">Primary</option>
-                                <option value="warning">Warning</option>
+                                <option value="primary">Opcional</option>
+                                <option value="info">Bajo</option>
+                                <option value="success">Moderado</option>
+                                <option value="warning">Importante</option>
+                                <option value="danger">Crucial</option>
                             </select>
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label>
-                                    <input type="checkbox" class="form-control" name="category-checkAllDay"> allDay
+                                    <input type="checkbox" class="form-control" name="category-checkAllDay"> Todo el día
                                 </label>
                             </div>
                         </div>
@@ -73,18 +73,18 @@
                         <div class="form-group">
                             <label>Event Type</label>
                             <select name="event-bg" class="form-control">
-                                <option value="success">Success</option>
-                                <option value="danger">Danger</option>
-                                <option value="info">Info</option>
-                                <option value="primary">Primary</option>
-                                <option value="warning">Warning</option>
+                                <option value="primary">Opcional</option>
+                                <option value="info">Bajo</option>
+                                <option value="success">Moderado</option>
+                                <option value="warning">Importante</option>
+                                <option value="danger">Crucial</option>
                             </select>
                         </div>
                     </div>
                     <div class="col-md-12">
                         <div class="form-group">
                             <label>
-                                <input type="checkbox" class="form-control" name="event-checkAllDay"> allDay
+                                <input type="checkbox" class="form-control" name="event-checkAllDay"> Todo el día
                             </label>
                         </div>
                     </div>
@@ -135,18 +135,18 @@
                         <div class="form-group">
                             <label>Event Type</label>
                             <select name="event-bg" class="form-control">
-                                <option value="success">Success</option>
-                                <option value="danger">Danger</option>
-                                <option value="info">Info</option>
-                                <option value="primary">Primary</option>
-                                <option value="warning">Warning</option>
+                                <option value="primary">Opcional</option>
+                                <option value="info">Bajo</option>
+                                <option value="success">Moderado</option>
+                                <option value="warning">Importante</option>
+                                <option value="danger">Crucial</option>
                             </select>
                         </div>
                     </div>
                     <div class="col-md-12">
                         <div class="form-group">
                             <label>
-                                <input type="checkbox" class="form-control" name='event-checkAllDay'> allDay
+                                <input type="checkbox" class="form-control" name='event-checkAllDay'> Todo el día
                             </label>
                         </div>
                     </div>

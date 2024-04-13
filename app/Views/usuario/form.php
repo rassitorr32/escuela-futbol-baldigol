@@ -1,3 +1,12 @@
+<style>
+    /* Estilos para resaltar el texto seleccionado en un input específico   */
+    #FEditUsuario input[type="text"]::selection {
+        background-color: #007bff;
+        /* Cambia el color de fondo de la selección (WebKit/Blink)   */
+        color: #ffffff;
+        /* Cambia el color del texto de la selección (WebKit/Blink)  */
+    }
+</style>
 <form id="<?= (isset($obj)) ? 'FEditUsuario' : 'FRegUsuario' ?>" enctype="multipart/form-data">
     <?php if (isset($obj)) : ?>
         <div class="modal-header bg-success">
@@ -58,7 +67,7 @@
                     <label>Rol(sistema)</label>
                     <?php $id_select = isset($obj) ? $obj['id_rol'] : '' ?>
                     <select class="form-control show-tick" name="rol">
-                        <option value="" disabled<?=$id_select==''?' selected':''?>>-- Seleccionar --</option>
+                        <option value="" disabled<?= $id_select == '' ? ' selected' : '' ?>>-- Seleccionar --</option>
                         <option value="1" <?= $id_select == '1' ? 'selected' : '' ?>>Administrador</option>
                         <option value="2" <?= $id_select == '2' ? 'selected' : '' ?>>Profesor</option>
                         <option value="3" <?= $id_select == '3' ? 'selected' : '' ?>>Cajero</option>
@@ -70,7 +79,7 @@
                     <label>Cargo</label>
                     <?php $id_select = isset($obj) ? $obj['id_cargo'] : '' ?>
                     <select class="form-control show-tick" name="cargo">
-                        <option value="" disabled<?=$id_select==''?' selected':''?>>-- Seleccionar --</option>
+                        <option value="" disabled<?= $id_select == '' ? ' selected' : '' ?>>-- Seleccionar --</option>
                         <option value="1" <?= $id_select == '1' ? 'selected' : '' ?>>Profesor</option>
                         <option value="2" <?= $id_select == '2' ? 'selected' : '' ?>>Preparador Físico</option>
                     </select>
@@ -154,7 +163,22 @@
                 },
                 usuario: {
                     required: true,
-                    minlength: 3
+                    minlength: 3,
+                    // Agrega una regla de validación personalizada para verificar si el usuario ya existe
+                    remote: {
+                        url: "usuario/verificarUsuarioRepetidoJSON",
+                        type: "POST",
+                        // processData: false,
+                        // contentType: false,
+                        data: {
+                            usuario: function() {
+                                return $('#<?= (isset($obj)) ? 'FEditUsuario' : 'FRegUsuario' ?>').find("input[name='usuario']").val();
+                            },
+                            usuarioActual: function() {
+                                return '<?= isset($obj) ? $obj['usuario'] : '' ?>';
+                            }
+                        }
+                    }
                 },
                 fechaNac: {
                     required: true,
@@ -175,6 +199,9 @@
                 }
             },
             messages: {
+                usuario: {
+                    remote: "Este nombre de usuario ya está en uso."
+                },
                 contraseña2: {
                     equalTo: "La contraseña no coincide"
                 }
