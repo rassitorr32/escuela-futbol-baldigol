@@ -26,6 +26,11 @@ class Login extends BaseController
     public function login()
     {
 
+        if(session('tiempo_expiracion')!=null){
+            if(time() >= session('tiempo_expiracion')){
+                session()->remove('tiempo_expiracion');
+            }
+        }
         if (!empty($this->request->getPost('usuario')) && !empty($this->request->getPost('contraseña'))) {
             // preg_match controla los caracteres que va a recibir
             if (
@@ -53,10 +58,27 @@ class Login extends BaseController
                     date_default_timezone_set('America/La_Paz');
                     $this->user_model->update($data['usuario']['id_usuario'], ['ultimo_login' => date("Y-m-d H:i:s")]);
 
+                    if(session('usuario')['id_rol']!='1'){
+                        return  redirect()->to(base_url('estudiante'));
+                    }
                     return  redirect()->to(base_url());
                     // $this->controlPanel();
                 } else {
-                    return redirect()->to(base_url('/login'))->with('error', ['credenciales' => 'Credenciales de acceso invalidas']);
+
+                    if(session('nro_intentos_acceso')==null){
+                        session()->set(['nro_intentos_acceso'=>2]);
+                    }else{
+                        session()->set(['nro_intentos_acceso'=>session('nro_intentos_acceso')-1]);
+                    }
+                    if (session('nro_intentos_acceso') == 0) {
+                        // Calcula la hora actual más una hora
+                        $tiempo_expiracion = time() + 10; // 3600 segundos = 1 hora
+                    
+                        // Establece una variable de sesión para el tiempo de expiración
+                        session()->set('tiempo_expiracion', $tiempo_expiracion);
+                    }
+                    
+                    return redirect()->to(base_url('/login'))->with('error', ['credenciales' => 'Credenciales de acceso invalidas. ¡Te queda '.session('nro_intentos_acceso').' intento(s)..!']);
                 }
             } else {
                 return redirect()->to(base_url('/login'))->with('error', ['credenciales' => 'Caracteres invalidos']);
@@ -65,6 +87,7 @@ class Login extends BaseController
             return redirect()->to(base_url('/login'))->with('error', ['session' => 'Inicie session para acceder']);
         }
     }
+
     public function exit()
     {
         session()->destroy();

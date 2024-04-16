@@ -28,6 +28,7 @@ class Filters extends BaseConfig
         'secureheaders' => SecureHeaders::class,
         'auth'          => LoginAuthFilter::class,
         'admin_access'  => AdminAccessFilter::class,
+        'secretario_access'  => AdminAccessFilter::class,
     ];
 
     /**
@@ -72,8 +73,8 @@ class Filters extends BaseConfig
     public array $filters = [
         'auth' => [
             'before' => [
-                '',
-                'home',
+                // '',
+                // 'home',
                 // 'usuario',
                 'estudiante',
                 'admision',
@@ -83,7 +84,7 @@ class Filters extends BaseConfig
                 // 'complejo',
                 // 'costo',
                 'datosMedicos',
-                'pago',
+                //'pago',
                 // 'servicio',
                 'telefono',
                 // 'temporada',
@@ -93,12 +94,16 @@ class Filters extends BaseConfig
                 'panel',
                 // 'cargo',
                 // 'rol'
+                'login/exit'
             ]
+        ],
+        'secretario_access' => [
+                'pago',
         ],
         'admin_access' => [
             'before' => [
-                // '',
-                // 'home',
+                '',
+                'home',
                 'usuario',
                 // 'estudiante',
                 // 'admision',
@@ -108,7 +113,7 @@ class Filters extends BaseConfig
                 'complejo',
                 'costo',
                 // 'datosMedicos',
-                // 'pago',
+                'pago',
                 'servicio',
                 // 'telefono',
                 'temporada',

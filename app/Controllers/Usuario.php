@@ -133,7 +133,7 @@ class Usuario extends BaseController
 
         //$data['table'] = $this->generateTable();
         //session()->set('leftbar_section', 'Escuela');
-        session()->set('leftbar_link', '');
+        session()->set('leftbar_link', 'perfil');
         echo view('template/head');
         echo view('template/rightbar');
         echo view('template/theme_panel');

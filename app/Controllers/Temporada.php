@@ -8,6 +8,7 @@ use App\Models\CategoriaModel;
 use App\Models\ServicioModel;
 use App\Models\TemporadaModel;
 use App\Models\TurnoModel;
+use App\Models\ComplejoModel;
 use CodeIgniter\HTTP\ResponseInterface;
 
 class Temporada extends BaseController
@@ -17,6 +18,7 @@ class Temporada extends BaseController
     private $turno_model;
     private $categoria_model;
     private $servicio_model;
+    private $complejo_model;
 
     function __construct()
     {
@@ -25,6 +27,7 @@ class Temporada extends BaseController
         $this->turno_model = new TurnoModel();
         $this->categoria_model = new CategoriaModel();
         $this->servicio_model = new ServicioModel();
+        $this->complejo_model = new ComplejoModel();
     }
 
     public function generateTable()
@@ -104,6 +107,7 @@ class Temporada extends BaseController
         $data['turno_list'] = $this->turno_model->where('valido', true)->orderBy('nombre', 'ASC')->findAll();
         $data['categoria_list'] = $this->categoria_model->where('valido', true)->orderBy('nombre', 'ASC')->findAll();
         $data['servicio_list'] = $this->servicio_model->where('valido', true)->orderBy('nombre', 'ASC')->findAll();
+        $data['complejo_list'] = $this->complejo_model->where('valido', true)->orderBy('nombre', 'ASC')->findAll();
         return view('temporada/form', $data);
     }
 
@@ -147,15 +151,16 @@ class Temporada extends BaseController
             return redirect()->to('/temporada');
         }
 
-        $data['obj'] = $this->temporada_model->find($token);
+        $data['obj'] = $this->temporada_model->getTemporadaConRelaciones($token);
         if ($data['obj'] == null) {
             return redirect()->to('/temporada');
         };
 
-        $data['area_list'] = $this->area_model->where('valido', true)->orderBy('nombre', 'ASC')->findAll();
+        $data['area_list'] = $this->area_model->where('valido', true)->where('id_complejo',$data['obj']['id_complejo'])->orderBy('nombre', 'ASC')->findAll();
         $data['turno_list'] = $this->turno_model->where('valido', true)->orderBy('nombre', 'ASC')->findAll();
         $data['categoria_list'] = $this->categoria_model->where('valido', true)->orderBy('nombre', 'ASC')->findAll();
         $data['servicio_list'] = $this->servicio_model->where('valido', true)->orderBy('nombre', 'ASC')->findAll();
+        $data['complejo_list'] = $this->complejo_model->where('valido', true)->orderBy('nombre', 'ASC')->findAll();
         return view('temporada/form', $data);
     }
 

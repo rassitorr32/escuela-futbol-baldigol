@@ -11,11 +11,15 @@
         <div class="tab-pane fade <?= session()->get('leftbar_section') == 'Escuela' ? 'show active' : '' ?>" id="menu-uni" role="tabpanel">
             <nav class="sidebar-nav">
                 <ul class="metismenu<?= session('configuracion')['grid_menu'] == '1' ? ' grid' : '' ?>">
-                    <li <?= session()->get('leftbar_link') == 'Panel' ? 'class="active"' : '' ?>><a href="<?= base_url() ?>"><i class="fa fa-dashboard"></i><span>Panel</span></a></li>
+                    <?php if (session('usuario')['id_rol'] != '2') : ?>
+                        <li <?= session()->get('leftbar_link') == 'Panel' ? 'class="active"' : '' ?>><a href="<?= base_url() ?>"><i class="fa fa-dashboard"></i><span>Panel</span></a></li>
+                    <?php endif; ?>
                     <li <?= session()->get('leftbar_link') == 'Estudiante' ? 'class="active"' : '' ?>><a href="<?= base_url() ?>Estudiante"><i class="fa fa-users"></i><span>Estudiantes</span></a></li>
                     <li <?= session()->get('leftbar_link') == 'Tutor' ? 'class="active"' : '' ?>><a href="<?= base_url() ?>tutor"><i class="fa fa-male"></i><span>Tutores</span></a></li>
                     <li <?= session()->get('leftbar_link') == 'Calendario' ? 'class="active"' : '' ?>><a href="<?= base_url() ?>Calendario"><i class="fa fa-calendar"></i><span>Calendario</span></a></li>
-                    <li <?= session()->get('leftbar_link') == 'Pago' ? 'class="active"' : '' ?>><a href="<?= base_url() ?>pago"><i class="fa fa-credit-card"></i><span>Pagos</span></a></li>
+                    <?php if (session('usuario')['id_rol'] != '2') : ?>
+                        <li <?= session()->get('leftbar_link') == 'Pago' ? 'class="active"' : '' ?>><a href="<?= base_url() ?>pago"><i class="fa fa-credit-card"></i><span>Pagos</span></a></li>
+                    <?php endif; ?>
                 </ul>
             </nav>
         </div>

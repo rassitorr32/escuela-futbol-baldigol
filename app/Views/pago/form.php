@@ -1,34 +1,47 @@
 <style>
     /* Estilos para resaltar el texto seleccionado en un input específico   */
     #FEditPago input[type="text"]::selection {
-        background-color: #007bff;
-        /* Cambia el color de fondo de la selección (WebKit/Blink)   */
-        color: #ffffff;
-        /* Cambia el color del texto de la selección (WebKit/Blink)  */
-    }
-
-    #FRegPago input[type="text"]::selection {
-        background-color: #007bff;
-        /* Cambia el color de fondo de la selección (WebKit/Blink) */
-        color: #ffffff;
-        /* Cambia el color del texto de la selección (WebKit/Blink)  */
-    }
-
-    */ #FEditPago input,
-    #FEditPago select,
-    #FEditPago textarea {
-        background-color: #f2f2f2;
-        color: #000;
         border-color: #E8E9E9;
+        font-size: 14px;
+        height: auto;
     }
 
+    #FRegPago .form-control {
+        background-color: #fff; /* Establece el color de fondo a blanco */
+    color: #000; /* Establece el color del texto a negro */
+    border-color: #ccc;
+    }
+
+    
+/* 
     #FregPago input,
     #FregPago select,
     #FregPago textarea {
         background-color: #f2f2f2;
         color: #000;
         border-color: #E8E9E9;
+    } */
+    #FRegPago .show-tick:disabled {
+        background-color: #e9ecef;
+        opacity: 1;
     }
+    #FEditPago .show-tick:disabled {
+        background-color: #e9ecef;
+        opacity: 1;
+    }
+    #FEditPago input[type="text"]::selection {
+        background-color: #007bff;
+        /* Cambia el color de fondo de la selección (WebKit/Blink)   */
+        color: #ffffff;
+        /* Cambia el color del texto de la selección (WebKit/Blink)  */
+    }
+    #FRegPago input[type="text"]::selection {
+        background-color: #007bff;
+        /* Cambia el color de fondo de la selección (WebKit/Blink)   */
+        color: #ffffff;
+        /* Cambia el color del texto de la selección (WebKit/Blink)  */
+    }
+
 </style>
 <form id="<?= (isset($obj)) ? 'FEditPago' : 'FRegPago' ?>" enctype="multipart/form-data">
     <?php if (isset($obj['id_pago'])) : ?>
@@ -48,7 +61,7 @@
                 <div class="form-group">
                     <label>Estudiante</label>
                     <?php $id_select = isset($obj['id_estudiante']) ? $obj['id_estudiante'] : ''; ?>
-                    <select class="form-control show-tick selectEstudiante" name="estudiante" style="background-color: #f2f2f2;; color: #000; border-color: #E8E9E9; <?= (isset($obj['id_pago'])) ? 'pointer-events: none;' : '' ?>">
+                    <select class="form-control show-tick selectEstudiante" name="estudiante" <?= (isset($obj['id_pago'])) ? 'disabled' : '' ?>>
                         <option value="" selected>-- Ninguno --</option>
                         <?php if (isset($estudiante_list)) : ?>
                             <?php foreach ($estudiante_list as $key => $value) : ?>
@@ -67,11 +80,11 @@
                 <div class="form-group">
                     <label>Buscar Persona</label>
                     <?php $id_select = isset($obj['id_persona']) ? $obj['id_persona'] : ''; ?>
-                    <select class="form-control show-tick selectEstudiante" name="estudiante" style="background-color: #f2f2f2;; color: #000; border-color: #E8E9E9; <?= (isset($obj['id_pago'])) ? 'pointer-events: none;' : '' ?>">
+                    <select class="form-control show-tick selectPersona" name="estudiante">
                         <option value="" selected>-- Ninguno --</option>
                         <?php if (isset($persona_list)) : ?>
                             <?php foreach ($persona_list as $key => $value) : ?>
-                                <option value=<?= $value['id_persona'] ?> <?= $id_select == $value['id_persona'] ? 'selected' : '' ?>><?= $value['nombres'] . ' ' . $value['ap_paterno'] . ' ' . $value['ap_materno'] . ' CI:' . $value['dni'] ?></option>
+                                <option value="<?= $value['id_persona'] ?>" <?= $id_select == $value['id_persona'] ? 'selected' : '' ?>><?= $value['nombres'] . ' ' . $value['ap_paterno'] . ' ' . $value['ap_materno'] . ' CI:' . $value['dni'] ?></option>
                             <?php endforeach; ?>
                         <?php endif; ?>
                     </select>
@@ -79,39 +92,39 @@
             </div>
             <div class="col-md-4 col-sm-6">
                 <div class="form-group">
-                    <label>C.I. (Buscar...)</label>
-                    <input type="text" class="form-control" name="ci" value="<?= isset($obj) ? $obj['dni'] : '' ?>" style="background-color: #f2f2f2; color: #000; border-color: #E8E9E9;">
+                    <label>C.I.</label>
+                    <input type="text" class="form-control" name="ci" value="">
                 </div>
             </div>
             <div class="col-md-4 col-sm-12">
                 <div class="form-group">
                     <label>Nombre(s)</label>
-                    <input type="text" class="form-control" name="nombre" value="<?= isset($obj) ? $obj['nombres'] : '' ?>" style="background-color: #f2f2f2;; color: #000; border-color: #E8E9E9;">
+                    <input type="text" class="form-control" name="nombre" value="">
                 </div>
             </div>
             <div class="col-md-4 col-sm-12">
                 <div class="form-group">
                     <label>Ap. Paterno</label>
-                    <input type="text" class="form-control" name="ap_paterno" value="<?= isset($obj) ? $obj['ap_paterno'] : '' ?>" style="background-color: #f2f2f2;; color: #000; border-color: #E8E9E9;">
+                    <input type="text" class="form-control" name="ap_paterno" value="">
                 </div>
             </div>
             <div class="col-md-3 col-sm-12">
                 <div class="form-group">
                     <label>Ap. Materno</label>
-                    <input type="text" class="form-control" name="ap_materno" placeholder="--Opcional--" value="<?= isset($obj) ? $obj['ap_materno'] : '' ?>" style="background-color: #f2f2f2;; color: #000; border-color: #E8E9E9;">
+                    <input type="text" class="form-control" name="ap_materno" placeholder="--Opcional--" value="">
                 </div>
             </div>
             <div class="col-md-3 col-sm-12">
                 <div class="form-group">
                     <label>F. Nacimiento</label>
-                    <input type="date" data-provide="datepicker" data-date-autoclose="true" class="form-control" placeholder="Date of Birth" name="fechaNac" value="<?= isset($obj) ? $obj['fecha_nac'] : '' ?>" style="background-color: #f2f2f2;; color: #000; border-color: #E8E9E9;">
+                    <input type="date" data-provide="datepicker" data-date-autoclose="true" class="form-control" placeholder="Date of Birth" name="fechaNac" value="">
                 </div>
             </div>
             <div class="col-md-3 col-sm-6">
                 <div class="form-group">
                     <label>Extensión CI</label>
-                    <select class="form-control show-tick" name="extension" style="background-color: #f2f2f2;; color: #000; border-color: #E8E9E9;">
-                        <option value="" disabled>-- Seleccionar --</option>
+                    <select class="form-control show-tick" name="extension">
+                        <option value="" selected disabled>-- Seleccionar --</option>
                         <option value="tj">tj</option>
                         <option value="po">po</option>
                         <option value="bn">bn</option>
@@ -123,38 +136,23 @@
             <div class="col-md-3 col-sm-12">
                 <div class="form-group">
                     <label>Género</label>
-                    <?php $id_select = isset($obj['id_tutor']) ? $obj['id_tutor'] : '' ?>
-                    <select class="form-control show-tick" name="genero" style="background-color: #f2f2f2;; color: #000; border-color: #E8E9E9;">
-                        <option value="" disabled>-- Seleccionar --</option>
-                        <option value="1" <?= $id_select == '1' ? 'selected' : '' ?>>Másculino</option>
-                        <option value="0" <?= $id_select == '0' ? 'selected' : '' ?>>Femenino</option>
+                    <select class="form-control show-tick" name="genero">
+                        <option value="" selected disabled>-- Seleccionar --</option>
+                        <option value="1">Másculino</option>
+                        <option value="0">Femenino</option>
                     </select>
                 </div>
             </div>
             <div class="col-md-4 col-sm-12">
                 <div class="form-group">
                     <label>Dirección</label>
-                    <input type="text" class="form-control" name="direccion" value="<?= isset($obj) ? $obj['direccion'] : '' ?>" style="background-color: #f2f2f2;; color: #000; border-color: #E8E9E9;">
+                    <input type="text" class="form-control" name="direccion" value="">
                 </div>
             </div>
             <div class="col-md-4 col-sm-12">
                 <div class="form-group">
                     <label>Nacionalidad</label>
-                    <input type="text" class="form-control" name="nacionalidad" value="<?= isset($obj) ? $obj['nacionalidad'] : '' ?>" style="background-color: #f2f2f2; color: #000; border-color: #E8E9E9;">
-                </div>
-            </div>
-            <div class="col-md-4 col-sm-12">
-                <div class="form-group">
-                    <label>Tutor</label>
-                    <?php $id_select = isset($obj['id_dep']) ? $obj['id_dep'] : '' ?>
-                    <select class="form-control show-tick" name="tutor" style="background-color: #f2f2f2;; color: #000; border-color: #E8E9E9;" disable>
-                        <option value="" selected>-- Ninguno --</option>
-                        <?php if (isset($tutor_list)) : ?>
-                            <?php foreach ($tutor_list as $key => $value) : ?>
-                                <option value="<?= $value['id_tutor'] ?>" <?= $id_select == $value['id_tutor'] ? 'selected' : '' ?>><?= $value['nombres'] . ' ' . $value['ap_paterno'] . ' ' . $value['ap_materno'] ?></option>
-                            <?php endforeach; ?>
-                        <?php endif; ?>
-                    </select>
+                    <input type="text" class="form-control" name="nacionalidad" value="">
                 </div>
             </div>
             <div class="col-md-12 col-sm-12">
@@ -166,7 +164,7 @@
                 <div class="form-group">
                     <label>Servicio</label>
                     <?php $id_select = isset($obj['id_servicio']) ? $obj['id_servicio'] : '' ?>
-                    <select class="form-control show-tick selectServicio" name="servicio" style="background-color: #f2f2f2;; color: #000; border-color: #E8E9E9;">
+                    <select class="form-control show-tick selectServicio" name="servicio" <?=isset($obj['id_servicio']) ? 'disabled' : '' ?>>
                         <option value="" selected disabled>-- Seleccionar servicio --</option>
                         <?php if (isset($servicio_list)) : ?>
                             <?php foreach ($servicio_list as $key => $value) : ?>
@@ -179,8 +177,8 @@
             <div class="col-md-4 col-sm-12">
                 <div class="form-group">
                     <label>Costo de</label>
-                    <select class="form-control show-tick selectCosto" name="costo" style="background-color: #f2f2f2;; color: #000; border-color: #E8E9E9;" disabled>
-                        <option value="" disable selected>--Seleccionar costo--</option>
+                    <select class="form-control show-tick selectCosto" name="costo" <?=isset($obj)?'':'disabled'?>>
+                        <option value="" disable selected>-- Seleccionar Servicio --</option>
                     </select>
                 </div>
             </div>
@@ -188,10 +186,12 @@
                 <div class="form-group">
                     <label>Monto</label>
                     <div class="form-group">
-                        <div class="input-group mb-3">
+                    <div class="input-group">
+                        <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+                        <div class="input-group-append">
                             <span class="input-group-text">$</span>
-                            <input type="text" class="form-control" name="precio" placeholder="Precio" aria-label="Precio" aria-describedby="basic-addon2" style="background-color: #f2f2f2;; color: #000; border-color: #E8E9E9;">
-                            <span class="input-group-text" id="basic-addon2">.00</span>
+                            <span class="input-group-text">0.00</span>
+                        </div>
                         </div>
                     </div>
                 </div>
@@ -265,6 +265,7 @@
                     if (jsonData.length > 0) {
                         // Limpiar el segundo select
                         $('.selectCosto').empty();
+                            $('.selectCosto').append('<option value="" selected disabled>-- Seleccionar Costo --</option>');
 
                         // Recorrer el arreglo de objetos y agregar opciones al select
                         jsonData.forEach(function(obj) {
@@ -275,6 +276,36 @@
                         // Si el arreglo está vacío, mostrar un mensaje o realizar otra acción
                         console.log('El arreglo jsonData está vacío.');
                     }
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error al cargar opciones:', error);
+                }
+            });
+        });
+
+        // Cuando se cambia la selección del primer select
+        $('.selectPersona').change(function() {
+            // Obtener el valor seleccionado del primer select
+            var selectedOption = $(this).val();
+
+            console.log('trare la persona: '+selectedOption)
+            // Desbloquear el segundo select
+            $('.selectCosto').prop('disabled', false);
+
+            // Realizar una solicitud AJAX para obtener opciones basadas en el valor seleccionado del primer select
+            $.ajax({
+                url: 'persona/getPersonasJSON/' + selectedOption, // URL a tu archivo PHP que maneja la solicitud AJAX
+                type: 'POST', // Método de la solicitud
+                data: '', // Datos a enviar (si es necesario)
+                success: function(data) {
+                    // Convertir la cadena de texto JSON a un objeto JavaScript
+                    var jsonData = JSON.parse(data);
+                    var form = $('#<?= (isset($obj)) ? 'FEditPago' : 'FRegPago' ?>');
+                    form.find('input[name="nombre"]').val(jsonData.nombres);
+                    form.find('input[name="ci"]').val(jsonData.dni);
+                    form.find('input[name="ap_paterno"]').val(jsonData.ap_paterno);
+                    form.find('input[name="ap_materno"]').val(jsonData.ap_materno);
+                    console.log(jsonData.nombres)
                 },
                 error: function(xhr, status, error) {
                     console.error('Error al cargar opciones:', error);

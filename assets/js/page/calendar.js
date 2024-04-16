@@ -100,7 +100,7 @@ $(function () {
             }
 
             
-            if (title) {
+            if (title&&fechaValida) {
 
                 if (allDay == true) {
                     fechaInicio.startOf('day');
@@ -289,7 +289,7 @@ $(function () {
                     fechaFin.startOf('day');
                 } else {
                     calEvent.allDay = false
-                    // Comprobar si fechaFin es menor que fechaInicio
+                    // Comprobar si fechaFin es mayor que fechaInicio
                     if (!fechaFin.isAfter(fechaInicio)) {
                         fechaValida = false
                     }

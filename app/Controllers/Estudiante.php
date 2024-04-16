@@ -244,7 +244,7 @@ class Estudiante extends BaseController
             return redirect()->to('/estudiante');
         }
 
-        $data['obj'] = $this->estudiante_model->find($token);
+        $data['obj'] = $this->estudiante_model->getEstudiantesWithPersona($token);
         if ($data['obj'] == null) {
             return redirect()->to('/estudiante');
         };

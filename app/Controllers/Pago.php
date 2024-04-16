@@ -170,7 +170,7 @@ class Pago extends BaseController
         $data['obj'] = $this->pago_model->getPagosWithEstudiantes($idPadre)[0];
         $data['tutor_list'] = $this->tutor_model->getTutoresWithPersona();
         $data['estudiante_list'] = $this->estudiante_model->getEstudiantesWithPersona();
-        $data['servicio_list'] = $this->servicio_model->findAll();
+        $data['servicio_list'] = $this->servicio_model->join('costo','servicio.id_servicio=costo.id_servicio')->where('id_costo',$data['obj']['id_costo'])->findAll();
         $data['persona_list'] = $this->persona_model->findAll();
         $data['idPadre'] = $idPadre;
         return view('pago/form', $data);

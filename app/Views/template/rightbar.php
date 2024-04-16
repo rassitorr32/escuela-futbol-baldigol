@@ -152,6 +152,9 @@
 </div>
 <script>
     $(document).ready(function() {
+        <?php if(session('configuracion')['rtl']==1):?>
+            $('body').toggleClass('right_tb_toggle');
+        <?php endif;?>
         $('#btn-save-changes').click(function() {
             saveConfiguration();
         });

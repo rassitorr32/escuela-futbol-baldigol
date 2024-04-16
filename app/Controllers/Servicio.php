@@ -14,7 +14,6 @@ class Servicio extends BaseController
     {
         $this->servicio_model = new ServicioModel();
     }
-
     public function getServicios(){
         return json_encode($this->servicio_model->orderBy('nombre','ASC')->findAll());
     }
