@@ -39,4 +39,58 @@ class TemporadaModel extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
+
+    public function getTemporadaAreaComplejo($id = null)
+    {
+        if($id == null)
+        {
+            return $this->select('temporada.*, area.nombre as area_nombre, area.cap_max as area_cap_max, area.valido as area_valido, area.id_temporada as id_temporada
+                                complejo.nombre as complejo_nombre, complejo.descripcion as complejo_descripcion, complejo.valido as complejo_valido')
+                        ->join('area', 'temporada.id_area = area.id_area')
+                        ->join('complejo', 'area.id_complejo = complejo.id_complejo')
+                        ->orderBy('temporada.fecha_inicio', 'ASC')
+                        ->findAll();
+        }
+        else
+        {
+            return $this->select('temporada.*, area.nombre as area_nombre, area.cap_max as area_cap_max, area.valido as area_valido, area.id_complejo as id_complejo,
+                                complejo.nombre as complejo_nombre, complejo.descripcion as complejo_descripcion, complejo.valido as complejo_valido')
+                        ->join('area', 'temporada.id_area = area.id_area')
+                        ->join('complejo', 'area.id_complejo = complejo.id_complejo')
+                        ->where('temporada.id_temporada', $id)
+                        ->orderBy('temporada.fecha_inicio', 'DESC')
+                        ->first();
+        }
+    }
+
+    public function getTemporadaConRelaciones($id = null)
+    {
+        if($id == null)
+        {
+            return $this->select('temporada.*, servicio.tipo_servicio as servicio_tipo_servicio, servicio.nombre as servicio_nombre, servicio.descripcion as servicio_descripcion, servicio.id_dep as servicio_id_dep, servicio.valido as servicio_valido, servicio.id_costo as id_costo,
+                                costo.tipo_costo as costo_tipo_costo, costo.fecha_inicio as costo_fecha_inicio, costo.fecha_final as costo_fecha_final, costo.valor as costo_valor, costo.nro_cuotas_max as costo_nro_cuotas_max, costo.valido as costo_valido, 
+                                area.nombre as area_nombre, area.cap_max as area_cap_max, area.valido as area_valido, area.id_complejo as id_complejo,
+                                complejo.nombre as complejo_nombre, complejo.descripcion as complejo_descripcion, complejo.valido as complejo_valido')
+                        ->join('servicio', 'temporada.id_servicio = servicio.id_servicio')
+                        ->join('costo', 'servicio.id_costo = costo.id_costo')
+                        ->join('area', 'temporada.id_area = area.id_area')
+                        ->join('complejo', 'area.id_complejo = complejo.id_complejo')
+                        ->orderBy('temporada.fecha_inicio', 'ASC')
+                        ->findAll();
+        }
+        else
+        {
+            return $this->select('temporada.*, servicio.tipo_servicio as servicio_tipo_servicio, servicio.nombre as servicio_nombre, servicio.descripcion as servicio_descripcion, servicio.id_dep as servicio_id_dep, servicio.valido as servicio_valido, costo.id_costo as id_costo,
+                                costo.tipo_costo as costo_tipo_costo, costo.fecha_inicio as costo_fecha_inicio, costo.fecha_final as costo_fecha_final, costo.valor as costo_valor, costo.nro_cuotas_max as costo_nro_cuotas_max, costo.valido as costo_valido,
+                                area.nombre as area_nombre, area.cap_max as area_cap_max, area.valido as area_valido, area.id_complejo as id_complejo,
+                                complejo.nombre as complejo_nombre, complejo.descripcion as complejo_descripcion, complejo.valido as complejo_valido')
+                        ->join('servicio', 'temporada.id_servicio = servicio.id_servicio')
+                        ->join('costo', 'servicio.id_servicio = costo.id_servicio')
+                        ->join('area', 'temporada.id_area = area.id_area')
+                        ->join('complejo', 'area.id_complejo = complejo.id_complejo')
+                        ->where('temporada.id_temporada', $id)
+                        ->orderBy('temporada.fecha_inicio', 'DESC')
+                        ->first();
+        }
+    }
 }

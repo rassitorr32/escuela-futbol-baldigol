@@ -18,12 +18,12 @@
 </div>
 <script>
     document.getElementById('cerrarModal').addEventListener('click', function() {
-        console.log('<?= $idDep ?>')
+        console.log('<?= $idPadre ?>')
         let obj = "";
 
         $.ajax({
             type: "POST",
-            url: 'pago/addCuota/<?= $idDep ?>',
+            url: 'pago/addCuota/<?= $idPadre ?>',
             data: obj,
             success: function(data) {
                 $("#content-lg").fadeOut('slow', function() {

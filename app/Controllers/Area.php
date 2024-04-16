@@ -18,6 +18,11 @@ class Area extends BaseController
         $this->complejo_model = new ComplejoModel();
     }
 
+    public function getAreasJSON($idComplejo){
+        $list_area = $this->area_model->where('id_complejo',$idComplejo)->findAll();
+        return json_encode($list_area);
+    }
+
     public function generateTable()
     {
         /**recuperar datos de la DB */

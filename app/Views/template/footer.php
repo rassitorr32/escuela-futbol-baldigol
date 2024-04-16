@@ -4,7 +4,7 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-6 col-sm-12">
-                            Copyright © 2019 <a href="https://themeforest.net/user/puffintheme/portfolio">PuffinTheme</a>.
+                            Copyright © 2024 <a href="#">Luis Suarez</a>.
                         </div>
                     </div>
                 </div>
@@ -13,6 +13,7 @@
         </div>
         </div>
 
+        <script> var baseUrl = "<?=base_url()?>"</script>
         <!-- Start Main project js, jQuery, Bootstrap -->
         <script src="<?= base_url() ?>assets/bundles/lib.vendor.bundle.js"></script>
 
@@ -86,6 +87,8 @@
         <script src="<?= base_url() ?>assets/plugins/jquery-validation/additional-methods.js"></script>
         <!-- mensajes de validacion en español -->
         <script src="<?= base_url() ?>assets/plugins/jquery-validation/localization/messages_es.js"></script>
+
+        <script src="<?= base_url() ?>assets/plugins/select2/select2.js"></script>
         </body>
 
         </html>

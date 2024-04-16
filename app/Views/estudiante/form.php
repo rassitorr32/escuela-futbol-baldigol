@@ -1,3 +1,12 @@
+<style>
+    /* Estilos para resaltar el texto seleccionado en un input específico   */
+    #FEditEstudiante input[type="text"]::selection {
+        background-color: #007bff;
+        /* Cambia el color de fondo de la selección (WebKit/Blink)   */
+        color: #ffffff;
+        /* Cambia el color del texto de la selección (WebKit/Blink)  */
+    }
+</style>
 <form id="<?= (isset($obj)) ? 'FEditEstudiante' : 'FRegEstudiante' ?>" enctype="multipart/form-data">
     <?php if (isset($obj)) : ?>
         <div class="modal-header btn-primary">
@@ -58,7 +67,7 @@
             <div class="col-md-3 col-sm-12">
                 <div class="form-group">
                     <label>Género</label>
-                    <?php $id_select = isset($obj) ? $obj['id_tutor'] : '' ?>
+                    <?php $id_select = isset($obj) ? $obj['sexo'] : '' ?>
                     <select class="form-control show-tick" name="genero">
                         <option value="" disabled>-- Seleccionar --</option>
                         <option value="1" <?= $id_select == '1' ? 'selected' : '' ?>>Másculino</option>
@@ -78,16 +87,16 @@
                     <input type="text" class="form-control" name="nacionalidad" value="<?= isset($objPersona) ? $objPersona['nacionalidad'] : '' ?>">
                 </div>
             </div>
-            
+
             <div class="col-md-12 col-sm-12">
                 <div class="form-group">
                     <label>Tutor</label>
                     <?php $id_select = isset($obj['id_dep']) ? $obj['id_dep'] : '' ?>
-                    <select class="form-control show-tick" name="tutor">
+                    <select class="form-control show-tick selectTutor" name="tutor">
                         <option value="" selected>-- Ninguno --</option>
                         <?php if (isset($tutor_list)) : ?>
                             <?php foreach ($tutor_list as $key => $value) : ?>
-                                <option value=<?= $value['id_tutor'] ?> <?= $id_select == $value['id_tutor'] ? 'selected' : '' ?>><?= $value['nombres'].' '.$value['ap_paterno'].' '.$value['ap_materno'] ?></option>
+                                <option value="<?= $value['id_tutor'] ?>" <?= $id_select == $value['id_tutor'] ? 'selected' : '' ?>><?= $value['nombres'] . ' ' . $value['ap_paterno'] . ' ' . $value['ap_materno'] ?></option>
                             <?php endforeach; ?>
                         <?php endif; ?>
                     </select>
@@ -147,10 +156,24 @@
 </form>
 
 <script>
+    $(document).ready(function() {
+        $('.selectTutor').select2({
+            //theme: 'bootstrap4',
+            placeholder: '-- Ninguno --', // Texto del placeholder
+            width: '100%', // Ancho del select
+            // // minimumResultsForSearch: Infinity, // Ocultar la barra de búsqueda
+
+        });
+    });
+
     $(function() {
 
         $.validator.setDefaults({
             submitHandler: function() {
+                // Deshabilitar el botón de submit para evitar envíos múltiples
+                $('#FRegEstudiante button[type="submit"]').attr('disabled', 'disabled');
+                // Opcional: Cambiar el texto del botón a "Enviando..."
+                $('#FRegEstudiante button[type="submit"]').html('Enviando...');
                 Store("<?= base_url() ?>estudiante/store", "<?= base_url() ?>estudiante", '#<?= (isset($obj)) ? 'FEditEstudiante' : 'FRegEstudiante' ?>');
             }
         });
@@ -197,6 +220,4 @@
             }
         });
     });
-
-    
 </script>

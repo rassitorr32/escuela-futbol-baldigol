@@ -115,17 +115,23 @@
             rules: {
                 numero: {
                     required: true,
-                    digits: true,
+                    //digits: true,
                     number: true
                 },
                 cod_area: {
                     required: true,
                     maxlength: 6,
-                    digits: true,
+                    //digits: true,
                     number: true
                 },
                 tipo_tel: {
                     required: true,
+                    pattern: /^[\w\s]+$/
+                },
+            },
+            messages: {
+                tipo_tel: {
+                    pattern: "Por favor, ingrese solo letras, números y espacios."
                 },
             },
             errorElement: 'span',

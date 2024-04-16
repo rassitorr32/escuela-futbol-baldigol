@@ -70,6 +70,19 @@
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function() {
+    $('#modal-lg').on('shown.bs.modal', function() {
+  console.log('El modal se ha mostrado');
+        $('#selectTutor').select2({
+            //theme: 'bootstrap4',
+            placeholder: '-- Ninguno --', // Texto del placeholder
+            width: '100%', // Ancho del select
+            // // minimumResultsForSearch: Infinity, // Ocultar la barra de búsqueda
 
+        });
+    });
+    });
+</script>
 
 <?= sweetAlert() ?>

@@ -67,7 +67,7 @@ class Estudiante extends BaseController
                 //             </button>
                 //         </div>'
                 '<div class="btn-group">
-                    <button type="button" class="btn btn-icon btn-sm" title="View"><i class="fa fa-eye" onclick="verItem(' . "'" . base_url() . "estudiante/verItem'" . ', ' . $estudiante['id_tutor'] . ')"></i></button>
+                    <button type="button" class="btn btn-icon btn-sm" title="View" onclick="verItem(' . "'" . base_url() . "estudiante/verItem'" . ', ' . $estudiante['id_tutor'] . ')"><i class="fa fa-eye"></i></button>
                     <button type="button" class="btn btn-icon btn-sm" title="Edit" onclick="Edit(' . "'estudiante/edit'" . ', ' . $estudiante['id_tutor'] . ')"><i class="fa fa-edit"></i></button>
                     <button type="button" class="btn btn-icon btn-sm" title="View" onclick="Edit(' . "'telefono/index'".','.$estudiante['id_persona'].' )"><i class="fa fa-phone"></i></button>
                </div>'
@@ -244,7 +244,7 @@ class Estudiante extends BaseController
             return redirect()->to('/estudiante');
         }
 
-        $data['obj'] = $this->estudiante_model->find($token);
+        $data['obj'] = $this->estudiante_model->getEstudiantesWithPersona($token);
         if ($data['obj'] == null) {
             return redirect()->to('/estudiante');
         };

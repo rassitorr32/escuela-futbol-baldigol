@@ -8,7 +8,7 @@
                     <div class="card">
                         <div class="card-body">
                             <div>Ingresos totales</div>
-                            <div class="py-3 m-0 text-center h1 text-success">$79,452</div>
+                            <div class="py-3 m-0 text-center h1 text-success">Bs.79,452</div>
                             <div class="d-flex">
                                 <span class="text-muted">Ingreso</span>
                                 <div class="ml-auto"><i class="fa fa-caret-up text-success"></i>4%</div>

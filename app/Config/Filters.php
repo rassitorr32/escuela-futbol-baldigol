@@ -2,6 +2,7 @@
 
 namespace Config;
 
+use App\Filters\AdminAccessFilter;
 use App\Filters\LoginAuthFilter;
 use CodeIgniter\Config\BaseConfig;
 use CodeIgniter\Filters\CSRF;
@@ -26,6 +27,8 @@ class Filters extends BaseConfig
         'invalidchars'  => InvalidChars::class,
         'secureheaders' => SecureHeaders::class,
         'auth'          => LoginAuthFilter::class,
+        'admin_access'  => AdminAccessFilter::class,
+        'secretario_access'  => AdminAccessFilter::class,
     ];
 
     /**
@@ -70,25 +73,56 @@ class Filters extends BaseConfig
     public array $filters = [
         'auth' => [
             'before' => [
+                // '',
+                // 'home',
+                // 'usuario',
+                'estudiante',
+                'admision',
+                // 'area',
+                'calendario',
+                // 'categoria',
+                // 'complejo',
+                // 'costo',
+                'datosMedicos',
+                //'pago',
+                // 'servicio',
+                'telefono',
+                // 'temporada',
+                // 'turno',
+                'tutor',
+                'perfil',
+                'panel',
+                // 'cargo',
+                // 'rol'
+                'login/exit'
+            ]
+        ],
+        'secretario_access' => [
+                'pago',
+        ],
+        'admin_access' => [
+            'before' => [
                 '',
                 'home',
                 'usuario',
-                'estudiante',
-                'admision',
+                // 'estudiante',
+                // 'admision',
                 'area',
-                'calendario',
+                // 'calendario',
                 'categoria',
                 'complejo',
                 'costo',
-                'datosMedicos',
+                // 'datosMedicos',
                 'pago',
                 'servicio',
-                'telefono',
+                // 'telefono',
                 'temporada',
                 'turno',
-                'tutor'
-                // 'user',
-                // 'home/controlPanel'
+                // 'tutor',
+                // 'perfil',
+                // 'panel',
+                'cargo',
+                'rol'
             ]
         ]
     ];

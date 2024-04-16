@@ -21,7 +21,7 @@
     <div class="container-fluid">
         <div class="tab-content">
             <div class="tab-pane active" id="pro-all">
-                <div class="table-responsive">
+                <div class="table-responsive card">
                     <?= $table ?>
                 </div>
             </div>

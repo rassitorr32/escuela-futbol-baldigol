@@ -1,3 +1,12 @@
+<style>
+    /* Estilos para resaltar el texto seleccionado en un input específico   */
+    #FEditCategoria input[type="text"]::selection {
+        background-color: #007bff;
+        /* Cambia el color de fondo de la selección (WebKit/Blink)   */
+        color: #ffffff;
+        /* Cambia el color del texto de la selección (WebKit/Blink)  */
+    }
+</style>
 <form id="<?= (isset($obj)) ? 'FEditCategoria' : 'FRegCategoria' ?>" enctype="multipart/form-data">
     <?php if (isset($obj)) : ?>
         <div class="modal-header btn-primary">
@@ -49,6 +58,10 @@
     $(function() {
         $.validator.setDefaults({
             submitHandler: function() {
+                // Deshabilitar el botón de submit para evitar envíos múltiples
+                $('#FRegCategoria button[type="submit"]').attr('disabled', 'disabled');
+                // Opcional: Cambiar el texto del botón a "Enviando..."
+                $('#FRegCategoria button[type="submit"]').html('Enviando...');
                 Store("<?= base_url() ?>categoria/store", "<?= base_url() ?>categoria", '#<?= (isset($obj)) ? 'FEditCategoria' : 'FRegCategoria' ?>');
             }
         });
@@ -57,6 +70,7 @@
                 nombre: {
                     required: true,
                     minlength: 3,
+                    pattern: /^[\w\s]+$/
                 },
                 edad_inicio: {
                     required: true,
@@ -65,7 +79,11 @@
                     required: true,
                 },
             },
-            messages: {},
+            messages: {
+                nombre: {
+                    pattern: "Por favor, ingrese solo letras, números y espacios."
+                },
+            },
             errorElement: 'span',
             errorPlacement: function(error, element) {
                 error.addClass('invalid-feedback');

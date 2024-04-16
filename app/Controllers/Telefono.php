@@ -18,7 +18,7 @@ class Telefono extends BaseController
     public function generateTable($id_persona)
     {
         /**recuperar datos de la DB */
-        $data['telefono_list'] = $this->telefono_model->where('id_persona', $id_persona)->orderBy('numero', 'ASC')->findAll();
+        $data['telefono_list'] = $this->telefono_model->where('id_persona', $id_persona)->orderBy('updated_at', 'ASC')->findAll();
         /**Generar tabla y botones */
         $table = new \CodeIgniter\View\Table([
             'table_open' => '<table id="tableTelefono" class="table table-hover table-vcenter table_custom text-nowrap spacing5 border-style mb-0">',

@@ -5,7 +5,7 @@ function generateTable(idTable, tituloReporte) {{
     "lengthChange": false,
     "autoWidth": false,
     "scrollX": true,
-    "buttons": [
+    "buttons": (idTable=='tableTurno'||idTable=='tableArea'||idTable=='tableComplejo'||idTable=='tableCargo'||idTable=='tableRol'||idTable=='tableCategoria')?false:[
       { extend: "excel", className: "btn btn-success", text: "Excel", title: tituloReporte },
       { extend: "pdf", className: "btn btn-danger", text: "PDF", title: tituloReporte },
       { extend: "print", className: "btn btn-primary", text: "Imprimir", title: tituloReporte },
@@ -13,6 +13,7 @@ function generateTable(idTable, tituloReporte) {{
         extend: "colvis", className: "btn btn-secondary", text: "Visibilidad Columnas"
       }
     ],
+    "searching": (idTable=='tableTurno'||idTable=='tableArea'||idTable=='tableComplejo'||idTable=='tableCargo'||idTable=='tableRol'||idTable=='tableCategoria')?false:true,
     "language": {
       "lengthMenu": "Mostrar _MENU_ registros por página",
       "zeroRecords": "No se encontraron resultados",
@@ -41,7 +42,7 @@ function generateTable(idTable, tituloReporte) {{
       function (settings, data, dataIndex) {
         var minDate = new Date(minEl.value);
         var maxDate = new Date(maxEl.value);
-        var rowData = data[5]; // Suponiendo que la columna 5 contiene la fecha en formato YYYY-MM-DD
+        var rowData = data[9]; // Suponiendo que la columna 5 contiene la fecha en formato YYYY-MM-DD
 
         var currentDate = new Date(rowData);
 

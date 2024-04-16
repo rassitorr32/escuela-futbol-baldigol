@@ -6,13 +6,13 @@ use CodeIgniter\Model;
 
 class CalendarioModel extends Model
 {
-    protected $table            = 'calendarios';
-    protected $primaryKey       = 'id';
+    protected $table            = 'calendario';
+    protected $primaryKey       = 'id_calendario';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = [];
+    protected $allowedFields    = ['id_usuario', 'titulo', 'inicio', 'fin', 'className', 'allDay'];
 
     protected bool $allowEmptyInserts = false;
 

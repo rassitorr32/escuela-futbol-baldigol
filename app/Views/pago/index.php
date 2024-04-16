@@ -23,7 +23,7 @@
                 <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#pro-all">Lista</a></li>
                 <li hidden></li>
                 <li hidden></li>
-                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#pro-add">Agregar</a></li>
+                <li class="nav-item"><a id="cargarForm" class="nav-link" data-toggle="tab" href="#pro-add">Agregar</a></li>
             </ul>
         </div>
     </div>
@@ -65,14 +65,8 @@
                                     <!-- <a href="#" class="card-options-remove" data-toggle="card-remove"><i class="fe fe-x"></i></a> -->
                                 </div>
                             </div>
-                            <div class="card-body">
-                                <?php
-
-                                use App\Controllers\Pago;
-
-                                $pago = new Pago();
-                                echo $pago->add();
-                                ?>
+                            <div id="form" class="card-body">
+                                
                             </div>
                         </div>
                     </div>
@@ -81,4 +75,13 @@
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function() {
+    $('#cargarForm').click(function(event) {
+        event.preventDefault(); // Evita que el enlace cambie de página
+        $('#form').load('pago/add'); // Carga el contenido HTML del archivo en el div
+    });
+});
+
+</script>
 <?= sweetAlert() ?>

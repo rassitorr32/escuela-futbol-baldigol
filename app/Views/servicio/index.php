@@ -21,23 +21,7 @@
     <div class="container-fluid">
         <div class="tab-content">
             <div class="tab-pane active" id="pro-all">
-                <div class="table-responsive">
-                <div class="container">
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label for="minDateTable">Fecha mínima:</label>
-                                            <input type="date" class="form-control" id="minDateTable" name="min">
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label for="maxDateTable">Fecha máxima:</label>
-                                            <input type="date" class="form-control" id="maxDateTable" name="max">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                <div class="table-responsive card">
                     <?= $table ?>
                 </div>
             </div>

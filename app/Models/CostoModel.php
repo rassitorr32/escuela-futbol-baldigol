@@ -12,7 +12,7 @@ class CostoModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['id_servicio', 'tipo_costo', 'fecha_inicio', 'fecha_final', 'valor', 'valido'];
+    protected $allowedFields    = ['id_servicio', 'tipo_costo', 'fecha_inicio', 'fecha_final', 'valor', 'valido', 'nro_cuotas_max'];
 
     protected bool $allowEmptyInserts = false;
 

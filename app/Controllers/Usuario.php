@@ -19,6 +19,19 @@ class Usuario extends BaseController
         $this->persona_model = new PersonaModel();
     }
 
+    public function verificarUsuarioRepetidoJSON(){
+        $nombre_usuario = $this->request->getPost('usuario');
+        $nombre_usuario_actual = $this->request->getPost('usuarioActual');
+        $existeUsuario = $this->usuario_model->where('usuario', $nombre_usuario)->countAllResults() > 0;
+        if($nombre_usuario_actual!=''){
+            if($nombre_usuario==$nombre_usuario_actual){
+                return json_encode(true);
+            }
+        }
+        // Devuelve una respuesta JSON
+        return json_encode(!$existeUsuario);
+    }
+
     public function generateTable()
     {
         /**recuperar datos de la DB */
@@ -31,7 +44,7 @@ class Usuario extends BaseController
         $btnNew = '<button class="btn btn-primary" onclick="New(' . "'doctor/add'" . ')">
             <i class="fas fa-plus"></i> Nuevo
         </button>';
-        $table->setHeading('Foto', 'Usuario', 'Nombre', 'Apellido', 'C.I.', 'Fecha Nac.', 'Télefono', 'Rol', 'Cargo', 'Estado', 'Acción');
+        $table->setHeading('Foto', 'Usuario', 'Nombre', 'Apellido', 'C.I.', 'Fecha Nac.', 'Télefono', 'Rol', 'Cargo', 'F. creacion', 'F. actualización', 'Estado', 'Acción');
         $grid = array();
         /**Llenar el contenido de la tabla */
         foreach ($lista_usuario as $key => $usuario) {
@@ -48,6 +61,8 @@ class Usuario extends BaseController
                 79898489,
                 $usuario['id_rol'],
                 $usuario['id_cargo'],
+                $usuario['created_at'],
+                $usuario['updated_at'],
                 '<button class="btn btn-' . ($usuario['estado'] == 1 ? 'success' : 'danger') . '" onclick="cambiarEstado(this,' . "'" . base_url('usuario/changeStatus') . "'" . ',' . $usuario['id_usuario'] . ')">' . ($usuario['estado'] == 1 ? 'Activo' : 'Inactivo') . '</button>',
                 // '<div class="btn-group">
                 //             <button class="btn btn-secondary btn-circle" onclick="Edit(' . "'doctor/edit'" . ', ' . $usuario['id_usuario'] . ')">
@@ -58,7 +73,7 @@ class Usuario extends BaseController
                 //             </button>
                 //         </div>'
                 '<div class="btn-group">
-                    <button type="button" class="btn btn-icon btn-sm" title="View"><i class="fa fa-eye" onclick="verItem(' . "'" . base_url() . "usuario/verItem'" . ', ' . $usuario['id_usuario'] . ')"></i></button>
+                    <button type="button" class="btn btn-icon btn-sm" title="View" onclick="verItem(' . "'" . base_url() . "usuario/verItem'" . ', ' . $usuario['id_usuario'] . ')"><i class="fa fa-eye"></i></button>
                     <button type="button" class="btn btn-icon btn-sm" title="Edit" onclick="Edit(' . "'usuario/edit'" . ', ' . $usuario['id_usuario'] . ')"><i class="fa fa-edit"></i></button>
                     <button type="button" class="btn btn-icon btn-sm" title="View" onclick="Edit(' . "'telefono/index'" . ',' . $usuario['id_persona'] . ' )"><i class="fa fa-phone"></i></button>
                </div>'
@@ -101,6 +116,32 @@ class Usuario extends BaseController
         $dataTable['idTable'] = 'tableUsuario';
         $dataTable['tituloTable'] = 'Lista de Usuarios';
         echo view('template/footer', $dataTable);
+    }
+
+    public function perfil()
+    {
+        $data['title'] = [
+            'module' => 'Usuario',
+            'page'   => 'Mi perfil',
+            'icon'  => 'fas fa-user-md'
+        ];
+
+        $data['breadcrumb'] = [
+            ['title' => 'Panel', 'route' => "/home", 'active' => false],
+            ['title' => 'MI PERFIL', 'route'  => "", 'active' => true]
+        ];
+
+        //$data['table'] = $this->generateTable();
+        //session()->set('leftbar_section', 'Escuela');
+        session()->set('leftbar_link', 'perfil');
+        echo view('template/head');
+        echo view('template/rightbar');
+        echo view('template/theme_panel');
+        echo view('template/quick_menu');
+        echo view('template/leftbar');
+        echo view('template/header');
+        echo view('usuario/perfil');
+        echo view('template/footer');
     }
 
     public function add()
@@ -293,5 +334,9 @@ class Usuario extends BaseController
         $data['objPersona'] = $this->persona_model->find($data['obj']['id_persona']);
 
         return view('usuario/ver_usuario', $data);
+    }
+
+    public function calendario(){
+        return view('usuario/calendario');
     }
 }

@@ -33,22 +33,17 @@
                     </div>
                     <form action="login/login" method="post">
                         <div class="form-group">
-                            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter user" name="usuario" required autofocus>
+                            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter user" name="usuario"  autofocus <?=session('tiempo_expiracion')!=null?'disabled':''?>>
                         </div>
                         <div class="form-group">
                             <!-- <label class="form-label"><a href="forgot-password.html" class="float-right small">I forgot password</a></label> -->
-                            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" name="contraseña" required>
+                            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" name="contraseña" required <?=session('tiempo_expiracion')!=null?'disabled':''?>>
                         </div>
-                        <p class="text-danger"><?= session('error.credenciales') ?></p>
+                        <p class="text-danger" id="errorCredenciales"><?= session('error.credenciales') ?></p>
                         <p class="text-danger"><?= session('error.session') ?></p>
-                        <!-- <div class="form-group">
-                    <label class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" />
-                    <span class="custom-control-label">Remember me</span>
-                    </label>
-                </div> -->
+                        <p class="text-danger" id="contador"></p>
                         <div class="text-center">
-                            <button type="submit" class="btn btn-primary btn-block" title="">Sign in</button>
+                            <button type="submit" class="btn btn-primary btn-block" title="" <?=session('tiempo_expiracion')!=null?'disabled':''?>>Sign in</button>
                             <!-- <div class="text-muted mt-4">Don't have account yet? <a href="register.html">Sign up</a></div> -->
                         </div>
                     </form>
@@ -62,6 +57,88 @@
 
     <!-- Start project main js  and page js -->
     <script src="assets/js/core.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            // Función para verificar si la variable de sesión alcanzó cierto valor y recargar la página
+            // function checkSessionVariable() {
+            //     $.ajax({
+            //         url: '<?= base_url('login/check_session_bloqueado') ?>', // Ruta de tu método en el controlador para verificar la variable de sesión
+            //         method: 'GET',
+            //         success: function(response) {
+            //             if (response === 'reload') {
+            //                 // Si la respuesta indica que la página debe recargarse, hazlo
+            //                 location.reload();
+            //             }
+            //         }
+            //     });
+            // }
+
+            // // Verificar cada cierto intervalo (por ejemplo, cada 10 segundos)
+            // setInterval(checkSessionVariable, 10000); // 10000 milisegundos = 10 segundos
+
+
+            // Función para mostrar el contador regresivo
+            function mostrarContador() {
+            <?php if (session('tiempo_expiracion') != null): ?>
+                
+                document.getElementById("errorCredenciales").innerText = "Acceso bloqueado por 15 min.";
+                // Fecha y hora objetivo (en milisegundos)
+                var fechaObjetivo = <?= session('tiempo_expiracion') ?> * 1000;
+
+                // Calcula la diferencia entre la fecha y hora actual y la fecha y hora objetivo
+                var diferencia = fechaObjetivo - Date.now();
+                console.log(diferencia)
+
+                // Calcula el tiempo restante en horas, minutos y segundos
+                var horas = Math.floor((diferencia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                var minutos = Math.floor((diferencia % (1000 * 60 * 60)) / (1000 * 60));
+                var segundos = Math.floor((diferencia % (1000 * 60)) / 1000);
+
+                // Muestra el contador en el formato HH:MM:SS
+                document.getElementById("contador").innerText = horas + "h " + minutos + "m " + segundos + "s";
+
+                // Si la diferencia llega a 0, detiene el contador
+                if (diferencia <= 0) {
+                    clearInterval(intervalo);
+                    document.getElementById("contador").innerText = "";
+                    document.getElementById("errorCredenciales").innerText = "";
+                    
+                    desbloquearFormulario();
+                }
+            <?php endif; ?>
+        }
+
+
+        // Llama a la función mostrarContador cada segundo
+        var intervalo = setInterval(mostrarContador, 1000);
+        
+        // Desbloquea el formulario habilitando todos los campos de entrada y el botón de envío
+        function desbloquearFormulario() {
+            // Selecciona el formulario
+            var formulario = document.querySelector('form[action="login/login"]');
+
+            // Selecciona todos los campos de entrada dentro del formulario
+            var campos = formulario.querySelectorAll('input');
+
+            // Habilita cada campo de entrada
+            campos.forEach(function(campo) {
+                campo.disabled = false;
+            });
+
+            // Habilita el botón de envío
+            var botonSubmit = formulario.querySelector('button[type="submit"]');
+            botonSubmit.disabled = false;
+        }
+
+        // Llama a la función para desbloquear el formulario cuando sea necesario
+        //desbloquearFormulario();
+
+        
+        // Muestra el contador al cargar la página
+        mostrarContador();
+        });
+    </script>
 </body>
 
 </html>

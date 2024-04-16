@@ -14,7 +14,6 @@ class Servicio extends BaseController
     {
         $this->servicio_model = new ServicioModel();
     }
-
     public function getServicios(){
         return json_encode($this->servicio_model->orderBy('nombre','ASC')->findAll());
     }
@@ -31,7 +30,7 @@ class Servicio extends BaseController
         $btnNew = '<button class="btn btn-primary" onclick="New(' . "'doctor/add'" . ')">
             <i class="fas fa-plus"></i> Nuevo
         </button>';
-        $table->setHeading('Foto', 'Nombre', 'Tipo', 'Descripción', 'Servicio', 'Estado', 'Acción');
+        $table->setHeading('#', 'Nombre', 'Tipo', 'Descripción', 'Servicio', 'Estado', 'Acción');
         $grid = array();
         $c = 0;
         /**Llenar el contenido de la tabla */
@@ -46,7 +45,7 @@ class Servicio extends BaseController
                 isset($value['id_dep'])?$value['id_dep']:'',
                 '<button class="btn btn-' . ($value['valido'] == 1 ? 'success' : 'danger') . '" onclick="cambiarEstado(this,' . "'" . base_url('servicio/changeStatus') . "'" . ',' . $value['id_servicio'] . ')">' . ($value['valido'] == 1 ? 'Activo' : 'Inactivo') . '</button>',
                 '<div class="btn-group">
-                    <button type="button" class="btn btn-icon btn-sm" title="View"><i class="fa fa-eye" onclick="verItem(' . "'" . base_url() . "servicio/verItem'" . ', ' . $value['id_servicio'] . ')"></i></button>
+                    <button type="button" class="btn btn-icon btn-sm" title="View" onclick="verItem(' . "'" . base_url() . "servicio/verItem'" . ', ' . $value['id_servicio'] . ')"><i class="fa fa-eye"></i></button>
                     <button type="button" class="btn btn-icon btn-sm" title="Edit" onclick="Edit(' . "'servicio/edit'" . ', ' . $value['id_servicio'] . ')"><i class="fa fa-edit"></i></button>
                     <button type="button" class="btn btn-icon btn-sm" title="View" onclick="Edit(' . "'costo/index'".','.$value['id_servicio'].' )"><i class="fa fa-phone"></i></button>
                </div>'

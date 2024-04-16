@@ -1,3 +1,12 @@
+<style>
+    /* Estilos para resaltar el texto seleccionado en un input específico   */
+    #FEditTurno input[type="text"]::selection {
+        background-color: #007bff;
+        /* Cambia el color de fondo de la selección (WebKit/Blink)   */
+        color: #ffffff;
+        /* Cambia el color del texto de la selección (WebKit/Blink)  */
+    }
+</style>
 <form id="<?= (isset($obj)) ? 'FEditTurno' : 'FRegTurno' ?>" enctype="multipart/form-data">
     <?php if (isset($obj)) : ?>
         <div class="modal-header btn-primary">
@@ -49,6 +58,10 @@
     $(function() {
         $.validator.setDefaults({
             submitHandler: function() {
+                // Deshabilitar el botón de submit para evitar envíos múltiples
+                $('#FRegTurno button[type="submit"]').attr('disabled', 'disabled');
+                // Opcional: Cambiar el texto del botón a "Enviando..."
+                $('#FRegTurno button[type="submit"]').html('Enviando...');
                 Store("<?= base_url() ?>turno/store", "<?= base_url() ?>turno", '#<?= (isset($obj)) ? 'FEditTurno' : 'FRegTurno' ?>');
             }
         });
