@@ -10,6 +10,7 @@ use App\Models\PersonaModel;
 use App\Models\ServicioModel;
 use App\Models\TutorModel;
 use CodeIgniter\HTTP\ResponseInterface;
+use DateTime;
 
 class Pago extends BaseController
 {
@@ -45,8 +46,8 @@ class Pago extends BaseController
         /**Llenar el contenido de la tabla */
         foreach ($pago_list as $key => $value) {
             array_push($grid, [
-                $value['per_nombres'].' '.$value['per_ap_paterno'].' '.(isset($value['per_ap_materno'])?$value['per_ap_materno']:''),
-                $value['nombres'].' '.$value['ap_paterno'].' '.(isset($value['ap_materno'])?$value['ap_materno']:''),
+                $value['per_nombres'] . ' ' . $value['per_ap_paterno'] . ' ' . (isset($value['per_ap_materno']) ? $value['per_ap_materno'] : ''),
+                $value['nombres'] . ' ' . $value['ap_paterno'] . ' ' . (isset($value['ap_materno']) ? $value['ap_materno'] : ''),
                 $value['tipo_costo'],
                 $value['monto_pagado'],
                 $value['nro_cuota'],
@@ -70,13 +71,13 @@ class Pago extends BaseController
         /**Llenar el contenido de la tabla */
         foreach ($pago_list as $key => $value) {
             $costo = $this->costo_model->find($value['id_costo']);
-            $servicio=$this->servicio_model->find($costo['id_servicio']);
+            $servicio = $this->servicio_model->find($costo['id_servicio']);
             $c++;
             array_push($grid, [
                 $c,
                 $value['nombres'],
-                $value['ap_paterno'].' '.(isset($value['ap_materno'])?$value['ap_materno']:''),
-                $servicio['id_dep']==null?$servicio['nombre']:'<div><b>' . ($this->servicio_model->find($servicio['id_dep']))['nombre'] . '</b></div>
+                $value['ap_paterno'] . ' ' . (isset($value['ap_materno']) ? $value['ap_materno'] : ''),
+                $servicio['id_dep'] == null ? $servicio['nombre'] : '<div><b>' . ($this->servicio_model->find($servicio['id_dep']))['nombre'] . '</b></div>
                 <div class="text-muted">' . $servicio['nombre'] . '</div>',
                 $value['tipo_costo'],
                 $value['total_monto'],
@@ -86,7 +87,7 @@ class Pago extends BaseController
                 $value['ultimo_pago'],
                 '<span class="tag tag-' . ($value['total_monto'] == $value['valor'] ? 'green' : 'orange') . '">' . ($value['total_monto'] == $value['valor'] ? 'Pagado' : 'Pendiente') . '</span>',
                 '<div class="btn-group">
-                    <button type="button" class="btn btn-icon btn-sm" title="View" onclick="Edit(' . "'pago/modalIndex'".','.$value['id_pago'].' )"><i class="fa fa-eye"></i></button>
+                    <button type="button" class="btn btn-icon btn-sm" title="View" onclick="Edit(' . "'pago/modalIndex'" . ',' . $value['id_pago'] . ' )"><i class="fa fa-eye"></i></button>
                 </div>',
             ]);
         }
@@ -144,7 +145,7 @@ class Pago extends BaseController
         echo view('pago/modal_pago', $data);
     }
 
-    
+
 
     public function add()
     {
@@ -156,7 +157,21 @@ class Pago extends BaseController
         $data['tutor_list'] = $this->tutor_model->getTutoresWithPersona();
         $data['estudiante_list'] = $this->estudiante_model->getEstudiantesWithPersona();
         $data['servicio_list'] = $this->servicio_model->findAll();
-        $data['persona_list'] = $this->persona_model->findAll();
+        $personas = $this->persona_model->orderBy('ap_paterno', 'ASC')->findAll();
+        $personas_mayores = [];
+
+        foreach ($personas as $persona) {
+            $fecha_nacimiento = new DateTime($persona['fecha_nac']);
+            $hoy = new DateTime();
+            $edad = $hoy->diff($fecha_nacimiento);
+
+            // Verificar si la persona tiene 18 años o más y si ya cumplió años este año
+            if ($edad->y >= 18 && ($hoy->format('md') >= $fecha_nacimiento->format('md'))) {
+                $personas_mayores[] = $persona;
+            }
+        }
+
+        $data['persona_list'] = $personas_mayores;
         return view('pago/form', $data);
     }
 
@@ -170,8 +185,22 @@ class Pago extends BaseController
         $data['obj'] = $this->pago_model->getPagosWithEstudiantes($idPadre)[0];
         $data['tutor_list'] = $this->tutor_model->getTutoresWithPersona();
         $data['estudiante_list'] = $this->estudiante_model->getEstudiantesWithPersona();
-        $data['servicio_list'] = $this->servicio_model->join('costo','servicio.id_servicio=costo.id_servicio')->where('id_costo',$data['obj']['id_costo'])->findAll();
-        $data['persona_list'] = $this->persona_model->findAll();
+        $data['servicio_list'] = $this->servicio_model->join('costo', 'servicio.id_servicio=costo.id_servicio')->where('id_costo', $data['obj']['id_costo'])->findAll();
+        $personas = $this->persona_model->orderBy('ap_paterno', 'ASC')->findAll();
+        $personas_mayores = [];
+
+        foreach ($personas as $persona) {
+            $fecha_nacimiento = new DateTime($persona['fecha_nac']);
+            $hoy = new DateTime();
+            $edad = $hoy->diff($fecha_nacimiento);
+
+            // Verificar si la persona tiene 18 años o más y si ya cumplió años este año
+            if ($edad->y >= 18 && ($hoy->format('md') >= $fecha_nacimiento->format('md'))) {
+                $personas_mayores[] = $persona;
+            }
+        }
+
+        $data['persona_list'] = $personas_mayores;
         $data['idPadre'] = $idPadre;
         return view('pago/form', $data);
     }

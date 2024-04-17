@@ -7,13 +7,15 @@
     }
 
     #FRegPago .form-control {
-        background-color: #fff; /* Establece el color de fondo a blanco */
-    color: #000; /* Establece el color del texto a negro */
-    border-color: #ccc;
+        background-color: #fff;
+        /* Establece el color de fondo a blanco */
+        color: #000;
+        /* Establece el color del texto a negro */
+        border-color: #ccc;
     }
 
-    
-/* 
+
+    /* 
     #FregPago input,
     #FregPago select,
     #FregPago textarea {
@@ -21,27 +23,31 @@
         color: #000;
         border-color: #E8E9E9;
     } */
-    #FRegPago .show-tick:disabled {
-        background-color: #e9ecef;
+    #FRegPago .form-control:disabled {
+        background-color: #c4c6c9;
+        /*#e9ecef;*/
         opacity: 1;
     }
-    #FEditPago .show-tick:disabled {
-        background-color: #e9ecef;
+
+    #FEditPago .form-control:disabled {
+        background-color: #c4c6c9;
+        /*#e9ecef;*/
         opacity: 1;
     }
+
     #FEditPago input[type="text"]::selection {
         background-color: #007bff;
         /* Cambia el color de fondo de la selección (WebKit/Blink)   */
         color: #ffffff;
         /* Cambia el color del texto de la selección (WebKit/Blink)  */
     }
+
     #FRegPago input[type="text"]::selection {
         background-color: #007bff;
         /* Cambia el color de fondo de la selección (WebKit/Blink)   */
         color: #ffffff;
         /* Cambia el color del texto de la selección (WebKit/Blink)  */
     }
-
 </style>
 <form id="<?= (isset($obj)) ? 'FEditPago' : 'FRegPago' ?>" enctype="multipart/form-data">
     <?php if (isset($obj['id_pago'])) : ?>
@@ -55,7 +61,7 @@
         <?php endif; ?>
         <?= csrf_field() ?>
         <input type="hidden" name="id_estudiante" value="<?= (isset($obj['id_tutor'])) ? $obj['id_tutor'] : '' ?>">
-        <input type="hidden" name="id_pago_padre" value="<?= (isset($obj['id_dep'])) ? $obj['id_dep'] : '' ?>">
+        <input type="hidden" name="id_pago_padre" value="<?= (isset($obj['idPadre'])) ? $obj['idPadre'] : '' ?>">
         <div class="row clearfix">
             <div class="col-md-12 col-sm-12">
                 <div class="form-group">
@@ -78,22 +84,25 @@
             </div>
             <div class="col-md-12 col-sm-12">
                 <div class="form-group">
-                    <label>Buscar Persona</label>
-                    <?php $id_select = isset($obj['id_persona']) ? $obj['id_persona'] : ''; ?>
-                    <select class="form-control show-tick selectPersona" name="estudiante">
-                        <option value="" selected>-- Ninguno --</option>
-                        <?php if (isset($persona_list)) : ?>
-                            <?php foreach ($persona_list as $key => $value) : ?>
-                                <option value="<?= $value['id_persona'] ?>" <?= $id_select == $value['id_persona'] ? 'selected' : '' ?>><?= $value['nombres'] . ' ' . $value['ap_paterno'] . ' ' . $value['ap_materno'] . ' CI:' . $value['dni'] ?></option>
-                            <?php endforeach; ?>
-                        <?php endif; ?>
-                    </select>
+                    <label>Buscar Persona <input type="checkbox" id="buscarPersona"></label>
+                    <div id="select-container" style="display: none;">
+                        <?php $id_select = isset($obj['id_persona']) ? $obj['id_persona'] : ''; ?>
+                        <select class="form-control show-tick selectPersona" name="estudiante">
+                            <option value="" selected>-- Ninguno --</option>
+                            <?php if (isset($persona_list)) : ?>
+                                <?php foreach ($persona_list as $key => $value) : ?>
+                                    <option value="<?= $value['id_persona'] ?>" <?= $id_select == $value['id_persona'] ? 'selected' : '' ?>><?= $value['nombres'] . ' ' . $value['ap_paterno'] . ' ' . $value['ap_materno'] . ' CI:' . $value['dni'] ?></option>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                        </select>
+                    </div>
                 </div>
             </div>
             <div class="col-md-4 col-sm-6">
                 <div class="form-group">
                     <label>C.I.</label>
                     <input type="text" class="form-control" name="ci" value="">
+                    <input type="hidden" name="id_persona" value="">
                 </div>
             </div>
             <div class="col-md-4 col-sm-12">
@@ -146,7 +155,7 @@
             <div class="col-md-4 col-sm-12">
                 <div class="form-group">
                     <label>Dirección</label>
-                    <input type="text" class="form-control" name="direccion" value="">
+                    <input type="text" class="form-control" name="direccion" placeholder="--Opcional--" value="">
                 </div>
             </div>
             <div class="col-md-4 col-sm-12">
@@ -164,7 +173,7 @@
                 <div class="form-group">
                     <label>Servicio</label>
                     <?php $id_select = isset($obj['id_servicio']) ? $obj['id_servicio'] : '' ?>
-                    <select class="form-control show-tick selectServicio" name="servicio" <?=isset($obj['id_servicio']) ? 'disabled' : '' ?>>
+                    <select class="form-control show-tick selectServicio" name="servicio" <?= isset($obj['id_servicio']) ? 'disabled' : '' ?>>
                         <option value="" selected disabled>-- Seleccionar servicio --</option>
                         <?php if (isset($servicio_list)) : ?>
                             <?php foreach ($servicio_list as $key => $value) : ?>
@@ -177,7 +186,7 @@
             <div class="col-md-4 col-sm-12">
                 <div class="form-group">
                     <label>Costo de</label>
-                    <select class="form-control show-tick selectCosto" name="costo" <?=isset($obj)?'':'disabled'?>>
+                    <select class="form-control show-tick selectCosto" name="costo" <?= (isset($obj['idPadre'])) ? '' : 'disabled' ?>>
                         <option value="" disable selected>-- Seleccionar Servicio --</option>
                     </select>
                 </div>
@@ -186,12 +195,12 @@
                 <div class="form-group">
                     <label>Monto</label>
                     <div class="form-group">
-                    <div class="input-group">
-                        <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
-                        <div class="input-group-append">
-                            <span class="input-group-text">$</span>
-                            <span class="input-group-text">0.00</span>
-                        </div>
+                        <div class="input-group">
+                            <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+                            <div class="input-group-append">
+                                <span class="input-group-text">$</span>
+                                <span class="input-group-text">0.00</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -235,6 +244,27 @@
 <script>
     // In your Javascript (external .js resource or <script> tag)
     $(document).ready(function() {
+        //Mostrar el buscador de persona
+        $('#buscarPersona').change(function() {
+            if ($(this).is(":checked")) {
+                $('#select-container').show();
+            } else {
+                $('#select-container').hide();
+                var form = $('#<?= (isset($obj)) ? 'FEditPago' : 'FRegPago' ?>');
+                form.find('select[name="genero"]').val("");
+                form.find('input[name="id_persona"]').val("");
+                form.find('input[name="nombre"]').val("").prop('disabled', false);
+                form.find('input[name="ci"]').val("").prop('disabled', false);
+                form.find('input[name="ap_paterno"]').val("").prop('disabled', false);
+                form.find('input[name="ap_materno"]').val("").prop('disabled', false);
+                form.find('input[name="fechaNac"]').val("").prop('disabled', false);
+                form.find('select[name="extension"]').val("").prop('disabled', false);
+                form.find('select[name="genero"]').val("").prop('disabled', false);
+                form.find('input[name="direccion"]').val("").prop('disabled', false);
+                form.find('input[name="nacionalidad"]').val("").prop('disabled', false);
+            }
+        });
+
         $('.selectEstudiante').select2({
             //theme: 'bootstrap4',
             placeholder: '-- Seleccione Estudiante --', // Texto del placeholder
@@ -265,7 +295,7 @@
                     if (jsonData.length > 0) {
                         // Limpiar el segundo select
                         $('.selectCosto').empty();
-                            $('.selectCosto').append('<option value="" selected disabled>-- Seleccionar Costo --</option>');
+                        $('.selectCosto').append('<option value="" selected disabled>-- Seleccionar Costo --</option>');
 
                         // Recorrer el arreglo de objetos y agregar opciones al select
                         jsonData.forEach(function(obj) {
@@ -288,9 +318,7 @@
             // Obtener el valor seleccionado del primer select
             var selectedOption = $(this).val();
 
-            console.log('trare la persona: '+selectedOption)
-            // Desbloquear el segundo select
-            $('.selectCosto').prop('disabled', false);
+            console.log('trare la persona: ' + selectedOption)
 
             // Realizar una solicitud AJAX para obtener opciones basadas en el valor seleccionado del primer select
             $.ajax({
@@ -301,10 +329,16 @@
                     // Convertir la cadena de texto JSON a un objeto JavaScript
                     var jsonData = JSON.parse(data);
                     var form = $('#<?= (isset($obj)) ? 'FEditPago' : 'FRegPago' ?>');
-                    form.find('input[name="nombre"]').val(jsonData.nombres);
-                    form.find('input[name="ci"]').val(jsonData.dni);
-                    form.find('input[name="ap_paterno"]').val(jsonData.ap_paterno);
-                    form.find('input[name="ap_materno"]').val(jsonData.ap_materno);
+                    form.find('input[name="id_persona"]').val(jsonData.id_persona);
+                    form.find('input[name="nombre"]').val(jsonData.nombres).prop('disabled', true);
+                    form.find('input[name="ci"]').val(jsonData.dni).prop('disabled', true);
+                    form.find('input[name="ap_paterno"]').val(jsonData.ap_paterno).prop('disabled', true);
+                    form.find('input[name="ap_materno"]').val(jsonData.ap_materno).prop('disabled', true);
+                    form.find('input[name="fechaNac"]').val(jsonData.fecha_nac).prop('disabled', true);
+                    form.find('select[name="extension"]').val(jsonData.extension).prop('disabled', true);
+                    form.find('select[name="genero"]').val(jsonData.sexo).prop('disabled', true);
+                    form.find('input[name="direccion"]').val(jsonData.direccion).prop('disabled', true);
+                    form.find('input[name="nacionalidad"]').val(jsonData.nacionalidad).prop('disabled', true);
                     console.log(jsonData.nombres)
                 },
                 error: function(xhr, status, error) {
@@ -358,6 +392,7 @@
                 },
                 fechaNac: {
                     required: true,
+                    validaEdad: true // Regla personalizada para validar edad
                 },
                 genero: {
                     required: true
@@ -392,5 +427,24 @@
                 $(element).removeClass('is-invalid');
             }
         });
+        // Regla personalizada para validar edad
+        $.validator.addMethod("validaEdad", function(value, element) {
+            var fechaNacimiento = new Date(value);
+            var hoy = new Date();
+            var edad = hoy.getFullYear() - fechaNacimiento.getFullYear();
+
+            // Ajustar la fecha de nacimiento al año actual
+            fechaNacimiento.setFullYear(hoy.getFullYear());
+
+            // Verificar si la fecha de nacimiento ya ocurrió este año
+            if (hoy < fechaNacimiento) {
+                edad--;
+            }
+
+            return edad >= 18;
+        }, "Debes ser mayor de 18 años.");
+
+
+
     });
 </script>
