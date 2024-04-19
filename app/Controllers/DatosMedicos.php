@@ -22,7 +22,7 @@ class DatosMedicos extends BaseController
 
         /**Generar tabla y botones */
         $table = new \CodeIgniter\View\Table([
-            'table_open' => '<table id="example1" class="table table-bordered table-striped">'
+            'table_open' => '<table id="example1" class="table table-striped mb-0 text-nowrap">'
         ]);
         $btnNew = '<button class="btn btn-primary" onclick="New(' . "'doctor/add'" . ')">
             <i class="fas fa-plus"></i> Nuevo

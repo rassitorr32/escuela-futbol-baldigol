@@ -36,7 +36,7 @@ class Pago extends BaseController
         $pago_list = $this->pago_model->getPagosWithEstudiantes($id_padre);
         /**Generar tabla y botones */
         $table = new \CodeIgniter\View\Table([
-            'table_open' => '<table id="tablePagoModal" class="table table-hover table-vcenter table_custom text-nowrap spacing5 border-style mb-0" style="border-radius: 10px; overflow: hidden;">',
+            'table_open' => '<table id="tablePagoModal" class="table table-striped mb-0 text-nowrap">',
         ]);
         $btnNew = '<button class="btn btn-primary" onclick="New(' . "'doctor/add'" . ')">
             <i class="fas fa-plus"></i> Nuevo

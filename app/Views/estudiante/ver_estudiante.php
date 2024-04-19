@@ -41,7 +41,7 @@
                 </tr>
                 <tr>
                     <th>Tutor</th>
-                    <td><?= isset($objTutor)?$objTutor['nombres'].' '.$objTutor['ap_paterno'].' '.(isset($objTutor['ap_materno'])?$objTutor['ap_materno']:''):'Ninguno' ?></td>
+                    <td><?= isset($objTutor['nombres'])?$objTutor['nombres'].' '.$objTutor['ap_paterno'].' '.(isset($objTutor['ap_materno'])?$objTutor['ap_materno']:''):'Ninguno' ?></td>
                 </tr>
                 <tr>
                     <th>Estado</th>

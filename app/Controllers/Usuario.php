@@ -39,12 +39,12 @@ class Usuario extends BaseController
 
         /**Generar tabla y botones */
         $table = new \CodeIgniter\View\Table([
-            'table_open' => '<table id="tableUsuario" class="table table-hover table-vcenter table_custom text-nowrap spacing5 border-style mb-0">'
+            'table_open' => '<table id="tableUsuario" class="table table-striped mb-0 text-nowrap">'
         ]);
         $btnNew = '<button class="btn btn-primary" onclick="New(' . "'doctor/add'" . ')">
             <i class="fas fa-plus"></i> Nuevo
         </button>';
-        $table->setHeading('Foto', 'Usuario', 'Nombre', 'Apellido', 'C.I.', 'Fecha Nac.', 'Télefono', 'Rol', 'Cargo', 'F. creacion', 'F. actualización', 'Estado', 'Acción');
+        $table->setHeading('Foto', 'Usuario', 'Nombre', 'Apellido', 'C.I.', 'Fecha Nac.', 'Rol', 'Cargo', 'F. creacion', 'F. actualización', 'Estado', 'Acción');
         $grid = array();
         /**Llenar el contenido de la tabla */
         foreach ($lista_usuario as $key => $usuario) {
@@ -52,13 +52,12 @@ class Usuario extends BaseController
                 $usuario['foto'] == null || $usuario['foto'] == 'user_default.png' || !file_exists(FCPATH . 'assets/dist/img/personal/' . $usuario['foto']) ? '<div class="avatar avatar-pink" data-toggle="tooltip" data-placement="top" title="" data-original-title="Avatar Name">
                 <span>' . strtoupper(substr($usuario['nombres'], 0, 1)) . strtoupper(substr($usuario['ap_paterno'], 0, 1)) . '</span>
             </div>' :
-                    '<span class="avatar" style="background-image: url(' . base_url() . 'assets/dist/img/personal/' . $usuario['foto'] . ')"></span>',
+                    '<span class="avatar" style="background-image: url('."'". base_url() . 'assets/dist/img/personal/' . $usuario['foto'] ."'".')"></span>',
                 $usuario['usuario'],
                 $usuario['nombres'],
                 $usuario['ap_paterno'] . ' ' . $usuario['ap_materno'],
                 $usuario['dni'],
                 $usuario['fecha_nac'],
-                79898489,
                 $usuario['id_rol'],
                 $usuario['id_cargo'],
                 $usuario['created_at'],

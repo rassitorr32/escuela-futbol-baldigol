@@ -61,7 +61,7 @@
         <?php endif; ?>
         <?= csrf_field() ?>
         <input type="hidden" name="id_estudiante" value="<?= (isset($obj['id_tutor'])) ? $obj['id_tutor'] : '' ?>">
-        <input type="hidden" name="id_pago_padre" value="<?= (isset($obj['idPadre'])) ? $obj['idPadre'] : '' ?>">
+        <input type="hidden" name="id_pago_padre" value="<?= isset($idPadre) ? $idPadre : '' ?>">
         <div class="row clearfix">
             <div class="col-md-12 col-sm-12">
                 <div class="form-group">
@@ -196,9 +196,9 @@
                     <label>Monto</label>
                     <div class="form-group">
                         <div class="input-group">
-                            <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+                            <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" name="monto">
                             <div class="input-group-append">
-                                <span class="input-group-text">$</span>
+                                <span class="input-group-text">Bs.</span>
                                 <span class="input-group-text">0.00</span>
                             </div>
                         </div>
@@ -320,6 +320,21 @@
 
             console.log('trare la persona: ' + selectedOption)
 
+            if(selectedOption === ""){
+                var form = $('#<?= (isset($obj)) ? 'FEditPago' : 'FRegPago' ?>');
+                form.find('select[name="genero"]').val("");
+                form.find('input[name="id_persona"]').val("");
+                form.find('input[name="nombre"]').val("").prop('disabled', false);
+                form.find('input[name="ci"]').val("").prop('disabled', false);
+                form.find('input[name="ap_paterno"]').val("").prop('disabled', false);
+                form.find('input[name="ap_materno"]').val("").prop('disabled', false);
+                form.find('input[name="fechaNac"]').val("").prop('disabled', false);
+                form.find('select[name="extension"]').val("").prop('disabled', false);
+                form.find('select[name="genero"]').val("").prop('disabled', false);
+                form.find('input[name="direccion"]').val("").prop('disabled', false);
+                form.find('input[name="nacionalidad"]').val("").prop('disabled', false);
+            }else{
+                
             // Realizar una solicitud AJAX para obtener opciones basadas en el valor seleccionado del primer select
             $.ajax({
                 url: 'persona/getPersonasJSON/' + selectedOption, // URL a tu archivo PHP que maneja la solicitud AJAX
@@ -345,6 +360,7 @@
                     console.error('Error al cargar opciones:', error);
                 }
             });
+            }
         });
     });
     $(function() {
@@ -373,6 +389,10 @@
         });
         $('#<?= (isset($obj)) ? 'FEditPago' : 'FRegPago' ?>').validate({
             rules: {
+                ci: {
+                    required: true,
+                    number: true
+                },
                 estudiante: {
                     required: true,
                 },
@@ -409,7 +429,7 @@
                 costo: {
                     required: true,
                 },
-                precio: {
+                monto: {
                     required: true,
                     number: true
                 }

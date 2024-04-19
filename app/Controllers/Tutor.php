@@ -28,7 +28,7 @@ class Tutor extends BaseController
 
         /**Generar tabla y botones */
         $table = new \CodeIgniter\View\Table([
-            'table_open' => '<table id="tableTutor" class="table table-hover table-vcenter table-striped mb-0 text-nowrap">'
+            'table_open' => '<table id="tableTutor" class="table table-striped mb-0 text-nowrap">'
         ]);
         $btnNew = '<button class="btn btn-primary" onclick="New(' . "'doctor/add'" . ')">
             <i class="fas fa-plus"></i> Nuevo
@@ -42,7 +42,7 @@ class Tutor extends BaseController
                 $value['foto']==null || $value['foto'] == 'user_default.png' || !file_exists(FCPATH . 'assets/dist/img/tutores/' . $value['foto']) ? '<div class="avatar avatar-pink" data-toggle="tooltip" data-placement="top" title="" data-original-title="Avatar Name">
                 <span>' . strtoupper(substr($value['nombres'], 0, 1)) . strtoupper(substr($value['ap_paterno'], 0, 1)) . '</span>
             </div>' :
-                    '<span class="avatar" style="background-image: url(' . base_url() . 'assets/dist/img/estudiantes/' . $value['foto'] . ')"></span>',
+                    '<span class="avatar" style="background-image: url('."'". base_url() . 'assets/dist/img/estudiantes/' . $value['foto'] ."'".')"></span>',
                 $value['nombres'],
                 $value['ap_paterno'],
                 $value['ap_materno'],

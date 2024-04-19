@@ -32,6 +32,15 @@
     <link rel="stylesheet" href="<?= base_url() ?>assets/css/select2.min.css">
 </head>
 
+<style>
+    body {
+    height: 100vh; /* 100% del viewport height */
+    margin: 0; /* Eliminar margen por defecto */
+    padding: 0; /* Eliminar padding por defecto */
+}
+
+</style>
+
 <body class="<?=session('configuracion')['font_setting']?> theme-<?=session('configuracion')['choose-skin']?> <?= session('configuracion')['darkmode'] == '1' ? 'dark-mode' : '' ?> <?= session('configuracion')['gradient'] == '1' ? 'gradient' : '' ?> <?= session('configuracion')['sidebar'] == '1' ? 'sidebar_dark' : '' ?> <?= session('configuracion')['rtl'] == '1' ? 'rtl' : '' ?> <?= session('configuracion')['boxlayout'] == '1' ? 'boxlayout' : '' ?> <?= session('configuracion')['iconcolor'] == '1' ? 'iconcolor' : '' ?>">
     <!-- Page Loader -->
     <div class="page-loader-wrapper">
@@ -57,7 +66,7 @@
                 </div>
                 <div class="hright">
                     <a href="javascript:void(0)" class="nav-link icon right_tab"><i class="fe fe-align-right"></i></a>
-                    <a href="<?= base_url() ?>login/exit" class="nav-link icon settingbar"><i class="fe fe-power"></i></a>
+                    <a href="<?= base_url() ?>login/exit" class="nav-link icon"><i class="fe fe-power"></i></a>
                 </div>
             </div>
         </div>

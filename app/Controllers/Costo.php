@@ -25,7 +25,7 @@ class Costo extends BaseController
         $data['costo_list'] = $this->costo_model->where('id_servicio', $id_servicio)->orderBy('tipo_costo', 'ASC')->findAll();
         /**Generar tabla y botones */
         $table = new \CodeIgniter\View\Table([
-            'table_open' => '<table id="tableCosto" class="table table-hover table-vcenter table_custom text-nowrap spacing5 border-style mb-0">',
+            'table_open' => '<table id="tableCosto" class="table table-striped mb-0 text-nowrap">',
             'tbody_open'  => '<tbody id="costosBody">',
         ]);
         $btnNew = '<button class="btn btn-primary" onclick="New(' . "'doctor/add'" . ')">

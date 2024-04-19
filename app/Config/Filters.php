@@ -75,7 +75,7 @@ class Filters extends BaseConfig
             'before' => [
                 // '',
                 // 'home',
-                // 'usuario',
+                //'usuario/edit',
                 'estudiante',
                 'admision',
                 // 'area',
@@ -104,25 +104,24 @@ class Filters extends BaseConfig
             'before' => [
                 '',
                 'home',
-                'usuario',
+                'usuario/*',
                 // 'estudiante',
                 // 'admision',
-                'area',
                 // 'calendario',
-                'categoria',
-                'complejo',
-                'costo',
+                'categoria/*',
+                'complejo/*',
+                'costo/*',
                 // 'datosMedicos',
-                'pago',
-                'servicio',
+                'pago/*',
+                'servicio/*',
                 // 'telefono',
-                'temporada',
-                'turno',
+                'temporada/*',
+                'turno/*',
                 // 'tutor',
                 // 'perfil',
                 // 'panel',
-                'cargo',
-                'rol'
+                'cargo/*',
+                'rol/*'
             ]
         ]
     ];

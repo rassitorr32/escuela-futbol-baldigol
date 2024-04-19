@@ -1,5 +1,5 @@
 <!-- Start Main leftbar navigation -->
-<div id="left-sidebar" class="sidebar" style="z-index: 9;">
+<div id="left-sidebar" class="sidebar">
     <h5 class="brand-name">Escuela-Futbol<a href="javascript:void(0)" class="menu_option float-right<?= session('configuracion')['grid_menu'] == '1' ? ' active' : '' ?>"><i class="icon-grid font-16" data-toggle="tooltip" data-placement="left" title="Grid & List Toggle"></i></a></h5>
     <ul class="nav nav-tabs">
         <li class="nav-item"><a class="nav-link <?= session()->get('leftbar_section') == 'Escuela' ? 'active' : '' ?>" data-toggle="tab" href="#menu-uni">Escuela</a></li>

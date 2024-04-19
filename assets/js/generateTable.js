@@ -6,11 +6,11 @@ function generateTable(idTable, tituloReporte) {{
     "autoWidth": false,
     "scrollX": true,
     "buttons": (idTable=='tableTurno'||idTable=='tableArea'||idTable=='tableComplejo'||idTable=='tableCargo'||idTable=='tableRol'||idTable=='tableCategoria')?false:[
-      { extend: "excel", className: "btn btn-success", text: "Excel", title: tituloReporte },
-      { extend: "pdf", className: "btn btn-danger", text: "PDF", title: tituloReporte },
-      { extend: "print", className: "btn btn-primary", text: "Imprimir", title: tituloReporte },
+      { extend: "excel", className: "btn btn-success", text: '<i class="fa fa-file-excel-o" aria-hidden="true"></i>', title: tituloReporte },
+      { extend: "pdf", className: "btn btn-danger", text: '<i class="fa fa-file-pdf-o" aria-hidden="true"></i>', title: tituloReporte },
+      { extend: "print", className: "btn btn-primary", text: '<i class="fa fa-print" aria-hidden="true"></i>', title: tituloReporte },
       {
-        extend: "colvis", className: "btn btn-secondary", text: "Visibilidad Columnas"
+        extend: "colvis", className: "btn btn-secondary", text: "Ver"
       }
     ],
     "searching": (idTable=='tableTurno'||idTable=='tableArea'||idTable=='tableComplejo'||idTable=='tableCargo'||idTable=='tableRol'||idTable=='tableCategoria')?false:true,

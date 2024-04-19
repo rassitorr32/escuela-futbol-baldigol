@@ -18,7 +18,7 @@
                             <?= session('usuario')['foto'] == null || session('usuario')['foto'] == 'user_default.png' || !file_exists(FCPATH . 'assets/dist/img/personal/' . session('usuario')['foto']) ? '<div class="avatar avatar-pink" data-toggle="tooltip" data-placement="top" title="" data-original-title="Avatar Name">
                     <span>' . strtoupper(substr(session('usuario')['nombres'], 0, 1)) . strtoupper(substr(session('usuario')['ap_paterno'], 0, 1)) . '</span>
                     </div>' :
-                    '<span class="avatar" style="background-image: url(' . base_url() . 'assets/dist/img/personal/' . session('usuario')['foto'] . ')"></span>'?> <?= session('usuario')['usuario'] ?></a>
+                    '<span class="avatar" style="background-image: url('."'" . base_url() . 'assets/dist/img/personal/' . session('usuario')['foto'] ."'".')"></span>'?> <?= session('usuario')['usuario'] ?></a>
                         <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                             <a class="dropdown-item" href="<?=base_url()?>perfil"><i class="dropdown-icon fe fe-user"></i> Perfil</a>
                             <!-- <a class="dropdown-item" href="app-setting.html"><i class="dropdown-icon fe fe-settings"></i> Settings</a>

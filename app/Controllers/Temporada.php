@@ -37,7 +37,7 @@ class Temporada extends BaseController
 
         /**Generar tabla y botones */
         $table = new \CodeIgniter\View\Table([
-            'table_open' => '<table id="tableTemporada" class="table table-hover table-vcenter table_custom text-nowrap spacing5 border-style mb-0">'
+            'table_open' => '<table id="tableTemporada" class="table table-striped mb-0 text-nowrap">'
         ]);
         $btnNew = '<button class="btn btn-primary" onclick="New(' . "'temporada/add'" . ')">
             <i class="fas fa-plus"></i> Nuevo

@@ -1,4 +1,14 @@
-<div id="calendar"></div>
+<style>
+@media (max-width: 576px) {/* A partir del punto de quiebre 'xs' de Bootstrap */
+        #calendar_container {
+            width: 500px; /* Ancho fijo para el calendario */
+        }
+    }
+</style>
+<div id="calendar_container">
+    <div id="calendar"></div>
+</div>
+
 
 <!-- Add New Event popup -->
 <div class="modal fade" id="addNewEvent" aria-hidden="true" style="display: none;">
@@ -91,7 +101,7 @@
                     <div class="col-md-4 fecha-fin-container" style="display: none;">
                         <div class="form-group">
                             <label>Fecha Fin Evento</label>
-                            <input class="form-control" name="event-fechaFin" type="date" required/>
+                            <input class="form-control" name="event-fechaFin" type="date" required />
                         </div>
                     </div>
                     <div class="col-md-4 hora-inicio-container" style="display: none;">
@@ -153,7 +163,7 @@
                     <div class="col-md-4 fecha-fin-container" style="display: none;">
                         <div class="form-group">
                             <label>Fecha Fin Evento</label>
-                            <input class="form-control" name="event-fechaFin" type="date" required/>
+                            <input class="form-control" name="event-fechaFin" type="date" required />
                         </div>
                     </div>
                     <div class="col-md-4 hora-inicio-container" style="display: none;">
@@ -181,8 +191,8 @@
 
 <script>
     $(document).ready(function() {
-    // Seleccionar los checkbox por su clase
-    var checkbox = $('.form-control[type="checkbox"]');
+        // Seleccionar los checkbox por su clase
+        var checkbox = $('.form-control[type="checkbox"]');
         $('.fecha-fin-container, .hora-inicio-container, .hora-fin-container').show();
         // Crear un evento para hacer aparecer los inputs cuando el checkbox cambie de estado
         checkbox.change(function() {

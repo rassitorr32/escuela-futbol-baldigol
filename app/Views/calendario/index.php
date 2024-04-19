@@ -30,6 +30,14 @@
                     </div>
                 </div>
             </div>
+            <style>
+                /* Aplica el scroll horizontal solo a partir de la clase 'col-md' de Bootstrap */
+@media (max-width: 576px) {
+    .card-body {
+        overflow-x: auto;
+    }
+}
+            </style>
             <div class="col-lg-8 col-md-12">
                 <div class="card">
                     <div class="card-body">

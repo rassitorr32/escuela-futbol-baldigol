@@ -21,7 +21,7 @@ class Telefono extends BaseController
         $data['telefono_list'] = $this->telefono_model->where('id_persona', $id_persona)->orderBy('updated_at', 'ASC')->findAll();
         /**Generar tabla y botones */
         $table = new \CodeIgniter\View\Table([
-            'table_open' => '<table id="tableTelefono" class="table table-hover table-vcenter table_custom text-nowrap spacing5 border-style mb-0">',
+            'table_open' => '<table id="tableTelefono" class="table table-striped mb-0 text-nowrap">',
             'tbody_open'  => '<tbody id="telefonosBody">',
         ]);
         $btnNew = '<button class="btn btn-primary" onclick="New(' . "'doctor/add'" . ')">
