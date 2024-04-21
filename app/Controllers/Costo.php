@@ -19,6 +19,11 @@ class Costo extends BaseController
         return json_encode($list_costo);
     }
 
+    public function getFindCostoJSON($idCosto){
+        $list_costo = $this->costo_model->find($idCosto);
+        return json_encode($list_costo);
+    }
+
     public function generateTable($id_servicio)
     {
         /**recuperar datos de la DB */

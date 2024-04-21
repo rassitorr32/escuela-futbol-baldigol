@@ -40,7 +40,7 @@ function Store(urlStore, urlModulo, idForm) {
         processData: false,
         success: function (message) {
             console.log(message);
-            window.location.href = urlModulo;
+            //window.location.href = urlModulo;
         },
         error: function (jqXHR, textStatus, errorThrown) {
             // Manejar el error de la petición Ajax

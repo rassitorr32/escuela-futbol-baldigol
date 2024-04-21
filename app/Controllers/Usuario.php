@@ -121,13 +121,13 @@ class Usuario extends BaseController
     {
         $data['title'] = [
             'module' => 'Usuario',
-            'page'   => 'Mi perfil',
+            'page'   => 'PERFIL',
             'icon'  => 'fas fa-user-md'
         ];
 
         $data['breadcrumb'] = [
-            ['title' => 'Panel', 'route' => "/home", 'active' => false],
-            ['title' => 'MI PERFIL', 'route'  => "", 'active' => true]
+            ['title' => 'Panel', 'route' => base_url(), 'active' => false],
+            ['title' => 'Mi Perfil', 'route'  => "", 'active' => true]
         ];
 
         //$data['table'] = $this->generateTable();
@@ -136,7 +136,7 @@ class Usuario extends BaseController
         echo view('template/head');
         echo view('template/rightbar');
         echo view('template/theme_panel');
-        echo view('template/quick_menu');
+        echo view('template/quick_menu',$data);
         echo view('template/leftbar');
         echo view('template/header');
         echo view('usuario/perfil');

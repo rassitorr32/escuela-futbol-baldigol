@@ -22,7 +22,7 @@ class Categoria extends BaseController
 
         /**Generar tabla y botones */
         $table = new \CodeIgniter\View\Table([
-            'table_open' => '<table id="tableCategoria" class="table table-striped mb-0 text-nowrap">'
+            'table_open' => '<table id="tableCategoria" class="table table-hover table-vcenter table-striped mb-0 text-nowrap">'
         ]);
         $btnNew = '<button class="btn btn-primary" onclick="New(' . "'doctor/add'" . ')">
             <i class="fas fa-plus"></i> Nuevo

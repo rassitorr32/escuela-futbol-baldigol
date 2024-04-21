@@ -1,10 +1,12 @@
-function generateTable(idTable, tituloReporte) {{
+function generateTable(idTable, tituloReporte) {
   console.log(idTable);
   const table = $("#" + idTable);
   table.DataTable({
     "lengthChange": false,
-    "autoWidth": false,
-    "scrollX": true,
+    "autoWidth": true,
+    "scrollX": false,
+    "pageLength": 2,
+
     "buttons": (idTable=='tableTurno'||idTable=='tableArea'||idTable=='tableComplejo'||idTable=='tableCargo'||idTable=='tableRol'||idTable=='tableCategoria')?false:[
       { extend: "excel", className: "btn btn-success", text: '<i class="fa fa-file-excel-o" aria-hidden="true"></i>', title: tituloReporte },
       { extend: "pdf", className: "btn btn-danger", text: '<i class="fa fa-file-pdf-o" aria-hidden="true"></i>', title: tituloReporte },
@@ -20,14 +22,15 @@ function generateTable(idTable, tituloReporte) {{
       "info": "Mostrando _START_ a _END_ de _TOTAL_ registros",
       "infoEmpty": "Mostrando 0 a 0 de 0 registros",
       "infoFiltered": "(filtrados de _MAX_ registros totales)",
-      "search": "<label class=\"text-dark\">Buscar:</label>",
+      "search": "<label class=\"text-muted\">Buscar:</label>",
       "paginate": {
         "first": "Primero",
         "last": "Último",
         "next": "Siguiente",
         "previous": "Anterior"
       }
-    }
+    },
+    
   }).buttons().container().appendTo("#" + idTable + "_wrapper .col-md-6:eq(0)");
 
   // Eliminar bordes de los botones con clases Bootstrap dentro del contenedor del DataTable
@@ -66,4 +69,4 @@ function generateTable(idTable, tituloReporte) {{
       $("#" + idTable).DataTable().draw();
     });
   }
-}}
+}

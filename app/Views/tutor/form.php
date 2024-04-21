@@ -122,9 +122,6 @@
                             <input type="hidden" value="<?= isset($objPersona['foto']) ? $objPersona['foto'] : '' ?>" name="imagenActual">
                             <label class="custom-file-label" for="imageTutor">Elija una foto</label>
                         </div>
-                        <div class="input-group-append">
-                            <span class="input-group-text">Subir</span>
-                        </div>
                     </div>
                 </div>
             </div>

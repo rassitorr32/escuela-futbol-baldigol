@@ -30,6 +30,15 @@ class Pago extends BaseController
         $this->costo_model = new CostoModel();
         $this->persona_model = new PersonaModel();
     }
+
+    public function getPago($id_pago = null)
+    {
+        if ($id_pago == null)
+            return json_encode($this->pago_model->getPagosWithEstudiantes());
+        else
+            return json_encode($this->pago_model->getPagosWithEstudiantes($id_pago));
+    }
+
     public function generateTableModal($id_padre)
     {
         /**recuperar datos de la DB */
@@ -208,8 +217,8 @@ class Pago extends BaseController
     public function store()
     {
         $session = session();
-        $imagePago = $this->request->getFile('imageUser');
-        $image = ($imagePago->getName() == '') ? '' : $imagePago->getName();
+        $imagePago = $this->request->getFile('imagePago');
+        $image = ($imagePago == null) ? '' : $imagePago->getName();
         //Si no esta vacio significa que se subio una imagen
         if (!empty($image)) {
             // Genera un nombre único para la imagen
@@ -233,18 +242,36 @@ class Pago extends BaseController
         if (!empty($this->request->getPost('id_pago'))) {
             $id = $this->request->getPost('id_pago');
         }
+
+        $idCosto = $this->request->getPost('costo');
+        $idEstudiante = $this->request->getPost('estudiante');
+        $dep = $this->pago_model->selectSum('monto_pagado', 'monto_total')
+            ->selectCount('nro_cuota', 'cuota_total')
+            ->where('id_costo', $idCosto)
+            ->where('id_estudiante', $idEstudiante)->first();
+        $idPagoPadre = $this->pago_model->where('id_costo', $idCosto)
+            ->where('id_estudiante', $idEstudiante)->where('id_dep', null)->first();
+
+        if ($idPagoPadre != null) {
+            $depCosto = $this->costo_model->find($idPagoPadre['id_costo']);
+            if ($dep['cuota_total'] >= $depCosto['nro_cuotas_max']) {
+                return 'El pago ya cumplió sus cuotas';
+            }
+        }
+        //return var_dump($dep);
         $data = [
             'id_pago' => $id,
-            'id_costo' => $this->request->getPost('id_costo'),
-            'monto_pagado' => $this->request->getPost('monto_pagado'),
-            'fecha_pago' => $this->request->getPost('fecha_pago'),
+            'id_costo' => $idCosto,
+            'monto_pagado' => $this->request->getPost('monto'),
+            'fecha_pago' => date("Y-m-d H:i:s"),
             'nro_cuota' => 1,
-            'id_persona' => $this->request->getPost('id_persona'),
-            'id_estudiante' => $this->request->getPost('id_estudiante'),
-            'id_dep' => $idPagoPadre,
-            'id_usuario' => $this->request->getPost('id_usuario'),
+            'id_persona' => $idEstudiante,
+            'id_estudiante' => $this->request->getPost('persona'),
+            'id_dep' => $idPagoPadre != null ? $idPagoPadre['id_pago'] : null,
+            'id_usuario' => session('usuario')['id_usuario'],
             'archivo' => $image,
         ];
+        return  var_dump($data);
 
         if ($this->pago_model->save($data)) {
             $session->setFlashdata('sweet', ['success', ($id == null ? 'Guardado con exito!' : 'Modificación exitosa!')]);
@@ -285,6 +312,45 @@ class Pago extends BaseController
             return 'error';
         }
         //return redirect()->to('/usuario');
+    }
+
+    public function verificarCuota()
+    {
+        $idCosto = $this->request->getPost('idCosto');
+        $idEstudiante = $this->request->getPost('idEstudiante');
+        // $idPagoPadre = $this->pago_model->where('id_costo', $idCosto)
+        //     ->where('id_estudiante', $idEstudiante)->where('id_dep', null)->first();
+
+        $dep = $this->pago_model->selectSum('monto_pagado', 'monto_total')
+            ->selectCount('nro_cuota', 'cuota_total')
+            ->where('id_costo', $idCosto)
+            ->where('id_estudiante', $idEstudiante)->first();
+        if ($dep != null) {
+            $depCosto = $this->costo_model->find($idCosto);
+            if ($dep['cuota_total'] >= $depCosto['nro_cuotas_max']) {
+                return json_encode(false);
+            } else {
+                return json_encode(true);
+            }
+        }
+        return json_encode(true);
+    }
+
+    public function getPagoPadreJSON()
+    {
+        $idCosto = $this->request->getPost('idCosto');
+        $idEstudiante = $this->request->getPost('idEstudiante');
+
+        if ($idCosto != null && $idEstudiante != null) {
+            $infoPagoCostoCuota = $this->pago_model->select('costo.*')->selectMin('pago.id_pago', 'id_pago')->selectSum('pago.monto_pagado', 'monto_total')
+                ->selectCount('pago.nro_cuota', 'cuota_total')
+                ->where('pago.id_costo', $idCosto)
+                ->where('pago.id_estudiante', $idEstudiante)
+                ->join('costo', 'costo.id_costo=' . $idCosto)->first();
+            return json_encode($infoPagoCostoCuota['id_costo'] != null ? $infoPagoCostoCuota : false);
+        } else {
+            return json_encode(false);
+        }
     }
 
     public function edit($token = null)

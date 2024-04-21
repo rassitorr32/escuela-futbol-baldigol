@@ -1,12 +1,13 @@
 <!doctype html>
-<html lang="en" dir="ltr" translate="no">
+<html lang="es" dir="ltr" translate="no">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="icon" type="image/png" href="<?= base_url('assets/dist/img/pelota.png') ?>" />
     <title>Escuela de Futbol</title>
+
 
     <!-- Bootstrap Core and vandor -->
     <link rel="stylesheet" href="<?= base_url() ?>assets/plugins/bootstrap/css/bootstrap.css" />
@@ -34,14 +35,16 @@
 
 <style>
     body {
-    height: 100vh; /* 100% del viewport height */
-    margin: 0; /* Eliminar margen por defecto */
-    padding: 0; /* Eliminar padding por defecto */
-}
-
+        height: 100vh;
+        /* 100% del viewport height */
+        margin: 0;
+        /* Eliminar margen por defecto */
+        padding: 0;
+        /* Eliminar padding por defecto */
+    }
 </style>
 
-<body class="<?=session('configuracion')['font_setting']?> theme-<?=session('configuracion')['choose-skin']?> <?= session('configuracion')['darkmode'] == '1' ? 'dark-mode' : '' ?> <?= session('configuracion')['gradient'] == '1' ? 'gradient' : '' ?> <?= session('configuracion')['sidebar'] == '1' ? 'sidebar_dark' : '' ?> <?= session('configuracion')['rtl'] == '1' ? 'rtl' : '' ?> <?= session('configuracion')['boxlayout'] == '1' ? 'boxlayout' : '' ?> <?= session('configuracion')['iconcolor'] == '1' ? 'iconcolor' : '' ?>">
+<body class="<?= session('configuracion')['font_setting'] ?> theme-<?= session('configuracion')['choose-skin'] ?> <?= session('configuracion')['darkmode'] == '1' ? 'dark-mode' : '' ?> <?= session('configuracion')['gradient'] == '1' ? 'gradient' : '' ?> <?= session('configuracion')['sidebar'] == '1' ? 'sidebar_dark' : '' ?> <?= session('configuracion')['rtl'] == '1' ? 'rtl' : '' ?> <?= session('configuracion')['boxlayout'] == '1' ? 'boxlayout' : '' ?> <?= session('configuracion')['iconcolor'] == '1' ? 'iconcolor' : '' ?>">
     <!-- Page Loader -->
     <div class="page-loader-wrapper">
         <div class="loader">
@@ -70,9 +73,3 @@
                 </div>
             </div>
         </div>
-        
-
-
-
-        
-        

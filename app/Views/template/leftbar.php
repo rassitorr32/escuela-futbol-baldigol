@@ -78,5 +78,16 @@
         });
     });
 </script>
+<style>
+    /* Estilo base para la clase .page */
+    /* Estilo específico para la clase .page en modo oscuro */
+    
+
+    .dark-mode .page {
+        background: #272c31;
+    }
+
+   
+</style>
 <!-- Start project content area -->
 <div class="page">

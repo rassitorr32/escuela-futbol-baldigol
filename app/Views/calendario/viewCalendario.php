@@ -30,7 +30,7 @@
                             <select class="form-control" data-placeholder="Choose a color..." name="category-color">
                                 <option value="primary">Opcional</option>
                                 <option value="info">Bajo</option>
-                                <option value="success">Moderado</option>
+                                <option value="yellow">Moderado</option>
                                 <option value="warning">Importante</option>
                                 <option value="danger">Crucial</option>
                             </select>
@@ -85,7 +85,7 @@
                             <select name="event-bg" class="form-control">
                                 <option value="primary">Opcional</option>
                                 <option value="info">Bajo</option>
-                                <option value="success">Moderado</option>
+                                <option value="yellow">Moderado</option>
                                 <option value="warning">Importante</option>
                                 <option value="danger">Crucial</option>
                             </select>
@@ -147,7 +147,7 @@
                             <select name="event-bg" class="form-control">
                                 <option value="primary">Opcional</option>
                                 <option value="info">Bajo</option>
-                                <option value="success">Moderado</option>
+                                <option value="yellow">Moderado</option>
                                 <option value="warning">Importante</option>
                                 <option value="danger">Crucial</option>
                             </select>

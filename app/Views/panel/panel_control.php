@@ -1,4 +1,3 @@
-
 <!-- Start Page title and tab -->
 <div class="section-body">
     <div class="container-fluid">
@@ -22,7 +21,7 @@
             <div class="col-6 col-md-4 col-xl-2">
                 <div class="card">
                     <div class="card-body ribbon">
-                        <div class="ribbon-box green" data-toggle="tooltip" title="Nuevo Personal"><?=$totalNuevosUsuarios?></div>
+                        <div class="ribbon-box green" data-toggle="tooltip" title="Nuevo Personal"><?= $totalNuevosUsuarios ?></div>
                         <a href="<?= base_url() ?>usuario" class="my_sort_cut text-muted">
                             <i class="fa fa-user-circle-o"></i>
                             <span>Personal</span>
@@ -43,7 +42,7 @@
             <div class="col-6 col-md-4 col-xl-2">
                 <div class="card">
                     <div class="card-body ribbon">
-                        <div class="ribbon-box orange" data-toggle="tooltip" title="Nuevos estudiantes"><?=$totalNuevosEstudiantes?></div>
+                        <div class="ribbon-box orange" data-toggle="tooltip" title="Nuevos estudiantes"><?= $totalNuevosEstudiantes ?></div>
                         <a href="<?= base_url() ?>estudiante" class="my_sort_cut text-muted">
                             <i class="fa fa-users"></i>
                             <span>Estudiantes</span>
@@ -117,7 +116,10 @@
                                         </label>
                                     </div>
                                 </div>
-                                <div id="apex-chart-line-column"></div>
+                                <div class="chart-container">
+                                    <!-- Aquí va tu gráfico Apex -->
+                                    <div id="apex-chart-line-column"></div>
+                                </div>
                             </div>
                             <div class="card-footer">
                                 <div class="row">
@@ -223,7 +225,7 @@
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <?=$tableNuevosEstudiantes?>
+                                    <?= $tableNuevosEstudiantes ?>
                                     <!-- <table class="table table-striped mb-0 text-nowrap">
                                         <thead>
                                             <tr>

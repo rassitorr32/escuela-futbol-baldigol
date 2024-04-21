@@ -2,25 +2,21 @@
 <div class="section-body">
     <div class="container-fluid">
         <div class="d-flex justify-content-between align-items-center ">
-            <div class="header-action">
-                <h1 class="page-title">Mi Perfil</h1>
+        <div class="header-action">
+                <h1 class="page-title"><?= $title['page'] ?></h1>
                 <ol class="breadcrumb page-breadcrumb">
-                    <li class="breadcrumb-item"><a href="#">Pages</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">My Profile</li>
+                    <li class="breadcrumb-item"><a href="<?=$breadcrumb[0]['route']?>"><?=$breadcrumb[0]['title']?></a></li>
+                    <li class="breadcrumb-item active" aria-current="page"><?=$breadcrumb[1]['title']?></li>
                 </ol>
             </div>
             <ul class="nav nav-tabs page-header-tab">
                 <li class="nav-item">
                     <a class="nav-link active" id="pills-calendar-tab" data-toggle="pill" href="#pills-calendar" role="tab" aria-controls="pills-calendar" aria-selected="false">Calendar</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" id="pills-timeline-tab" data-toggle="pill" href="#pills-timeline" role="tab" aria-controls="pills-timeline" aria-selected="true">Timeline</a>
-                </li>
+                <li hidden></li>
+                <li hidden></li>
                 <li class="nav-item">
                     <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Profile</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" id="pills-blog-tab" data-toggle="pill" href="#pills-blog" role="tab" aria-controls="pills-blog" aria-selected="true">Blog</a>
                 </li>
             </ul>
         </div>
@@ -29,7 +25,7 @@
 <div class="section-body mt-4">
     <div class="container-fluid">
         <div class="row clearfix">
-            <div class="col-lg-3 col-md-6">
+            <!-- <div class="col-lg-3 col-md-6">
                 <div class="card">
                     <div class="card-body">
                         <div class="widgets1">
@@ -88,7 +84,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
             <div class="col-md-12">
                 <div class="tab-content" id="pills-tabContent">
                     <div class="tab-pane fade show active" id="pills-calendar" role="tabpanel" aria-labelledby="pills-calendar-tab">

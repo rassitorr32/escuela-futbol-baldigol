@@ -23,7 +23,7 @@
                         <div id="event-list" class="fc event_list">
                             <div class='fc-event bg-primary' data-class="bg-primary">Opcional</div>
                             <div class='fc-event bg-info' data-class="bg-info">Bajo</div>
-                            <div class='fc-event bg-success' data-class="bg-success">Moderado</div>
+                            <div class='fc-event bg-yellow' data-class="bg-yellow">Moderado</div>
                             <div class='fc-event bg-warning' data-class="bg-warning">Importante</div>
                             <div class='fc-event bg-danger' data-class="bg-danger">Crucial</div>
                         </div>
