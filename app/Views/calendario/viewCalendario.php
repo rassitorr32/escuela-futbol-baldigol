@@ -188,4 +188,25 @@
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function() {
+    // Seleccionar los checkbox por su clase
+    var checkbox = $('.form-control[type="checkbox"]');
+        $('.fecha-fin-container, .hora-inicio-container, .hora-fin-container').show();
+        // Crear un evento para hacer aparecer los inputs cuando el checkbox cambie de estado
+        checkbox.change(function() {
+            // Obtener el contenedor del checkbox
+            var checkboxContainer = $(this).closest('.col-md-12');
 
+            // Verificar si el checkbox está marcado
+            if (!$(this).is(':checked')) {
+                // Mostrar los contenedores de fecha y hora
+                checkboxContainer.nextAll('.fecha-fin-container, .hora-inicio-container, .hora-fin-container').show();
+            } else {
+                // Ocultar los contenedores de fecha y hora
+                checkboxContainer.nextAll('.hora-inicio-container, .hora-fin-container').hide();
+            }
+        });
+
+    });
+</script>
