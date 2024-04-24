@@ -5,12 +5,12 @@ function generateTable(idTable, tituloReporte) {
     "lengthChange": false,
     "autoWidth": true,
     "scrollX": false,
-    "pageLength": 2,
+    "pageLength": 10,
 
     "buttons": (idTable=='tableTurno'||idTable=='tableArea'||idTable=='tableComplejo'||idTable=='tableCargo'||idTable=='tableRol'||idTable=='tableCategoria')?false:[
       { extend: "excel", className: "btn btn-success", text: '<i class="fa fa-file-excel-o" aria-hidden="true"></i>', title: tituloReporte },
       { extend: "pdf", className: "btn btn-danger", text: '<i class="fa fa-file-pdf-o" aria-hidden="true"></i>', title: tituloReporte },
-      { extend: "print", className: "btn btn-primary", text: '<i class="fa fa-print" aria-hidden="true"></i>', title: tituloReporte },
+      { extend: "print", className: "btn btn-primary", text: '<i class="fa fa-print" aria-hidden="true"></i>', title: tituloReporte, exportOptions: { columns: ':not(:last-child)' } },//ocutar la ultima columna para sacar el reporte
       {
         extend: "colvis", className: "btn btn-secondary", text: "Ver"
       }

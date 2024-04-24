@@ -7,7 +7,7 @@
 <div class="modal-body">
     <div class="row">
         <div class="col-md-12 col-lg-4 text-center align-self-center">
-        <img src="<?= base_url() ?>assets/dist/img/estudiantes/<?= (isset($obj['foto'])&&file_exists(FCPATH.'assets/dist/img/estudiantes/'.$obj['foto']))? $obj['foto']:'user_default.png' ?>" alt="" width="240">
+        <img src="<?= base_url() ?>assets/dist/img/tutores/<?= (isset($obj['foto'])&&file_exists(FCPATH.'assets/dist/img/tutores/'.$obj['foto']))? $obj['foto']:'user_default.png' ?>" alt="" width="240">
         </div>
         <div class="col-md-12 col-lg-8">
             <table class="table">

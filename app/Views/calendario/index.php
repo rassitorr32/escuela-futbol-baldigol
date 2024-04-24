@@ -24,7 +24,7 @@
                             <div class='fc-event bg-primary' data-class="bg-primary">Opcional</div>
                             <div class='fc-event bg-info' data-class="bg-info">Bajo</div>
                             <div class='fc-event bg-yellow' data-class="bg-yellow">Moderado</div>
-                            <div class='fc-event bg-warning' data-class="bg-warning">Importante</div>
+                            <div class='fc-event bg-orange' data-class="bg-warning">Importante</div>
                             <div class='fc-event bg-danger' data-class="bg-danger">Crucial</div>
                         </div>
                     </div>
@@ -32,11 +32,11 @@
             </div>
             <style>
                 /* Aplica el scroll horizontal solo a partir de la clase 'col-md' de Bootstrap */
-@media (max-width: 576px) {
-    .card-body {
-        overflow-x: auto;
-    }
-}
+                @media (max-width: 576px) {
+                    .card-body {
+                        overflow-x: auto;
+                    }
+                }
             </style>
             <div class="col-lg-8 col-md-12">
                 <div class="card">

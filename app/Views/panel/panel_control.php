@@ -173,7 +173,7 @@
                         <div class="card">
                             <div class="card-header">
                                 <h3 class="card-title">Ultimas Sesiones</h3>
-                                <div class="card-options">
+                                <!-- <div class="card-options">
                                     <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
                                     <div class="item-action dropdown ml-2">
                                         <a href="javascript:void(0)" data-toggle="dropdown"><i class="fe fe-more-vertical"></i></a>
@@ -188,17 +188,17 @@
                                             <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fa fa-trash"></i> Delete</a>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                             <div class="table-responsive" style="height: 310px;">
                                 <?= $tableUltimoLogin ?>
                             </div>
-                            <div class="card-footer d-flex justify-content-between">
+                            <!-- <div class="card-footer d-flex justify-content-between">
                                 <div class="font-14"><span>Measure How Fast You’re Growing Monthly Recurring Revenue. <a href="#">View All</a></span></div>
                                 <div>
                                     <button type="button" class="btn btn-primary">Export</button>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                     <div class="col-xl-6 col-lg-6 col-md-12">

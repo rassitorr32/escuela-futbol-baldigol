@@ -54,13 +54,14 @@
             <div class="col-md-3 col-sm-6">
                 <div class="form-group">
                     <label>Extensión CI</label>
+                    <?php $id_select = isset($obj) ? $obj['extension'] : '' ?>
                     <select class="form-control show-tick" name="extension">
-                        <option value="" disabled>-- Seleccionar --</option>
-                        <option value="tj">tj</option>
-                        <option value="po">po</option>
-                        <option value="bn">bn</option>
-                        <option value="sc">sc</option>
-                        <option value="lp">lp</option>
+                        <option value="" selected disabled>-- Seleccionar --</option>
+                        <option value="tj" <?= $id_select == 'tj' ? 'selected' : '' ?>>tj</option>
+                        <option value="po" <?= $id_select == 'po' ? 'selected' : '' ?>>po</option>
+                        <option value="bn" <?= $id_select == 'bn' ? 'selected' : '' ?>>bn</option>
+                        <option value="sc" <?= $id_select == 'sc' ? 'selected' : '' ?>>sc</option>
+                        <option value="lp" <?= $id_select == 'lp' ? 'selected' : '' ?>>lp</option>
                     </select>
                 </div>
             </div>
@@ -127,7 +128,7 @@
             </div>
             <div class="col-sm-12 text-center">
                 <div class="form-group">
-                    <img src="<?= base_url() ?>assets/dist/img/tutores/<?= (isset($objPersona['foto']) && file_exists(FCPATH . 'assets/dist/img/estudiantes/' . $objPersona['foto'])) ? $objPersona['foto'] : 'user_default.png' ?>" alt="" width="200" class="img-thumbnail previsualizar">
+                    <img src="<?= base_url() ?>assets/dist/img/tutores/<?= (isset($objPersona['foto']) && file_exists(FCPATH . 'assets/dist/img/tutores/' . $objPersona['foto'])) ? $objPersona['foto'] : 'user_default.png' ?>" alt="" width="200" class="img-thumbnail previsualizar">
                 </div>
             </div>
             <?php if (!isset($obj)) : ?>
@@ -180,13 +181,16 @@
                 nombre: {
                     required: true,
                     minlength: 3,
+                    pattern: /^[A-Za-zñÑ\s]+$/
                 },
                 ap_paterno: {
                     required: true,
                     minlength: 3,
+                    pattern: /^[A-Za-zñÑ\s]+$/
                 },
                 ap_materno: {
                     minlength: 3,
+                    pattern: /^[A-Za-zñÑ\s]+$/
                 },
                 extension: {
                     required: true
@@ -198,13 +202,31 @@
                     required: true
                 },
                 direccion: {
-                    required: true
+                    required: true,
+                    pattern: /^[A-Za-zñÑ\s]+$/
                 },
                 nacionalidad: {
                     required: true,
+                    pattern: /^[A-Za-zñÑ\s]+$/
                 }
             },
-            messages: {},
+            messages: {
+                nombre: {
+                    pattern: "Por favor, ingrese solo letras, números y espacios."
+                },
+                ap_paterno: {
+                    pattern: "Por favor, ingrese solo letras, números y espacios."
+                },
+                ap_materno: {
+                    pattern: "Por favor, ingrese solo letras, números y espacios."
+                },
+                direccion: {
+                    pattern: "Por favor, ingrese solo letras, números y espacios."
+                },
+                nacionalidad: {
+                    pattern: "Por favor, ingrese solo letras, números y espacios."
+                },
+            },
             errorElement: 'span',
             errorPlacement: function(error, element) {
                 error.addClass('invalid-feedback');

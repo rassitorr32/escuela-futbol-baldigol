@@ -39,4 +39,10 @@ class ServicioModel extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
+
+    // Obtener los subservicio bajo un servicio
+    public function getSubservicioByServicio($id_dep = null)
+    {
+        return $this->where('id_dep', $id_dep)->findAll();
+    }
 }

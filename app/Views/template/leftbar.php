@@ -34,7 +34,7 @@
                         <li <?= session()->get('leftbar_link') == 'Area' ? 'class="active"' : '' ?>><a href="<?= base_url() ?>area"><i class="fa fa-map-pin fa-credit-card"></i><span>Area</span></a></li>
                         <li <?= session()->get('leftbar_link') == 'Turno' ? 'class="active"' : '' ?>><a href="<?= base_url() ?>turno"><i class="fa fa-clock-o" style="color:<?= session('configuracion')['iconcolor'] == '1' ? '#21ba45' : 'rgba(255, 255, 255, 0.9)' ?>"></i><span>Turno</span></a></li>
                         <li <?= session()->get('leftbar_link') == 'Servicio' ? 'class="active"' : '' ?>><a href="<?= base_url() ?>servicio"><i class="fa fa-flag"></i><span>Servicio</span></a></li>
-                        <li <?= session()->get('leftbar_link') == 'Servicio' ? 'class="active"' : '' ?>><a href="<?= base_url() ?>costo"><i class="fa fa-money" style="color:<?= session('configuracion')['iconcolor'] == '1' ? '#17a2b8' : 'rgba(255, 255, 255, 0.9)' ?>"></i><span>Costo</span></a></li>
+                        <li <?= session()->get('leftbar_link') == 'Costo' ? 'class="active"' : '' ?>><a href="<?= base_url() ?>costo"><i class="fa fa-money" style="color:<?= session('configuracion')['iconcolor'] == '1' ? '#17a2b8' : 'rgba(255, 255, 255, 0.9)' ?>"></i><span>Costo</span></a></li>
                         <li <?= session()->get('leftbar_link') == 'Temporada' ? 'class="active"' : '' ?>><a href="<?= base_url() ?>temporada"><i class="fa fa-calendar-check-o"></i><span>Temporada</span></a></li>
                         <!-- <li><a href="setting.html"><i class="fa fa-gear"></i><span>Settings</span></a></li> -->
                     </ul>
@@ -82,7 +82,10 @@
     /* Estilo base para la clase .page */
     /* Estilo específico para la clase .page en modo oscuro */
     
-
+    .page {
+      min-height: 100vh; /* Establece la altura mínima del viewport */
+      /*padding-top: 56px; /* Ajusta el desplazamiento para evitar que se superponga la barra de navegación (si se está utilizando una barra de navegación fija) */
+    }
     .dark-mode .page {
         background: #272c31;
     }

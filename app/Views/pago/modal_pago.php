@@ -5,7 +5,7 @@
     </button>
 </div>
 <div class="modal-body">
-    <button type="button" class="btn btn-primary mb-3" id="cerrarModal"><i class="fa fa-plus"></i></button>
+    <button type="button" class="btn btn-primary mb-3" id="cerrarModal" <?=isset($pago_completo)&&$pago_completo==false?'style="display: none;"':''?>><i class="fa fa-plus"></i></button>
     <div class="row justify-content-center">
         <div class="table-responsive card">
             <?= $table ?>

@@ -41,7 +41,7 @@
             </div>
             <div class="col-md-4 col-sm-12">
                 <div class="form-group">
-                    <label>Fecha de Nacimiento</label>
+                    <label>F. Nacimiento</label>
                     <input type="date" data-provide="datepicker" data-date-autoclose="true" class="form-control" placeholder="Date of Birth" name="fechaNac" value="<?= isset($objPersona) ? $objPersona['fecha_nac'] : '' ?>">
                 </div>
             </div>
@@ -53,10 +53,24 @@
             </div>
             <div class="col-md-4 col-sm-12">
                 <div class="form-group">
+                    <label>Extensión CI</label>
+                    <?php $id_select = isset($objPersona) ? $objPersona['extension'] : '' ?>
+                    <select class="form-control show-tick" name="extension">
+                        <option value="" selected disabled>-- Seleccionar --</option>
+                        <option value="tj" <?= $id_select == 'tj' ? 'selected' : '' ?>>tj</option>
+                        <option value="po" <?= $id_select == 'po' ? 'selected' : '' ?>>po</option>
+                        <option value="bn" <?= $id_select == 'bn' ? 'selected' : '' ?>>bn</option>
+                        <option value="sc" <?= $id_select == 'sc' ? 'selected' : '' ?>>sc</option>
+                        <option value="lp" <?= $id_select == 'lp' ? 'selected' : '' ?>>lp</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-12">
+                <div class="form-group">
                     <label>Género</label>
                     <?php $id_select = isset($objPersona) ? $objPersona['sexo'] : '' ?>
                     <select class="form-control show-tick" name="genero">
-                        <option value="" disabled>-- Seleccionar --</option>
+                        <option value="" selected disabled>-- Seleccionar --</option>
                         <option value="1" <?= $id_select == '1' ? 'selected' : '' ?>>Másculino</option>
                         <option value="0" <?= $id_select == '0' ? 'selected' : '' ?>>Femenino</option>
                     </select>
@@ -123,17 +137,23 @@
             </div>
             <?php if (!isset($obj)) : ?>
                 <div class="col-sm-12">
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
                     <button type="submit" class="btn btn-outline-secondary">Cancel</button>
                 </div>
             <?php endif; ?>
         </div>
         <?php if (isset($obj)) : ?>
         </div>
-        <div class="modal-footer justify-content-between">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-            <button type="submit" class="btn btn-primary">Guardar</button>
-        </div>
+        <?php if (session()->get('leftbar_link') != 'Perfil') : ?>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn btn-primary">Guardar</button>
+            </div>
+        <?php else : ?>
+            <div class="card-footer text-right">
+                <button type="submit" class="btn btn-primary">Actualizar Perfil</button>
+            </div>
+        <?php endif; ?>
     <?php endif; ?>
 </form>
 
@@ -145,7 +165,7 @@
                 $('#FRegUsuario button[type="submit"]').attr('disabled', 'disabled');
                 // Opcional: Cambiar el texto del botón a "Enviando..."
                 $('#FRegUsuario button[type="submit"]').html('Enviando...');
-                Store("<?= base_url() ?>usuario/store", "<?= base_url() ?>usuario", '#<?= (isset($obj)) ? 'FEditUsuario' : 'FRegUsuario' ?>');
+                Store("<?= base_url() ?>usuario/store", "<?= base_url() ?><?= (session()->get('leftbar_link') != 'Perfil')? 'usuario' :'perfil' ?>", '#<?= (isset($obj)) ? 'FEditUsuario' : 'FRegUsuario' ?>');
             }
         });
         $('#<?= (isset($obj)) ? 'FEditUsuario' : 'FRegUsuario' ?>').validate({
@@ -154,7 +174,7 @@
                     required: true,
                     minlength: 3,
                 },
-                apellido: {
+                ap_paterno: {
                     required: true,
                     minlength: 3,
                 },
@@ -177,6 +197,12 @@
                         }
                     }
                 },
+                ci: {
+                    required: true
+                },
+                cargo: {
+                    required: true
+                },
                 fechaNac: {
                     required: true,
                 },
@@ -184,6 +210,9 @@
                     required: true
                 },
                 rol: {
+                    required: true
+                },
+                cargo: {
                     required: true
                 },
                 contraseña: {

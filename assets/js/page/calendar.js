@@ -1,7 +1,5 @@
 $(function () {
 
-
-
     enableDrag();
     function enableDrag() {
         $('#external-events .fc-event').each(function () {
@@ -30,25 +28,25 @@ $(function () {
     });
 
     // Agregar evento para eliminar eventos del calendario
-    $("-delte-btn").on('click', function () {
-        var eventId = $(this).data('event-id'); // Obtener el ID del evento desde el atributo data-event-id
-        var calEvent = calendar.fullCalendar('clientEvents', eventId); // Buscar el evento en el calendario
-        if (calEvent.length > 0) {
-            calendar.fullCalendar('removeEvents', eventId); // Eliminar el evento del calendario
-            // Aquí puedes enviar el ID del evento al servidor para eliminarlo de la base de datos por AJAX
-            // $.ajax({
-            //     type: "POST",
-            //     url: 'calendario/delete', // URL para eliminar el evento
-            //     data: { eventId: eventId }, // Datos adicionales para identificar el evento
-            //     success: function (response) {
-            //         console.log('Evento eliminado exitosamente:', response);
-            //     },
-            //     error: function (xhr, status, error) {
-            //         console.error('Error al eliminar el evento:', error);
-            //     }
-            // });
-        }
-    });
+    // $("-delte-btn").on('click', function () {
+    //     var eventId = $(this).data('event-id'); // Obtener el ID del evento desde el atributo data-event-id
+    //     var calEvent = calendar.fullCalendar('clientEvents', eventId); // Buscar el evento en el calendario
+    //     if (calEvent.length > 0) {
+    //         calendar.fullCalendar('removeEvents', eventId); // Eliminar el evento del calendario
+    //         // Aquí puedes enviar el ID del evento al servidor para eliminarlo de la base de datos por AJAX
+    //         // $.ajax({
+    //         //     type: "POST",
+    //         //     url: 'calendario/delete', // URL para eliminar el evento
+    //         //     data: { eventId: eventId }, // Datos adicionales para identificar el evento
+    //         //     success: function (response) {
+    //         //         console.log('Evento eliminado exitosamente:', response);
+    //         //     },
+    //         //     error: function (xhr, status, error) {
+    //         //         console.error('Error al eliminar el evento:', error);
+    //         //     }
+    //         // });
+    //     }
+    // });
 
 
 

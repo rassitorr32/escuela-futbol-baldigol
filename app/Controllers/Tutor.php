@@ -42,7 +42,7 @@ class Tutor extends BaseController
                 $value['foto']==null || $value['foto'] == 'user_default.png' || !file_exists(FCPATH . 'assets/dist/img/tutores/' . $value['foto']) ? '<div class="avatar avatar-pink" data-toggle="tooltip" data-placement="top" title="" data-original-title="Avatar Name">
                 <span>' . strtoupper(substr($value['nombres'], 0, 1)) . strtoupper(substr($value['ap_paterno'], 0, 1)) . '</span>
             </div>' :
-                    '<span class="avatar" style="background-image: url('."'". base_url() . 'assets/dist/img/estudiantes/' . $value['foto'] ."'".')"></span>',
+                    '<span class="avatar" style="background-image: url('."'". base_url() . 'assets/dist/img/tutores/' . $value['foto'] ."'".')"></span>',
                 $value['nombres'],
                 $value['ap_paterno'],
                 $value['ap_materno'],
@@ -157,7 +157,7 @@ class Tutor extends BaseController
                 // Obtiene la ubicación temporal del archivo de imagen
                 $archImage = $imageUser->getTempName();
                 // Ruta base donde se guardarán las imágenes
-                $rutaBase = "./assets/dist/img/estudiantes/";
+                $rutaBase = "./assets/dist/img/tutores/";
                 // Ruta completa donde se moverá la imagen
                 $rutaDestino = $rutaBase . $image;
 

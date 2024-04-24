@@ -101,43 +101,44 @@
                 <div class="form-group">
                     <label>C.I.</label>
                     <input type="text" class="form-control" name="ci" value="">
-                    <input type="hidden" name="id_persona" value="">
+                    <input type="hidden" name="id_persona" value="<?= isset($obj) ? $obj['id_persona'] : '' ?>">
                 </div>
             </div>
             <div class="col-md-4 col-sm-12">
                 <div class="form-group">
                     <label>Nombre(s)</label>
-                    <input type="text" class="form-control" name="nombre" value="">
+                    <input type="text" class="form-control" name="nombre" value="<?= isset($obj) ? $obj['nombres'] : '' ?>">
                 </div>
             </div>
             <div class="col-md-4 col-sm-12">
                 <div class="form-group">
                     <label>Ap. Paterno</label>
-                    <input type="text" class="form-control" name="ap_paterno" value="">
+                    <input type="text" class="form-control" name="ap_paterno" value="<?= isset($obj) ? $obj['ap_paterno'] : '' ?>">
                 </div>
             </div>
             <div class="col-md-3 col-sm-12">
                 <div class="form-group">
                     <label>Ap. Materno</label>
-                    <input type="text" class="form-control" name="ap_materno" placeholder="--Opcional--" value="">
+                    <input type="text" class="form-control" name="ap_materno" placeholder="--Opcional--" value="<?= isset($obj) ? $obj['ap_materno'] : '' ?>">
                 </div>
             </div>
             <div class="col-md-3 col-sm-12">
                 <div class="form-group">
                     <label>F. Nacimiento</label>
-                    <input type="date" data-provide="datepicker" data-date-autoclose="true" class="form-control" placeholder="Date of Birth" name="fechaNac" value="">
+                    <input type="date" data-provide="datepicker" data-date-autoclose="true" class="form-control" placeholder="Date of Birth" name="fechaNac" value="<?= isset($obj) ? $obj['fecha_nac'] : '' ?>">
                 </div>
             </div>
             <div class="col-md-3 col-sm-6">
                 <div class="form-group">
                     <label>Extensión CI</label>
+                    <?php $id_select = isset($objPersona) ? $objPersona['extension'] : '' ?>
                     <select class="form-control show-tick" name="extension">
                         <option value="" selected disabled>-- Seleccionar --</option>
-                        <option value="tj">tj</option>
-                        <option value="po">po</option>
-                        <option value="bn">bn</option>
-                        <option value="sc">sc</option>
-                        <option value="lp">lp</option>
+                        <option value="tj" <?= $id_select == 'tj' ? 'selected' : '' ?>>tj</option>
+                        <option value="po" <?= $id_select == 'po' ? 'selected' : '' ?>>po</option>
+                        <option value="bn" <?= $id_select == 'bn' ? 'selected' : '' ?>>bn</option>
+                        <option value="sc" <?= $id_select == 'sc' ? 'selected' : '' ?>>sc</option>
+                        <option value="lp" <?= $id_select == 'lp' ? 'selected' : '' ?>>lp</option>
                     </select>
                 </div>
             </div>
@@ -251,7 +252,7 @@
     // In your Javascript (external .js resource or <script> tag)
     $(document).ready(function() {
 
-        encontrarPagoPadre($('#<?= (isset($obj)) ? 'FEditPago' : 'FRegPago' ?> select[name="costo"]').val(), $('#<?= (isset($obj)) ? 'FEditPago' : 'FRegPago' ?> select[name="estudiante"]').val());
+        cargarDatosCosto($('#<?= (isset($obj)) ? 'FEditPago' : 'FRegPago' ?> select[name="costo"]').val(), $('#<?= (isset($obj)) ? 'FEditPago' : 'FRegPago' ?> select[name="estudiante"]').val());
         //Mostrar el buscador de persona
         $('#<?= (isset($obj)) ? 'FEditPago' : 'FRegPago' ?> input[name="checkPersona"]').change(function() {
             if ($(this).is(":checked")) {
@@ -288,19 +289,32 @@
             // // minimumResultsForSearch: Infinity, // Ocultar la barra de búsqueda
 
         });
+        $('#<?= (isset($obj)) ? 'FEditPago' : 'FRegPago' ?> select[name="servicio"]').select2({
+            //theme: 'bootstrap4',
+            placeholder: '-- Seleccione Servicio --', // Texto del placeholder
+            width: '100%', // Ancho del select
+            // // minimumResultsForSearch: Infinity, // Ocultar la barra de búsqueda
+
+        });
         // Deshabilitar el Select2
         $('#<?= (isset($obj)) ? 'FEditPago' : 'FRegPago' ?> select[name="estudiante"]').prop('disabled', <?= isset($obj['id_pago']) ? 'true' : 'false' ?>);
         // Cuando se cambia la selección del primer select
         $('#<?= (isset($obj)) ? 'FEditPago' : 'FRegPago' ?> select[name="estudiante"]').change(function() {
             $('#<?= (isset($obj)) ? 'FEditPago' : 'FRegPago' ?> input[name="monto"]').val('');
-            // Restablecer el estado del input
 
+            if ($('#<?= (isset($obj)) ? 'FEditPago' : 'FRegPago' ?> select[name="costo"]').val() != '') {
+                var form = $('#<?= (isset($obj)) ? 'FEditPago' : 'FRegPago' ?>');
+
+                // Forzar la validación del input con el nombre 'nombre_input'
+                form.validate().element('[name="costo"]');
+            }
             // Restablecer el estado del input y su mensaje de error
             $('#<?= (isset($obj)) ? 'FEditPago' : 'FRegPago' ?> input[name="monto"]').removeClass('is-invalid').closest('.form-group').find('.invalid-feedback').hide();
-            encontrarPagoPadre($('#<?= (isset($obj)) ? 'FEditPago' : 'FRegPago' ?> select[name="costo"]').val(), $('#<?= (isset($obj)) ? 'FEditPago' : 'FRegPago' ?> select[name="estudiante"]').val());
+            // $('#<?= (isset($obj)) ? 'FEditPago' : 'FRegPago' ?> input[name="nro_cuotas_max"]').val('')
+            cargarDatosCosto($('#<?= (isset($obj)) ? 'FEditPago' : 'FRegPago' ?> select[name="costo"]').val(), $('#<?= (isset($obj)) ? 'FEditPago' : 'FRegPago' ?> select[name="estudiante"]').val());
         });
         // Cuando se cambia la selección del primer select
-        $('.selectServicio').change(function() {
+        $('#<?= (isset($obj)) ? 'FEditPago' : 'FRegPago' ?> .selectServicio').change(function() {
             // Obtener el valor seleccionado del primer select
             var selectedOption = $(this).val();
 
@@ -318,6 +332,8 @@
                     // Verificar si el arreglo no está vacío
                     // Limpiar el segundo select
                     $('#<?= (isset($obj)) ? 'FEditPago' : 'FRegPago' ?> select[name="costo"]').empty();
+                    // Restablecer el estado del input y su mensaje de error
+                    $('#<?= (isset($obj)) ? 'FEditPago' : 'FRegPago' ?> select[name="costo"]').removeClass('is-invalid').closest('.form-group').find('.invalid-feedback').hide();
                     $('#<?= (isset($obj)) ? 'FEditPago' : 'FRegPago' ?> select[name="costo"]').append('<option value="" selected disabled>-- Seleccionar Costo --</option>');
                     $('#<?= (isset($obj)) ? 'FEditPago' : 'FRegPago' ?> input[name="monto"]').val('');
                     $('#<?= (isset($obj)) ? 'FEditPago' : 'FRegPago' ?> input[name="monto"]').prop('disabled', true);
@@ -346,69 +362,31 @@
         // Cuando se cambia la selección del primer select
         $('#<?= (isset($obj)) ? 'FEditPago' : 'FRegPago' ?> select[name="costo"]').change(function() {
             // Obtener el valor seleccionado del primer select
-            var selectedOption = $(this).val();
+            var selectIdCosto = $(this).val();
+            var selectIdEstudiante = $('#<?= (isset($obj)) ? 'FEditPago' : 'FRegPago' ?> select[name="estudiante"]').val();
 
-            if (selectedOption === '') {
+            if (selectIdCosto === '') {
                 // Bloquear el segundo select
                 $('#<?= (isset($obj)) ? 'FEditPago' : 'FRegPago' ?> input[name="monto"]').prop('disabled', true);
                 $('#<?= (isset($obj)) ? 'FEditPago' : 'FRegPago' ?> input[name="valor_total"]').val('');
             } else {
                 // Desbloquear el segundo select
                 $('#<?= (isset($obj)) ? 'FEditPago' : 'FRegPago' ?> input[name="monto"]').prop('disabled', false);
-                // Realizar una solicitud AJAX para obtener opciones basadas en el valor seleccionado del primer select
-                $.ajax({
-                    url: 'costo/getFindCostoJSON/' + selectedOption, // URL a tu archivo PHP que maneja la solicitud AJAX
-                    type: 'GET', // Método de la solicitud
-                    data: '', // Datos a enviar (si es necesario)
-                    success: function(data) {
-                        // Convertir la cadena de texto JSON a un objeto JavaScript
-                        var jsonData = JSON.parse(data);
-                        console.log(jsonData)
-                        $('#<?= (isset($obj)) ? 'FEditPago' : 'FRegPago' ?> input[name="valor_total"]').val(jsonData.valor);
+                cargarDatosCosto($('#<?= (isset($obj)) ? 'FEditPago' : 'FRegPago' ?> select[name="costo"]').val(), $('#<?= (isset($obj)) ? 'FEditPago' : 'FRegPago' ?> select[name="estudiante"]').val());
+                var form = $('#<?= (isset($obj)) ? 'FEditPago' : 'FRegPago' ?>');
 
-                        var form = $('#<?= (isset($obj)) ? 'FEditPago' : 'FRegPago' ?>');
+                // Forzar la validación del input con el nombre 'nombre_input'
+                form.validate().element('[name="costo"]');
 
-                        // Forzar la validación del input con el nombre 'nombre_input'
-                        form.validate().element('[name="costo"]');
-
-                        $('#<?= (isset($obj)) ? 'FEditPago' : 'FRegPago' ?> input[name="monto"]').val('');
-                        $('#<?= (isset($obj)) ? 'FEditPago' : 'FRegPago' ?> input[name="monto"]').removeClass('is-invalid').closest('.form-group').find('.invalid-feedback').hide();
-                    },
-                    error: function(xhr, status, error) {
-                        console.error('Error al cargar opciones:', error);
-                    }
-                });
-                encontrarPagoPadre($('#<?= (isset($obj)) ? 'FEditPago' : 'FRegPago' ?> select[name="costo"]').val(), $('#<?= (isset($obj)) ? 'FEditPago' : 'FRegPago' ?> select[name="estudiante"]').val());
-                // $.ajax({
-                //     url: 'costo/getPagoCostoEstudianteJSON/' + selectedOption, // URL a tu archivo PHP que maneja la solicitud AJAX
-                //     type: 'post', // Método de la solicitud
-                //     data: {
-                //         idCosto: function() {
-                //             return $('#<?= (isset($obj)) ? 'FEditPago' : 'FRegPago' ?> select[name="costo"]').val();
-                //         },
-                //         idEstudiante: function() {
-                //             return $('#<?= (isset($obj)) ? 'FEditPago' : 'FRegPago' ?> select[name="estudiante"]').val();
-                //         }
-                //     }, // Datos a enviar (si es necesario)
-                //     success: function(data) {
-                //         // Convertir la cadena de texto JSON a un objeto JavaScript
-                //         var jsonData = JSON.parse(data);
-                //         console.log(jsonData)
-                //         $('#<?= (isset($obj)) ? 'FEditPago' : 'FRegPago' ?> input[name="nro_cuotas_max"]').val(jsonData.nro_cuotas);
-                //         $('#<?= (isset($obj)) ? 'FEditPago' : 'FRegPago' ?> input[name="total_cuotas"]').val(jsonData.total_cuotas);
-                //         encontrarPagoPadre($('#<?= (isset($obj)) ? 'FEditPago' : 'FRegPago' ?> select[name="costo"]').val(), $('#<?= (isset($obj)) ? 'FEditPago' : 'FRegPago' ?> select[name="estudiante"]').val());
-                //     },
-                //     error: function(xhr, status, error) {
-                //         console.error('Error al cargar opciones:', error);
-                //     }
-                // });
+                $('#<?= (isset($obj)) ? 'FEditPago' : 'FRegPago' ?> input[name="monto"]').val('');
+                $('#<?= (isset($obj)) ? 'FEditPago' : 'FRegPago' ?> input[name="monto"]').removeClass('is-invalid').closest('.form-group').find('.invalid-feedback').hide();
             }
         });
 
-        function encontrarPagoPadre(idCosto, idEstudiante) {
+        function cargarDatosCosto(idCosto, idEstudiante) {
             console.log(idCosto + ' ' + idEstudiante)
             $.ajax({
-                url: 'pago/getPagoPadreJSON', // URL a tu archivo PHP que maneja la solicitud AJAX
+                url: 'pago/getCostoJSON', // URL a tu archivo PHP que maneja la solicitud AJAX
                 type: 'post', // Método de la solicitud
                 data: {
                     idCosto: idCosto,
@@ -418,19 +396,31 @@
                     // Convertir la cadena de texto JSON a un objeto JavaScript
                     var jsonData = JSON.parse(data);
                     console.log(jsonData)
-                    $('#<?= (isset($obj)) ? 'FEditPago' : 'FRegPago' ?> input[name="nro_cuotas_max"]').val(jsonData.cuota_total);
-                    $('#<?= (isset($obj)) ? 'FEditPago' : 'FRegPago' ?> input[name="total_cuotas"]').val(jsonData.nro_cuotas_max);
-                    $('#<?= (isset($obj)) ? 'FEditPago' : 'FRegPago' ?> input[name="monto_pagado"]').val(jsonData.monto_total);
-                    var cuota_total = $('#<?= (isset($obj)) ? 'FEditPago' : 'FRegPago' ?> input[name="nro_cuotas_max"]').val();
-                    var cuota_max = $('#<?= (isset($obj)) ? 'FEditPago' : 'FRegPago' ?> input[name="total_cuotas"]').val();
-                    if (cuota_max != '' && cuota_total != '' && cuota_max === cuota_total) {
-                        $('#<?= (isset($obj)) ? 'FEditPago' : 'FRegPago' ?> input[name="monto"]').val('');
-                        $('#<?= (isset($obj)) ? 'FEditPago' : 'FRegPago' ?> input[name="monto"]').prop('disabled', true);
-                        // Restablecer el estado del input
+                    if (jsonData != false) {
+                        $('#<?= (isset($obj)) ? 'FEditPago' : 'FRegPago' ?> input[name="total_cuotas"]').val(jsonData.cuota_total == 0 ? '' : jsonData.cuota_total);
+                        $('#<?= (isset($obj)) ? 'FEditPago' : 'FRegPago' ?> input[name="monto_pagado"]').val(jsonData.monto_total == null ? '' : jsonData.monto_total);
+                        // if ($('#<?= (isset($obj)) ? 'FEditPago' : 'FRegPago' ?> input[name="nro_cuotas_max"]').val() == '')
+                        $('#<?= (isset($obj)) ? 'FEditPago' : 'FRegPago' ?> input[name="nro_cuotas_max"]').val(jsonData.nro_cuotas_max);
+                        $('#<?= (isset($obj)) ? 'FEditPago' : 'FRegPago' ?> input[name="valor_total"]').val(jsonData.valor_costo);
+                        var cuota_total = $('#<?= (isset($obj)) ? 'FEditPago' : 'FRegPago' ?> input[name="nro_cuotas_max"]').val();
+                        var cuota_max = $('#<?= (isset($obj)) ? 'FEditPago' : 'FRegPago' ?> input[name="total_cuotas"]').val();
+                        if (cuota_max != '' && cuota_total != '' && cuota_max === cuota_total) {
+                            $('#<?= (isset($obj)) ? 'FEditPago' : 'FRegPago' ?> input[name="monto"]').val('');
+                            $('#<?= (isset($obj)) ? 'FEditPago' : 'FRegPago' ?> input[name="monto"]').prop('disabled', true);
+                            // Restablecer el estado del input
 
-                        // Restablecer el estado del input y su mensaje de error
-                        $('#<?= (isset($obj)) ? 'FEditPago' : 'FRegPago' ?> input[name="monto"]').removeClass('is-invalid').closest('.form-group').find('.invalid-feedback').hide();
+                            // Restablecer el estado del input y su mensaje de error
+                            $('#<?= (isset($obj)) ? 'FEditPago' : 'FRegPago' ?> input[name="monto"]').removeClass('is-invalid').closest('.form-group').find('.invalid-feedback').hide();
 
+                        } else {
+                            $('#<?= (isset($obj)) ? 'FEditPago' : 'FRegPago' ?> input[name="monto"]').val('');
+                            $('#<?= (isset($obj)) ? 'FEditPago' : 'FRegPago' ?> input[name="monto"]').prop('disabled', false);
+                            // Restablecer el estado del input
+
+                            // Restablecer el estado del input y su mensaje de error
+                            $('#<?= (isset($obj)) ? 'FEditPago' : 'FRegPago' ?> input[name="monto"]').removeClass('is-invalid').closest('.form-group').find('.invalid-feedback').hide();
+
+                        }
                     }
                 },
                 error: function(xhr, status, error) {
@@ -440,7 +430,7 @@
         }
 
         // Cuando se cambia la selección del primer select
-        $('.selectPersona').change(function() {
+        $('#<?= (isset($obj)) ? 'FEditPago' : 'FRegPago' ?> .selectPersona').change(function() {
             // Obtener el valor seleccionado del primer select
             var selectedOption = $(this).val();
 
@@ -551,7 +541,7 @@
                 },
                 costo: {
                     required: true,
-                    // Agrega una regla de validación personalizada para verificar si ya se pago el costo del servicio
+                    // Agrega una regla de validación remota para verificar si ya se pago el costo del servicio
                     remote: {
                         url: "<?= base_url() ?>pago/verificarCuota",
                         type: "POST",
@@ -564,7 +554,10 @@
                             idEstudiante: function() {
                                 return $('#<?= (isset($obj)) ? 'FEditPago' : 'FRegPago' ?> select[name="estudiante"]').val();
                             }
-                        }
+                        },
+                        // success: function(data) {
+                        //     console.log("Respuesta de la petición POST:", data);
+                        // }
                     }
                 },
                 monto: {
@@ -588,33 +581,7 @@
                         console.log('valor max:' + valorMaximo)
                         return valorMaximo;
                     },
-                    validarMonto:true,
-                    // equalTo: function() {
-                    //     var valorPagado = $('<?= isset($obj) ? '#FEditPago' : '#FRegPago' ?> input[name="monto_pagado"]').val();
-                    //     valorPagado = (valorPagado ? valorPagado : 0);
-                    //     valorPagado = parseFloat(valorPagado);
-                    //     var valorTotal = $('<?= isset($obj) ? '#FEditPago' : '#FRegPago' ?> input[name="valor_total"]').val();
-                    //     valorTotal = valorTotal ? parseFloat(valorTotal) : 0;
-                    //     var nroCuotas = $('<?= isset($obj) ? '#FEditPago' : '#FRegPago' ?> input[name="nro_cuotas_max"]').val();
-                    //     nroCuotas = nroCuotas ? parseInt(nroCuotas) : 0;
-                    //     var totalCuotas = $('<?= isset($obj) ? '#FEditPago' : '#FRegPago' ?> input[name="total_cuotas"]').val();
-                    //     totalCuotas = totalCuotas ? parseInt(totalCuotas) : 0;
-                    //     var valorAIgualar = valorTotal - valorPagado
-                    //     var monto = $('<?= isset($obj) ? '#FEditPago' : '#FRegPago' ?> input[name="monto"]').val();
-                    //     // monto = (monto ? monto : 0);
-                    //     // monto = parseFloat(monto);
-                    //     // valorAIgualar = (totalCuotas - nroCuotas) === 1 ? valorAIgualar : monto;
-                    //     console.log(valorAIgualar + '  ds  ' + monto)
-                    //     var nuevoInput = $('<input>', {
-                    //         type: 'hidden',
-                    //         name: 'nuevo_input', // Nombre del input
-                    //         value: valorAIgualar.toFixed(2) // Valor del input
-                    //     });
-                    //     if ((totalCuotas - nroCuotas) === 1)
-                    //         return nuevoInput
-                    //     else
-                    //         return $('<?= isset($obj) ? '#FEditPago' : '#FRegPago' ?> input[name="monto"]')
-                    // }
+                    validarMonto: true,
                 }
             },
             messages: {
@@ -677,30 +644,31 @@
 
         // Regla personalizada para validar edad
         $.validator.addMethod("validarMonto", function(value, element) {
-            console.log('ELvalor modono:'+value);
+            console.log('ELvalor modono:' + value);
             var valorPagado = $('<?= isset($obj) ? '#FEditPago' : '#FRegPago' ?> input[name="monto_pagado"]').val();
             valorPagado = (valorPagado ? valorPagado : 0);
             valorPagado = parseFloat(valorPagado);
             var valorTotal = $('<?= isset($obj) ? '#FEditPago' : '#FRegPago' ?> input[name="valor_total"]').val();
             valorTotal = valorTotal ? parseFloat(valorTotal) : 0;
-            var nroCuotas = $('<?= isset($obj) ? '#FEditPago' : '#FRegPago' ?> input[name="nro_cuotas_max"]').val();
-            nroCuotas = nroCuotas ? parseInt(nroCuotas) : 0;
+            var nroCuotasMax = $('<?= isset($obj) ? '#FEditPago' : '#FRegPago' ?> input[name="nro_cuotas_max"]').val();
+            nroCuotasMax = nroCuotasMax ? parseInt(nroCuotasMax) : 0;
             var totalCuotas = $('<?= isset($obj) ? '#FEditPago' : '#FRegPago' ?> input[name="total_cuotas"]').val();
             totalCuotas = totalCuotas ? parseInt(totalCuotas) : 0;
             var valorAIgualar = valorTotal - valorPagado
             var monto = value;
             monto = (monto ? monto : 0);
             monto = parseFloat(monto);
-            valorAIgualar = (totalCuotas - nroCuotas) === 1 ? valorAIgualar : monto;
-            return (valorAIgualar===monto)
-        }, function(){
+            valorAIgualar = (nroCuotasMax - totalCuotas) === 1 || (nroCuotasMax - totalCuotas) === 0 ? valorAIgualar : monto;
+            console.log('total' + valorAIgualar + 'monto' + monto)
+            return (valorAIgualar === monto)
+        }, function() {
             var valorPagado = $('<?= isset($obj) ? '#FEditPago' : '#FRegPago' ?> input[name="monto_pagado"]').val();
-                        valorPagado = (valorPagado ? valorPagado : 0);
-                        valorPagado = parseFloat(valorPagado);
-                        var valorTotal = $('<?= isset($obj) ? '#FEditPago' : '#FRegPago' ?> input[name="valor_total"]').val();
-                        valorTotal = valorTotal ? parseFloat(valorTotal) : 0;
-                        var valorMaximo = valorTotal - valorPagado;
-                        return "El monto debe completar el valor total: " + valorMaximo.toFixed(2); //mensaje de error personalizado
+            valorPagado = (valorPagado ? valorPagado : 0);
+            valorPagado = parseFloat(valorPagado);
+            var valorTotal = $('<?= isset($obj) ? '#FEditPago' : '#FRegPago' ?> input[name="valor_total"]').val();
+            valorTotal = valorTotal ? parseFloat(valorTotal) : 0;
+            var valorMaximo = valorTotal - valorPagado;
+            return "El monto debe completar el valor total: " + valorMaximo.toFixed(2); //mensaje de error personalizado
         });
 
     });

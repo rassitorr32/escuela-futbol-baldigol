@@ -32,7 +32,7 @@
     <div class="container-fluid">
         <div class="tab-content">
             <div class="tab-pane active" id="pro-all">
-            <div class="card">
+                <div class="card">
                     <div class="card-body">
                         <div class="row">
                             <div class="col-sm-6">
@@ -66,7 +66,13 @@
                                 </div>
                             </div>
                             <div id="form" class="card-body">
-                                
+                                <?php
+
+                                use App\Controllers\Pago;
+
+                                $pago = new Pago();
+                                echo $pago->add();
+                                ?>
                             </div>
                         </div>
                     </div>
@@ -77,11 +83,10 @@
 </div>
 <script>
     $(document).ready(function() {
-    $('#cargarForm').click(function(event) {
-        event.preventDefault(); // Evita que el enlace cambie de página
-        $('#form').load('pago/add'); // Carga el contenido HTML del archivo en el div
+        // $('#cargarForm').click(function(event) {
+        //     event.preventDefault(); // Evita que el enlace cambie de página
+        //     $('#form').load('pago/add'); // Carga el contenido HTML del archivo en el div
+        // });
     });
-});
-
 </script>
 <?= sweetAlert() ?>

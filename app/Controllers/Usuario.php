@@ -132,7 +132,7 @@ class Usuario extends BaseController
 
         //$data['table'] = $this->generateTable();
         //session()->set('leftbar_section', 'Escuela');
-        session()->set('leftbar_link', 'perfil');
+        session()->set('leftbar_link', 'Perfil');
         echo view('template/head');
         echo view('template/rightbar');
         echo view('template/theme_panel');
@@ -187,6 +187,8 @@ class Usuario extends BaseController
             'nombres' => $this->request->getPost('nombre'),
             'ap_paterno' => $this->request->getPost('ap_paterno'),
             'ap_materno' => $this->request->getPost('ap_materno'),
+            'dni' => $this->request->getPost('ci'),
+            'extension' => $this->request->getPost('extension'),
             'fecha_nac' => $this->request->getPost('fechaNac'),
             //'telefono' => $this->request->getPost('telefono'),
             'dni' => $this->request->getPost('ci'),
@@ -337,5 +339,11 @@ class Usuario extends BaseController
 
     public function calendario(){
         return view('usuario/calendario');
+    }
+    public function pageLink()
+    {
+        
+        session()->set('page_link', $this->request->getPost('link'));
+        var_dump(session('page_link'));
     }
 }

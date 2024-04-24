@@ -64,12 +64,12 @@
                 nombre: {
                     required: true,
                     minlength: 3,
-                    pattern: /^[\w\s]+$/
+                    pattern: /^[A-Za-zñÑ\s]+$/
                 },
                 descripcion: {
                     required: true,
                     minlength: 3,
-                    pattern: /^[\w\s]+$/
+                    pattern: /^[A-Za-zñÑ\s]+$/
                 },
             },
             messages: {

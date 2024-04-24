@@ -42,7 +42,7 @@ class Panel extends BaseController
                 $usuario['foto'] == null || $usuario['foto'] == 'user_default.png' || !file_exists(FCPATH . 'assets/dist/img/personal/' . $usuario['foto']) ? '<div class="avatar avatar-pink" data-toggle="tooltip" data-placement="top" title="" data-original-title="Avatar Name">
                 <span>' . strtoupper(substr($usuario['nombres'], 0, 1)) . strtoupper(substr($usuario['ap_paterno'], 0, 1)) . '</span>
             </div>' :
-                    '<span class="avatar" style="background-image: url(' . base_url() . 'assets/dist/img/personal/' . $usuario['foto'] . ')"></span>',
+                    '<span class="avatar" style="background-image: url(' ."'". base_url() . 'assets/dist/img/personal/' . $usuario['foto'] ."'". ')"></span>',
                 '<div>' . $usuario['usuario'] . '</div>
                 <div class="text-muted">' . $usuario['id_cargo'] . '</div>',
                 $usuario['ultimo_login'],
@@ -73,7 +73,7 @@ class Panel extends BaseController
                 $estudiante['foto'] == null || $estudiante['foto'] == 'user_default.png' || !file_exists(FCPATH . 'assets/dist/img/estudiantes/' . $estudiante['foto']) ? '<div class="avatar avatar-pink" data-toggle="tooltip" data-placement="top" title="" data-original-title="Avatar Name">
                 <span>' . strtoupper(substr($estudiante['nombres'], 0, 1)) . strtoupper(substr($estudiante['ap_paterno'], 0, 1)) . '</span>
             </div>' :
-                    '<span class="avatar" style="background-image: url(' . base_url() . 'assets/dist/img/estudiantes/' . $estudiante['foto'] . ')"></span>',
+                    '<span class="avatar" style="background-image: url('."'" . base_url() . 'assets/dist/img/estudiantes/' . $estudiante['foto'] . "'".')"></span>',
                 $estudiante['nombres'],
                 $estudiante['ap_paterno'].' '.$estudiante['ap_materno'],
                 '<span class="tag tag-danger">No pagado</span>',

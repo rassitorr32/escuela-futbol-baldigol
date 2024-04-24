@@ -126,7 +126,7 @@
                 },
                 tipo_tel: {
                     required: true,
-                    pattern: /^[\w\s]+$/
+                    pattern: /^[A-Za-zñÑ\s]+$/
                 },
             },
             messages: {

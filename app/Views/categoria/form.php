@@ -70,7 +70,7 @@
                 nombre: {
                     required: true,
                     minlength: 3,
-                    pattern: /^[\w\s]+$/
+                    pattern: /^[A-Za-zñÑ\s]+$/
                 },
                 edad_inicio: {
                     required: true,

@@ -54,13 +54,14 @@
             <div class="col-md-3 col-sm-6">
                 <div class="form-group">
                     <label>Extensión CI</label>
+                    <?php $id_select = isset($obj) ? $obj['extension'] : '' ?>
                     <select class="form-control show-tick" name="extension">
-                        <option value="" disabled>-- Seleccionar --</option>
-                        <option value="tj">tj</option>
-                        <option value="po">po</option>
-                        <option value="bn">bn</option>
-                        <option value="sc">sc</option>
-                        <option value="lp">lp</option>
+                        <option value="" selected disabled>-- Seleccionar --</option>
+                        <option value="tj" <?= $id_select == 'tj' ? 'selected' : '' ?>>tj</option>
+                        <option value="po" <?= $id_select == 'po' ? 'selected' : '' ?>>po</option>
+                        <option value="bn" <?= $id_select == 'bn' ? 'selected' : '' ?>>bn</option>
+                        <option value="sc" <?= $id_select == 'sc' ? 'selected' : '' ?>>sc</option>
+                        <option value="lp" <?= $id_select == 'lp' ? 'selected' : '' ?>>lp</option>
                     </select>
                 </div>
             </div>

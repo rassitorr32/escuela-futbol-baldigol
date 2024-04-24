@@ -12,12 +12,12 @@ class PagoModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['concepto', 'monto', 'fecha_ingreso', 'fecha_fin', 'id_usuario', 'id_estudiante'];
+    protected $allowedFields    = ['id_costo', 'monto_pagado', 'fecha_pago', 'nro_cuota', 'id_persona', 'id_estudiante', 'id_dep', 'id_usuario', 'archivo', 'valor_costo', 'pago_cuotas_max'];
 
     protected bool $allowEmptyInserts = false;
 
     // Dates
-    protected $useTimestamps = true;
+    protected $useTimestamps = false;
     protected $dateFormat    = 'datetime';
     protected $createdField  = 'created_at';
     protected $updatedField  = 'updated_at';

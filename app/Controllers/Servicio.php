@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Models\ServicioModel;
 use CodeIgniter\HTTP\ResponseInterface;
+use PhpParser\Node\Stmt\Return_;
 
 class Servicio extends BaseController
 {
@@ -30,7 +31,7 @@ class Servicio extends BaseController
         $btnNew = '<button class="btn btn-primary" onclick="New(' . "'doctor/add'" . ')">
             <i class="fas fa-plus"></i> Nuevo
         </button>';
-        $table->setHeading('#', 'Nombre', 'Tipo', 'Descripción', 'Servicio', 'Estado', 'Acción');
+        $table->setHeading('Cod.', 'Nombre', 'Descripción', 'Servicio', 'Estado', 'Acción');
         $grid = array();
         $c = 0;
         /**Llenar el contenido de la tabla */
@@ -38,9 +39,10 @@ class Servicio extends BaseController
             $c++;
             //$persona = $this->persona_model->find($value['id_persona']);
             array_push($grid, [
-                $c,
-                $value['nombre'],
-                $value['tipo_servicio'],
+                $value['id_servicio'],
+                $value['id_dep'] == null ? $value['nombre'] : '<div><b>' . $value['nombre'] . '</b></div>
+                <div class="text-muted">' . ($this->servicio_model->find($value['id_dep']))['nombre'] . '</div>',
+                //$value['tipo_servicio'],
                 $value['descripcion'],
                 isset($value['id_dep'])?$value['id_dep']:'',
                 '<button class="btn btn-' . ($value['valido'] == 1 ? 'success' : 'danger') . '" onclick="cambiarEstado(this,' . "'" . base_url('servicio/changeStatus') . "'" . ',' . $value['id_servicio'] . ')">' . ($value['valido'] == 1 ? 'Activo' : 'Inactivo') . '</button>',
@@ -103,9 +105,9 @@ class Servicio extends BaseController
         /**si $id es null entonces se esta agregando nuevo registro */
         $data = [
             'id_servicio' => $id,
-            'nombre' => 'servicio',
+            'nombre' => $this->request->getPost('nombre'),
             'descripcion' => 'Estudiante de la escuela',
-            'id_dep' => empty($this->request->getPost('servicio'))?null:$this->request->getPost('servicio'),
+            'id_dep' => $this->request->getPost('id_dep')?$this->request->getPost('id_dep'):null,
         ];
 
         if ($this->servicio_model->save($data)) {
@@ -164,7 +166,7 @@ class Servicio extends BaseController
         if ($data['obj'] == null) {
             return redirect()->to('/servicio');
         };
-        $data['servicio_list'] = $this->servicio_model->orderBy('nombre','ASC')->findAll();
+        $data['servicio_list'] = $this->servicio_model->where('id_servicio!=',$token)->orderBy('nombre','ASC')->findAll();
 
         return view('servicio/form', $data);
     }
@@ -201,5 +203,10 @@ class Servicio extends BaseController
         $item_padre = $this->servicio_model->find($data['obj']['id_dep']);
         $data['objServicio'] = isset($item_padre)? $item_padre:'';
         return view('servicio/ver_servicio', $data);
+    }
+
+    public function listSubServicio($id){
+        $subservicio_list = $this->servicio_model->where('id_dep',$id)->orderBy('tipo_servicio','ASC')->findAll();
+        return json_encode($subservicio_list);
     }
 }

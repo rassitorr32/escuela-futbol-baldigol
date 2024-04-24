@@ -106,7 +106,7 @@ class Temporada extends BaseController
         $data['area_list'] = $this->area_model->where('valido', true)->orderBy('nombre', 'ASC')->findAll();
         $data['turno_list'] = $this->turno_model->where('valido', true)->orderBy('nombre', 'ASC')->findAll();
         $data['categoria_list'] = $this->categoria_model->where('valido', true)->orderBy('nombre', 'ASC')->findAll();
-        $data['servicio_list'] = $this->servicio_model->where('valido', true)->orderBy('nombre', 'ASC')->findAll();
+        $data['servicio_list'] = $this->servicio_model->where('valido', true)->where('id_dep',null)->orderBy('nombre', 'ASC')->findAll();
         $data['complejo_list'] = $this->complejo_model->where('valido', true)->orderBy('nombre', 'ASC')->findAll();
         return view('temporada/form', $data);
     }
@@ -159,7 +159,7 @@ class Temporada extends BaseController
         $data['area_list'] = $this->area_model->where('valido', true)->where('id_complejo',$data['obj']['id_complejo'])->orderBy('nombre', 'ASC')->findAll();
         $data['turno_list'] = $this->turno_model->where('valido', true)->orderBy('nombre', 'ASC')->findAll();
         $data['categoria_list'] = $this->categoria_model->where('valido', true)->orderBy('nombre', 'ASC')->findAll();
-        $data['servicio_list'] = $this->servicio_model->where('valido', true)->orderBy('nombre', 'ASC')->findAll();
+        $data['servicio_list'] = $this->servicio_model->where('valido', true)->where('id_dep',null)->orderBy('nombre', 'ASC')->findAll();
         $data['complejo_list'] = $this->complejo_model->where('valido', true)->orderBy('nombre', 'ASC')->findAll();
         return view('temporada/form', $data);
     }

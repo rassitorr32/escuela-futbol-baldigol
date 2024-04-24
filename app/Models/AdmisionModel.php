@@ -6,8 +6,8 @@ use CodeIgniter\Model;
 
 class AdmisionModel extends Model
 {
-    protected $table            = 'admisions';
-    protected $primaryKey       = 'id';
+    protected $table            = 'admision';
+    protected $primaryKey       = 'id_admision';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;

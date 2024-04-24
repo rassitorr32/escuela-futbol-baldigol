@@ -20,7 +20,7 @@
         <?= csrf_field() ?>
         <input type="hidden" name="id_servicio" value="<?= (isset($obj)) ? $obj['id_servicio'] : '' ?>">
         <div class="row clearfix">
-            <div class="col-md-4 col-sm-12">
+            <div class="col-md-12 col-sm-12">
                 <div class="form-group">
                     <label>Nombre</label>
                     <input type="text" class="form-control" name="nombre" value="<?= isset($obj) ? $obj['nombre'] : '' ?>">
@@ -30,6 +30,20 @@
                 <div class="form-group">
                     <label>Descripción</label>
                     <input type="text" class="form-control" name="descripcion" value="<?= isset($obj) ? $obj['descripcion'] : '' ?>">
+                </div>
+            </div>
+            <div class="col-md-12 col-sm-12">
+                <div class="form-group">
+                    <label>Asociar Servicio a: (opcional)</label>
+                    <?php $id_select = isset($obj['id_dep']) ? $obj['id_dep'] : '' ?>
+                    <select class="form-control show-tick selectServicio" name="id_dep">
+                        <option value="" selected>-- Ninguno --</option>
+                        <?php if (isset($servicio_list)) : ?>
+                            <?php foreach ($servicio_list as $key => $value) : ?>
+                                <option value="<?= $value['id_servicio'] ?>" <?= $id_select == $value['id_servicio'] ? 'selected' : '' ?>><?= $value['nombre'] ?></option>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    </select>
                 </div>
             </div>
             <?php if (!isset($obj)) : ?>
@@ -56,7 +70,7 @@
                 $('#FRegServicio button[type="submit"]').attr('disabled', 'disabled');
                 // Opcional: Cambiar el texto del botón a "Enviando..."
                 $('#FRegServicio button[type="submit"]').html('Enviando...');
-                Store("<?= base_url() ?>complejo/store", "<?= base_url() ?>complejo", '#<?= (isset($obj)) ? 'FEditServicio' : 'FRegServicio' ?>');
+                Store("<?= base_url() ?>servicio/store", "<?= base_url() ?>servicio", '#<?= (isset($obj)) ? 'FEditServicio' : 'FRegServicio' ?>');
             }
         });
         $('#<?= (isset($obj)) ? 'FEditServicio' : 'FRegServicio' ?>').validate({
@@ -64,12 +78,12 @@
                 nombre: {
                     required: true,
                     minlength: 3,
-                    pattern: /^[\w\s]+$/
+                    pattern: /^[A-Za-zñÑ\s]+$/
                 },
                 descripcion: {
                     required: true,
                     minlength: 3,
-                    pattern: /^[\w\s]+$/
+                    pattern: /^[A-Za-zñÑ\s]+$/
                 },
             },
             messages: {

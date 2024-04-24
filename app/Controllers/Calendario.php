@@ -148,7 +148,7 @@ class Calendario extends BaseController
         }
     }
 
-    public function getViewCalendario($id)
+    public function getViewCalendario()
     {
         return view('calendario/viewCalendario');
     }

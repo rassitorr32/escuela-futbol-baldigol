@@ -70,15 +70,20 @@
                 nombre: {
                     required: true,
                     minlength: 3,
+                    pattern: /^[A-Za-zñÑ\s]+$/
                 },
-                edad_inicio: {
+                hora_inicio: {
                     required: true,
                 },
-                edad_final: {
+                hora_fin: {
                     required: true,
                 },
             },
-            messages: {},
+            messages: {
+                nombre: {
+                    pattern: "Por favor, ingrese solo letras, números y espacios."
+                },
+            },
             errorElement: 'span',
             errorPlacement: function(error, element) {
                 error.addClass('invalid-feedback');
